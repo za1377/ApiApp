@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('attribute_categories', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('id' ,true , true);
+            $table->string('name');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

@@ -14,8 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('attributes_values_caas', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('id' ,true , true);
+            $table->unsignedBigInteger('caa_id');
+            $table->unsignedBigInteger('attre_val_id');
             $table->timestamps();
+
+            $table->foreign('caa_id')->references('id')->on('c_a_c_a');
+            $table->foreign('attre_val_id')->references('id')->on('attributes_values');
         });
     }
 

@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories__attributes_categories__attributes', function (Blueprint $table) {
-            $table->id();
+        Schema::create('c_a_c_a', function (Blueprint $table) {
+            $table->bigInteger('id' ,true , true);
+            $table->unsignedBigInteger('cate_atrre_cate_id');
+            $table->unsignedBigInteger('attributes_id');
             $table->timestamps();
+
+            $table->foreign('cate_atrre_cate_id')->references('id')->on('categories__attributes_categories');
+            $table->foreign('attributes_id')->references('id')->on('attributes');
         });
     }
 
