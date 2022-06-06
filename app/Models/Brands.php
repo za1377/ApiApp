@@ -18,4 +18,14 @@ class Brands extends Model
         'brand_id',
         'category_id',
     ];
+
+    /**
+     * The categories that belong to the Brands
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(categories::class, 'brands_categories', 'brand_id', 'category_id');
+    }
 }
