@@ -15,8 +15,8 @@ class Brands extends Model
      * @var array<bigInteger, bigInteger>
      */
     protected $fillable= [
-        'brand_id',
-        'category_id',
+        'name',
+        'slug',
     ];
 
     /**
