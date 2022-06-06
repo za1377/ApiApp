@@ -12,7 +12,7 @@ class Brands extends Model
     /**
      * fillable
      *
-     * @var array<bigInteger, bigInteger>
+     * @var array<string, string>
      */
     protected $fillable= [
         'name',
