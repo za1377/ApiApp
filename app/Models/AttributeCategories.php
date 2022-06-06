@@ -18,4 +18,14 @@ class AttributeCategories extends Model
         'name',
         'slug',
     ];
+
+    /**
+     * The categories that belong to the AttributeCategories
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(categories::class, 'categories__attributes_categories', 'attre_cate_id', 'category_id');
+    }
 }
