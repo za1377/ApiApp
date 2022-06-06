@@ -12,7 +12,7 @@ class categories extends Model
     /**
      * fillable
      *
-     * @var array<bigInteger, bigInteger>
+     * @var array<string,string, bigInteger>
      */
     protected $fillable= [
         'name',
