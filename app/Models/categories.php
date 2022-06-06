@@ -29,4 +29,14 @@ class categories extends Model
     {
         return $this->belongsToMany(Brands::class, 'brands_categories', 'category_id', 'brand_id');
     }
+
+    /**
+     * The attributeCategories that belong to the categories
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function attributeCategories(): BelongsToMany
+    {
+        return $this->belongsToMany(attribute_categories::class, 'categories__attributes_categories', 'category_id', 'attre_cate_id');
+    }
 }
