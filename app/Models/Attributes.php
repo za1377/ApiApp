@@ -18,4 +18,14 @@ class Attributes extends Model
         'name',
         'slug',
     ];
+
+    /**
+     * The cate_attrcate that belong to the Attributes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function cate_attrcate(): BelongsToMany
+    {
+        return $this->belongsToMany(Categories_AttributesCategories::class, 'c_a_c_a', 'attributes_id', 'cate_atrre_cate_id');
+    }
 }
