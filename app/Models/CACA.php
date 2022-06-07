@@ -28,4 +28,14 @@ class CACA extends Model
     {
         return $this->belongsToMany(AttributesValues::class, 'attributes_values_caas', 'caa_id', 'attre_val_id');
     }
+
+    /**
+     * The attreType that belong to the CACA
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function attreType(): BelongsToMany
+    {
+        return $this->belongsToMany(AttributesTypes::class, 'attributes_values_caas', 'caa_id', 'attre_type_id');
+    }
 }
