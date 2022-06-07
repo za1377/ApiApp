@@ -18,4 +18,14 @@ class AttributesTypes extends Model
         'name',
         'slug',
     ];
+
+    /**
+     * The caca that belong to the AttributesTypes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function caca(): BelongsToMany
+    {
+        return $this->belongsToMany(CACA::class, 'attributes_types_caas', 'attre_type_id', 'caa_id');
+    }
 }
