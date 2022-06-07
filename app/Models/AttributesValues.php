@@ -18,4 +18,14 @@ class AttributesValues extends Model
         'name',
         'slug',
     ];
+
+    /**
+     * The caca that belong to the AttributesValues
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function caca(): BelongsToMany
+    {
+        return $this->belongsToMany(CACA::class, 'attributes_values_caas', 'attre_val_id', 'caa_id');
+    }
 }
