@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class AttributesTypes extends Model
 {
     use HasFactory;
+
+     /**
+     * fillable
+     *
+     * @var array<string, string>
+     */
+    protected $fillable= [
+        'name',
+        'slug',
+    ];
 }
