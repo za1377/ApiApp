@@ -9,6 +9,7 @@
         "darkaonline/l5-swagger": "^8.3",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.11",
+        "laravel/passport": "^10.4",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4"
@@ -19,7 +20,9 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0"
+        "rakutentech/laravel-request-docs": "^1.22",
+        "spatie/laravel-ignition": "^1.0",
+        "zircote/swagger-php": "^4.4"
     },
     "autoload": {
         "psr-4": {
