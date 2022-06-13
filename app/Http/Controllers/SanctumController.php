@@ -1,34 +1,94 @@
 <?php
 
 namespace App\Http\Controllers;
-use OpenApi\Generator;
-use App\Forms\TokenForm as Form;
-class SanctumController extends Controller
-{
-    /**
-    * @OA\Post(path="/api/auth", tags={"Retrieve Authorization Token"},
-    *   summary="Post your email and password and we will return a token. Use the token in the 'Authorization' header like so 'Bearer YOUR_TOKEN'",
-    *   operationId="",
-    *   description="",
-    *   @OA\RequestBody(
-    *       required=true,
-    *       description="The Token Request",
-    *       @OA\JsonContent(
-    *        @OA\Property(property="email",type="string",example="your@email.com"),
-    *        @OA\Property(property="password",type="string",example="YOUR_PASSWORD"),
-    *       )
-    *   ),
-    *   @OA\Response(
-    *     response=200,
-    *     description="OK",
-    *     @OA\JsonContent(ref="#/components/schemas/TokenRequest")
-    *   ),
-    *   @OA\Response(response=422, description="The provided credentials are incorrect.")
-    * )
-    */
-    public function create(Form $request)
-    {
-        return $request->generate();
-    }
-}
 
+use App\Models\Admin;
+use Illuminate\Http\Request;
+use Validator;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Hash;
+
+class SanctumController extends Controller {
+    /**
+     * @OA\Post(
+     * path="/login",
+     * summary="Sign in",
+     * description="Login by email, password",
+     * operationId="authLogin",
+     * tags={"auth"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass user credentials",
+     *    @OA\JsonContent(
+     *       required={"email","password"},
+     *       @OA\Property(property="email", type="string", format="email", example="feest.delphine@example.net"),
+     *       @OA\Property(property="password", type="string", format="password", example="password"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
+     *        )
+     *     )
+     * ),
+     * @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                     property="token",
+     *                     type="string"
+     *                  )
+     *
+     *         )
+     *     )
+     */
+    public function logIn(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+            'password' => 'required',
+        ]);
+
+        $validated = $validator->validated();
+
+        $user = Admin::where('email', $request->email )->first();
+
+        if($user && Hash::check($validated['password'], $user->password)){
+            return response()->json([
+                "token" =>$user->createToken('token')->plainTextToken
+            ], 200);
+        }
+    }
+
+    /**
+     * @OA\Get(
+     * path="/home",
+     * summary="home",
+     * description="Lsdsdsdsd",
+     * operationId="sdsdsd",
+     * tags={"home"},
+     * @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                     property="message",
+     *                     type="string"
+     *                  )
+     *         )
+     *     )
+     * )
+     */
+    public function home()
+    {
+        try {
+            return response()->json(["message" => "Karim"], 200);
+        } catch (\Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 200);
+        }
+    }
+
+}
