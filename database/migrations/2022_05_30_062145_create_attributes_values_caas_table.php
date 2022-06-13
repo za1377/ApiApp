@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('attre_val_id');
             $table->timestamps();
 
-            $table->foreign('caa_id')->references('id')->on('c_a_c_a');
-            $table->foreign('attre_val_id')->references('id')->on('attributes_values');
+            $table->foreign('caa_id')->references('id')->on('c_a_c_a')->onDelete('cascade');
+            $table->foreign('attre_val_id')->references('id')->on('attributes_values')->onDelete('cascade');
         });
     }
 

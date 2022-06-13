@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('attributes_id');
             $table->timestamps();
 
-            $table->foreign('cate_atrre_cate_id')->references('id')->on('categories__attributes_categories');
-            $table->foreign('attributes_id')->references('id')->on('attributes');
+            $table->foreign('cate_atrre_cate_id')->references('id')->on('categories__attributes_categories')->onDelete('cascade');
+            $table->foreign('attributes_id')->references('id')->on('attributes')->onDelete('cascade');
         });
     }
 
