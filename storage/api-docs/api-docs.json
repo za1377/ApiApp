@@ -14,70 +14,11 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000",
+            "url": "http://localhost:8000/api",
             "description": "Demo API Server"
         }
     ],
     "paths": {
-        "/login": {
-            "post": {
-                "tags": [
-                    "auth"
-                ],
-                "summary": "Sign in",
-                "description": "Login by email, password",
-                "operationId": "authLogin",
-                "requestBody": {
-                    "description": "Pass user credentials",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "email",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "feest.delphine@example.net"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "password"
-                                    },
-                                    "persistent": {
-                                        "type": "boolean",
-                                        "example": "true"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/users": {
             "post": {
                 "tags": [
@@ -148,6 +89,88 @@
                     }
                 }
             }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Sign in",
+                "description": "Login by email, password",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "feest.delphine@example.net"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/home": {
+            "get": {
+                "tags": [
+                    "home"
+                ],
+                "summary": "home",
+                "description": "Lsdsdsdsd",
+                "operationId": "sdsdsd",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -158,23 +181,11 @@
                     "application/json": {
                         "schema": {
                             "properties": {
-                                "id": {
+                                "token": {
                                     "type": "string"
                                 }
                             },
                             "type": "object"
-                        },
-                        "examples": {
-                            "result": {
-                                "summary": "An result object.",
-                                "value": {
-                                    "success": true
-                                }
-                            },
-                            "bool": {
-                                "summary": "A boolean value.",
-                                "value": false
-                            }
                         }
                     }
                 }
