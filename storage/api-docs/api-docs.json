@@ -19,6 +19,122 @@
         }
     ],
     "paths": {
+        "/NewBrands": {
+            "post": {
+                "tags": [
+                    "brands"
+                ],
+                "summary": "insert the name of the brands that use in categories",
+                "description": "insert name and slug by admin",
+                "operationId": "c22da5d3820a8c4ea8884befe3a941e6",
+                "requestBody": {
+                    "description": "Pass brands name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "sony"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "slug",
+                                        "example": "/sony"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/UpdateBrands": {
+            "put": {
+                "tags": [
+                    "brands"
+                ],
+                "summary": "update the name of the brands that use in categories",
+                "description": "update name and slug by admin",
+                "operationId": "bb260966dbd61dcbd016c7adad507470",
+                "requestBody": {
+                    "description": "Pass brands name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "1"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "sumsung"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "slug",
+                                        "example": "/sumsung"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/users": {
             "post": {
                 "tags": [
@@ -89,99 +205,32 @@
                     }
                 }
             }
-        },
-        "/login": {
-            "post": {
-                "tags": [
-                    "auth"
-                ],
-                "summary": "Sign in",
-                "description": "Login by email, password",
-                "operationId": "authLogin",
-                "requestBody": {
-                    "description": "Pass user credentials",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "email",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "feest.delphine@example.net"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "password"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/home": {
-            "get": {
-                "tags": [
-                    "home"
-                ],
-                "summary": "home",
-                "description": "Lsdsdsdsd",
-                "operationId": "sdsdsd",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
     },
     "components": {
         "responses": {
+            "201": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "biginteger"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
             "200": {
                 "description": "OK",
                 "content": {
                     "application/json": {
                         "schema": {
                             "properties": {
-                                "token": {
+                                "message": {
                                     "type": "string"
                                 }
                             },
