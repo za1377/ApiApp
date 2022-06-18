@@ -26,10 +26,13 @@ Route::middleware('auth:sanctum')->get('/home', 'App\Http\Controllers\SanctumCon
 
 Route::post('/login', 'App\Http\Controllers\SanctumController@logIn');
 
-Route::post('/NewBrands', 'App\Http\Controllers\BrandsController@insert');
-Route::put('/UpdateBrands', 'App\Http\Controllers\BrandsController@update');
-Route::delete('/DeleteBrands', 'App\Http\Controllers\BrandsController@delete');
+Route::controller('App\Http\Controllers\BrandsController')->group(function () {
 
+    Route::post('NewBrands', 'insert');
+    Route::put('UpdateBrands', 'update');
+    Route::delete('DeleteBrands', 'delete');
+
+});
 
 // Route::middleware('Ensure:sanctum')->get('/', function () {
 //     return response()->json(['name' => "home"]);
