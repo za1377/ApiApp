@@ -45,8 +45,7 @@
                                     },
                                     "slug": {
                                         "type": "string",
-                                        "format": "slug",
-                                        "example": "/sony"
+                                        "format": "slug"
                                     }
                                 },
                                 "type": "object"
@@ -108,6 +107,55 @@
                                         "type": "string",
                                         "format": "slug",
                                         "example": "/sumsung"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/DeleteBrands": {
+            "delete": {
+                "tags": [
+                    "brands"
+                ],
+                "summary": "delete the row of the brands that is determined",
+                "description": "update name and slug by admin",
+                "operationId": "789cc13b5d0a87bdd2e2d61177adba6d",
+                "requestBody": {
+                    "description": "delete brands name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "1"
                                     }
                                 },
                                 "type": "object"
@@ -209,14 +257,14 @@
     },
     "components": {
         "responses": {
-            "201": {
+            "200": {
                 "description": "OK",
                 "content": {
                     "application/json": {
                         "schema": {
                             "properties": {
-                                "id": {
-                                    "type": "biginteger"
+                                "message": {
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -224,7 +272,22 @@
                     }
                 }
             },
-            "200": {
+            "201": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "202": {
                 "description": "OK",
                 "content": {
                     "application/json": {
