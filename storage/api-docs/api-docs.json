@@ -19,6 +19,34 @@
         }
     ],
     "paths": {
+        "/ShowBrands": {
+            "get": {
+                "tags": [
+                    "brands"
+                ],
+                "summary": "Show all of brands",
+                "description": "display all of brands",
+                "operationId": "604a5c08bb5c07ed8219dc1183ceab16",
+                "responses": {
+                    "404": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/NewBrands": {
             "post": {
                 "tags": [
@@ -45,7 +73,8 @@
                                     },
                                     "slug": {
                                         "type": "string",
-                                        "format": "slug"
+                                        "format": "slug",
+                                        "example": "/sony"
                                     }
                                 },
                                 "type": "object"
@@ -288,6 +317,21 @@
                 }
             },
             "202": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "203": {
                 "description": "OK",
                 "content": {
                     "application/json": {
