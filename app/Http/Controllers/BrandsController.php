@@ -10,6 +10,43 @@ use Illuminate\Http\Request;
 class BrandsController extends Controller
 {
     /**
+     * display data of brand's table
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return response
+     *
+     * @OA\Get(
+     * path="/ShowBrands",
+     * summary="Show all of brands",
+     * description="display all of brands",
+     * tags={"brands"},
+
+     * @OA\Response(
+     *    response=404,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Not found.")
+     *        )
+     *     )
+     * ),
+     *
+     * @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                     property="message",
+     *                     type="string"
+     *                  ),
+     *         )
+     *     )
+     *
+     */
+    public function show(){
+        $brands = Brands::all();
+        return response()->json($brands, 200);
+    }
+    /**
      * insert data to brands table
      *
      * @param  \Illuminate\Http\Request  $request
@@ -26,7 +63,7 @@ class BrandsController extends Controller
      *    @OA\JsonContent(
      *       required={"name","slug"},
      *       @OA\Property(property="name", type="string", format="name", example="sony"),
-     *       @OA\Property(property="slug", type="string", format="slug"),
+     *       @OA\Property(property="slug", type="string", format="slug", example="/sony"),
      *    ),
      * ),
      * @OA\Response(
@@ -38,7 +75,7 @@ class BrandsController extends Controller
      *     )
      * ),
      * @OA\Response(
-     *         response=200,
+     *         response=201,
      *         description="OK",
      *         @OA\JsonContent(
      *             @OA\Property(
@@ -86,7 +123,7 @@ class BrandsController extends Controller
      *     )
      * ),
      * @OA\Response(
-     *         response=201,
+     *         response=202,
      *         description="OK",
      *         @OA\JsonContent(
      *             @OA\Property(
@@ -133,7 +170,7 @@ class BrandsController extends Controller
      *     )
      * ),
      *  @OA\Response(
-     *         response=202,
+     *         response=203,
      *         description="OK",
      *         @OA\JsonContent(
      *             @OA\Property(
