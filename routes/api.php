@@ -28,6 +28,7 @@ Route::post('/login', 'App\Http\Controllers\SanctumController@logIn');
 
 Route::controller('App\Http\Controllers\BrandsController')->group(function () {
 
+    Route::get('ShowBrands', 'show');
     Route::post('NewBrands', 'insert');
     Route::put('UpdateBrands', 'update');
     Route::delete('DeleteBrands', 'delete');
