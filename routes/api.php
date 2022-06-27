@@ -40,6 +40,7 @@ Route::controller('App\Http\Controllers\CategoriesController')->group(function (
     Route::get('ShowCategories', 'show');
     Route::post('NewCategories', 'insert');
     Route::put('UpdateCategories', 'update');
+    Route::delete('DeleteCategories', 'delete');
 
 });
 
