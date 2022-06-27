@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CategoriesController extends Controller
 {
     /**
-     * display data of brand's table
+     * display data of categories table
      *
      * @param  \Illuminate\Http\Request  $request
      * @return response
@@ -46,7 +46,7 @@ class CategoriesController extends Controller
     }
 
     /**
-     * insert data to brands table
+     * insert data to categories table
      *
      * @param  \Illuminate\Http\Request  $request
      * @return response
@@ -93,8 +93,8 @@ class CategoriesController extends Controller
         return response()->json($brand, 200);
     }
 
-        /**
-     * update the specefic data of brands table
+    /**
+     * update the specefic data of categories table
      *
      * @param  \Illuminate\Http\Request  $request
      * @return response
@@ -141,5 +141,50 @@ class CategoriesController extends Controller
                     "slug" => $request->slug,
                     "parent_id" => $request->parent_id]);
         return response()->json($brand, 200);
+    }
+
+    /**
+     * delete the specefic data of categories table
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return response
+     *
+     * @OA\Delete(
+     * path="/DeleteCategories",
+     * summary="delete the row of the brands that is determined",
+     * description="update name and slug by admin",
+     * tags={"categories"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="delete categories row from it's table",
+     *    @OA\JsonContent(
+     *       required={"id"},
+     *       @OA\Property(property="id", type="string", format="id", example="1"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
+     *        )
+     *     )
+     * ),
+     *  @OA\Response(
+     *         response=207,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                     property="message",
+     *                     type="string"
+     *                  ),
+     *         )
+     *     ),
+     *
+     */
+    public function delete(Request  $request){
+        $id = intval($request->id);
+        categories::find($id)->delete();
+        return response()->json(["message" => "delete"], 200);
     }
 }
