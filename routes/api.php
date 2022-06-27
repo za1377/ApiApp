@@ -35,6 +35,13 @@ Route::controller('App\Http\Controllers\BrandsController')->group(function () {
 
 });
 
+Route::controller('App\Http\Controllers\CategoriesController')->group(function () {
+
+    Route::post('NewCategories', 'insert');
+
+
+});
+
 // Route::middleware('Ensure:sanctum')->get('/', function () {
 //     return response()->json(['name' => "home"]);
 // });
