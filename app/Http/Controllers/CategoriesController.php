@@ -8,6 +8,44 @@ use Illuminate\Http\Request;
 class CategoriesController extends Controller
 {
     /**
+     * display data of brand's table
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return response
+     *
+     * @OA\Get(
+     * path="/ShowCategories",
+     * summary="Show all of categories",
+     * description="display all of categories",
+     * tags={"categories"},
+
+     * @OA\Response(
+     *    response=404,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Not found.")
+     *        )
+     *     )
+     * ),
+     *
+     * @OA\Response(
+     *         response=204,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                     property="message",
+     *                     type="string"
+     *                  ),
+     *         )
+     *     )
+     *
+     */
+    public function show(){
+        $brands = categories::all();
+        return response()->json($brands, 200);
+    }
+
+    /**
      * insert data to brands table
      *
      * @param  \Illuminate\Http\Request  $request
@@ -36,7 +74,7 @@ class CategoriesController extends Controller
      *     )
      * ),
      * @OA\Response(
-     *         response=204,
+     *         response=205,
      *         description="OK",
      *         @OA\JsonContent(
      *             @OA\Property(
