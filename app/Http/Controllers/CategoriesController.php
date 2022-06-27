@@ -92,4 +92,54 @@ class CategoriesController extends Controller
                     "parent_id" => $request->parent_id]);
         return response()->json($brand, 200);
     }
+
+        /**
+     * update the specefic data of brands table
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return response
+     *
+     * @OA\Put(
+     * path="/UpdateCategories",
+     * summary="update the name row of the categories table",
+     * description="update name and slug and parent's id by admin",
+     * tags={"categories"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass brands name and slug",
+     *    @OA\JsonContent(
+     *       required={"id","name","slug"},
+     *       @OA\Property(property="id", type="string", format="id", example="1"),
+     *       @OA\Property(property="name", type="string", format="name", example="Clothing"),
+     *       @OA\Property(property="slug", type="string", format="slug", example="/Clothing"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
+     *        )
+     *     )
+     * ),
+     * @OA\Response(
+     *         response=206,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                     property="message",
+     *                     type="string"
+     *                  ),
+     *         )
+     *     ),
+     *
+     */
+    public function update(Request  $request){
+        $id = intval($request->id);
+        $brand = categories::find($id)->update([
+                    "name" => $request->name,
+                    "slug" => $request->slug,
+                    "parent_id" => $request->parent_id]);
+        return response()->json($brand, 200);
+    }
 }
