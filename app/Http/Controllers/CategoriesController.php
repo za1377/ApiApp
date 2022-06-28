@@ -14,7 +14,7 @@ class CategoriesController extends Controller
      * @return response
      *
      * @OA\Get(
-     * path="/ShowCategories",
+     * path="/Show/Categories",
      * summary="Show all of categories",
      * description="display all of categories",
      * tags={"categories"},
@@ -52,7 +52,7 @@ class CategoriesController extends Controller
      * @return response
      *
      * @OA\Post(
-     * path="/NewCategories",
+     * path="/New/Categories",
      * summary="insert the name of the categories",
      * description="insert name and slug by admin and if it has parent it's parent shloud insert too",
      * tags={"categories"},
@@ -100,7 +100,7 @@ class CategoriesController extends Controller
      * @return response
      *
      * @OA\Put(
-     * path="/UpdateCategories",
+     * path="/Update/Categories",
      * summary="update the name row of the categories table",
      * description="update name and slug and parent's id by admin",
      * tags={"categories"},
@@ -150,7 +150,7 @@ class CategoriesController extends Controller
      * @return response
      *
      * @OA\Delete(
-     * path="/DeleteCategories",
+     * path="/Delete/Categories",
      * summary="delete the row of the brands that is determined",
      * description="update name and slug by admin",
      * tags={"categories"},
