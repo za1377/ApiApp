@@ -8,7 +8,45 @@ use Illuminate\Http\Request;
 class AttributeCategoriesController extends Controller
 {
     /**
-     * insert data to categories table
+     * display data of AttributeCategories table
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return response
+     *
+     * @OA\Get(
+     * path="/ShowAttributeCategories",
+     * summary="Show all of AttributeCategories",
+     * description="display all of AttributeCategories",
+     * tags={"AttributeCategories"},
+
+     * @OA\Response(
+     *    response=404,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Not found.")
+     *        )
+     *     )
+     * ),
+     *
+     * @OA\Response(
+     *         response=208,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                     property="message",
+     *                     type="string"
+     *                  ),
+     *         )
+     *     )
+     *
+     */
+    public function show(){
+        $brands = AttributeCategories::all();
+        return response()->json($brands, 200);
+    }
+
+    /**
+     * insert data to AttributeCategories table
      *
      * @param  \Illuminate\Http\Request  $request
      * @return response
