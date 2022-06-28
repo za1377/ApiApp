@@ -28,26 +28,26 @@ Route::post('/login', 'App\Http\Controllers\SanctumController@logIn');
 
 Route::controller('App\Http\Controllers\BrandsController')->group(function () {
 
-    Route::get('ShowBrands', 'show');
-    Route::post('NewBrands', 'insert');
-    Route::put('UpdateBrands', 'update');
-    Route::delete('DeleteBrands', 'delete');
+    Route::get('Show/Brands', 'show');
+    Route::post('New/Brands', 'insert');
+    Route::put('Updat/eBrands', 'update');
+    Route::delete('Delete/Brands', 'delete');
 
 });
 
 Route::controller('App\Http\Controllers\CategoriesController')->group(function () {
 
-    Route::get('ShowCategories', 'show');
-    Route::post('NewCategories', 'insert');
-    Route::put('UpdateCategories', 'update');
-    Route::delete('DeleteCategories', 'delete');
+    Route::get('Show/Categories', 'show');
+    Route::post('New/Categories', 'insert');
+    Route::put('Update/Categories', 'update');
+    Route::delete('Delete/Categories', 'delete');
 
 });
 
 Route::controller('App\Http\Controllers\AttributeCategoriesController')->group(function () {
 
-    Route::get('ShowAttributeCategories', 'show');
-    Route::post('NewAttributeCategories', 'insert');
+    Route::get('Show/AttributeCategories', 'show');
+    Route::post('New/AttributeCategories', 'insert');
 });
 
 // Route::middleware('Ensure:sanctum')->get('/', function () {
