@@ -46,6 +46,7 @@ Route::controller('App\Http\Controllers\CategoriesController')->group(function (
 
 Route::controller('App\Http\Controllers\AttributeCategoriesController')->group(function () {
 
+    Route::get('ShowAttributeCategories', 'show');
     Route::post('NewAttributeCategories', 'insert');
 });
 
