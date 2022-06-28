@@ -44,6 +44,11 @@ Route::controller('App\Http\Controllers\CategoriesController')->group(function (
 
 });
 
+Route::controller('App\Http\Controllers\AttributeCategoriesController')->group(function () {
+
+    Route::post('NewAttributeCategories', 'insert');
+});
+
 // Route::middleware('Ensure:sanctum')->get('/', function () {
 //     return response()->json(['name' => "home"]);
 // });
