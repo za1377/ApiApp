@@ -14,7 +14,7 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Get(
-     * path="/ShowAttributeCategories",
+     * path="/Show/AttributeCategories",
      * summary="Show all of AttributeCategories",
      * description="display all of AttributeCategories",
      * tags={"AttributeCategories"},
@@ -52,7 +52,7 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Post(
-     * path="/NewAttributeCategories",
+     * path="/New/AttributeCategories",
      * summary="insert the name of the AttributeCategories",
      * description="insert name and slug by admin",
      * tags={"AttributeCategories"},
