@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 
 class CategoriesController extends Controller
 {
@@ -41,8 +45,8 @@ class CategoriesController extends Controller
      *
      */
     public function show(){
-        $brands = categories::all();
-        return response()->json($brands, 200);
+        $category = categories::all();
+        return response()->json($category, 200);
     }
 
     /**
@@ -86,11 +90,30 @@ class CategoriesController extends Controller
      *
      */
     public function insert(Request  $request){
-        $brand = categories::create([
+
+        $validated = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'slug' => 'required',
+            'parent_id' => 'nullable|integer',
+        ]);
+
+        if ($validated->fails()) {
+            return response()->json(['message' , 'Sorry, your data not supported'],422);
+
+        }else{
+            $matchThese = ['slug' => $request->slug];
+            $old_category = categories::where($matchThese)->get();
+            if($old_category->count() > 0){
+                return response()->json(['message' , 'These data can not be insert.'],409);
+            }else{
+                $category = categories::create([
                     "name" => $request->name,
                     "slug" => $request->slug,
                     "parent_id" => $request->parent_id]);
-        return response()->json($brand, 200);
+                return response()->json($category, 200);
+            }
+
+        }
     }
 
     /**
@@ -136,11 +159,37 @@ class CategoriesController extends Controller
      */
     public function update(Request  $request){
         $id = intval($request->id);
-        $brand = categories::find($id)->update([
-                    "name" => $request->name,
-                    "slug" => $request->slug,
-                    "parent_id" => $request->parent_id]);
-        return response()->json($brand, 200);
+        $data = array();
+
+        if($request->name != ""){
+            $data += ['name' => $request->name];
+        }
+        if($request->slug != ""){
+            $data += ['slug' => $request->slug];
+        }
+        if($request->parent_id != ""){
+            $data += ['parent_id' => $request->parent_id];
+        }
+
+        $result = categories::where('slug' , $request->slug)->get();
+        if($result->count() > 0){
+            return response()->json(['message' , 'These data can not be insert.'],409);
+        }
+
+        $query = categories::find($id);
+
+        if(! is_null($query)){
+
+            if($data == []){
+                return response()->json(['message' , 'nothing for update.'],422);
+            }else{
+                $category = $query->update($data);
+                return response()->json($category, 200);
+            }
+
+        }else{
+            return response()->json(['message' => 'Sorry, your data not found.'] , 404);
+        }
     }
 
     /**
