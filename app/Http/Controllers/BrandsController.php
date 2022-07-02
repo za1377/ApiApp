@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Brands;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 
 
 
@@ -74,6 +78,16 @@ class BrandsController extends Controller
      *        )
      *     )
      * ),
+     *
+     * @OA\Response(
+     *    response=409,
+     *    description="conflict",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="These data can not be insert.")
+     *        )
+     *     )
+     * ),
+     *
      * @OA\Response(
      *         response=201,
      *         description="OK",
@@ -87,10 +101,27 @@ class BrandsController extends Controller
      *
      */
     public function insert(Request  $request){
-        $brand = Brands::create([
+        $validated = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'slug' => 'required',
+        ]);
+
+        if ($validated->fails()) {
+            return response()->json(['message' , 'Sorry, your data not supported'],422);
+        }else{
+            $matchThese = ['name' => $request->name, 'slug' => $request->slug];
+            $old_brand = Brands::where($matchThese)->get();
+            if($old_brand->count() > 0){
+                return response()->json(['message' , 'These data can not be insert.'],409);
+            }else{
+                $brand = Brands::create([
                     "name" => $request->name,
                     "slug" => $request->slug]);
-        return response()->json($brand, 200);
+                return response()->json($brand, 200);
+            }
+
+        }
+
     }
 
     /**
@@ -109,7 +140,7 @@ class BrandsController extends Controller
      *    description="Pass brands name and slug",
      *    @OA\JsonContent(
      *       required={"id","name","slug"},
-     *       @OA\Property(property="id", type="string", format="id", example="1"),
+     *       @OA\Property(property="id", type="string", format="id", example="12"),
      *       @OA\Property(property="name", type="string", format="name", example="sumsung"),
      *       @OA\Property(property="slug", type="string", format="slug", example="/sumsung"),
      *    ),
@@ -123,12 +154,21 @@ class BrandsController extends Controller
      *     )
      * ),
      * @OA\Response(
+     *    response=404,
+     *    description="Not_Found",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Sorry, your data not found.")
+     *        )
+     *     )
+     * ),
+     * 
+     * @OA\Response(
      *         response=202,
      *         description="OK",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                     property="message",
-     *                     type="string"
+     *                     type="boolean"
      *                  ),
      *         )
      *     ),
@@ -136,14 +176,40 @@ class BrandsController extends Controller
      */
     public function update(Request  $request){
         $id = intval($request->id);
-        $brand = Brands::find($id)->update([
-                    "name" => $request->name,
-                    "slug" => $request->slug]);
-        return response()->json($brand, 200);
+        $data = array();
+
+        if($request->name != ""){
+            $data += ['name' => $request->name];
+        }
+        if($request->slug != ""){
+            $data += ['slug' => $request->slug];
+        }
+
+        $result = Brands::where('slug' , $request->slug);
+        if($result->count() > 0){
+            return response()->json(['message' , 'These data can not be insert.'],409);
+        }
+
+        $query = Brands::find($id);
+
+        if(! is_null($query)){
+
+            if($data == []){
+                return response()->json(['message' , 'nothing for update.'],422);
+            }else{
+                $brand = $query->update($data);
+                return response()->json($brand, 200);
+            }
+
+        }else{
+            return response()->json(['message' => 'Sorry, your data not found.'] , 404);
+        }
+
+
     }
 
-        /**
-     * update the specefic data of brands table
+    /**
+     * delete the specefic data of brands table
      *
      * @param  \Illuminate\Http\Request  $request
      * @return response
