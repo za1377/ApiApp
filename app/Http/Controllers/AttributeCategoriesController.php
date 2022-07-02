@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\AttributeCategories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 
 class AttributeCategoriesController extends Controller
 {
@@ -14,7 +18,7 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Get(
-     * path="/Show/AttributeCategories",
+     * path="Show/Categories/Attribute",
      * summary="Show all of AttributeCategories",
      * description="display all of AttributeCategories",
      * tags={"AttributeCategories"},
@@ -41,8 +45,8 @@ class AttributeCategoriesController extends Controller
      *
      */
     public function show(){
-        $brands = AttributeCategories::all();
-        return response()->json($brands, 200);
+        $cate_attr = AttributeCategories::all();
+        return response()->json($cate_attr, 200);
     }
 
     /**
@@ -52,7 +56,7 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Post(
-     * path="/New/AttributeCategories",
+     * path="/New/Categories/Attribute",
      * summary="insert the name of the AttributeCategories",
      * description="insert name and slug by admin",
      * tags={"AttributeCategories"},
@@ -86,9 +90,27 @@ class AttributeCategoriesController extends Controller
      *
      */
     public function insert(Request  $request){
-        $brand = AttributeCategories::create([
+
+        $validated = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'slug' => 'required',
+        ]);
+
+        if ($validated->fails()) {
+            return response()->json(['message' , 'Sorry, your data not supported'],422);
+        }else{
+            $matchThese = ['slug' => $request->slug];
+            $old_cate_attr = AttributeCategories::where($matchThese)->get();
+            if($old_cate_attr->count() > 0){
+                return response()->json(['message' , 'These data can not be insert.'],409);
+            }else{
+                $cate_attr = AttributeCategories::create([
                     "name" => $request->name,
                     "slug" => $request->slug]);
-        return response()->json($brand, 200);
+                return response()->json($cate_attr, 200);
+            }
+
+        }
+
     }
 }
