@@ -45,23 +45,23 @@ class SanctumController extends Controller {
      *         )
      *     )
      */
-    public function logIn(Request $request){
+    // public function logIn(Request $request){
 
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email',
-            'password' => 'required',
-        ]);
+    //     $validator = Validator::make($request->all(), [
+    //         'email' => 'required|string|email',
+    //         'password' => 'required',
+    //     ]);
 
-        $validated = $validator->validated();
+    //     $validated = $validator->validated();
 
-        $user = Admin::where('email', $request->email )->first();
+    //     $user = Admin::where('email', $request->email )->first();
 
-        if($user && Hash::check($validated['password'], $user->password)){
-            return response()->json([
-                "token" =>$user->createToken('token')->plainTextToken
-            ], 200);
-        }
-    }
+    //     if($user && Hash::check($validated['password'], $user->password)){
+    //         return response()->json([
+    //             "token" =>$user->createToken('token')->plainTextToken
+    //         ], 200);
+    //     }
+    // }
 
     /**
      * @OA\Get(
@@ -82,13 +82,13 @@ class SanctumController extends Controller {
      *     )
      * )
      */
-    public function home()
-    {
-        try {
-            return response()->json(["message" => "Karim"], 200);
-        } catch (\Exception $e) {
-            return response()->json(["message" => $e->getMessage()], 200);
-        }
-    }
+    // public function home()
+    // {
+    //     try {
+    //         return response()->json(["message" => "Karim"], 200);
+    //     } catch (\Exception $e) {
+    //         return response()->json(["message" => $e->getMessage()], 200);
+    //     }
+    // }
 
 }
