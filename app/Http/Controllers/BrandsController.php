@@ -109,7 +109,7 @@ class BrandsController extends Controller
         if ($validated->fails()) {
             return response()->json(['message' , 'Sorry, your data not supported'],422);
         }else{
-            $matchThese = ['name' => $request->name, 'slug' => $request->slug];
+            $matchThese = ['slug' => $request->slug];
             $old_brand = Brands::where($matchThese)->get();
             if($old_brand->count() > 0){
                 return response()->json(['message' , 'These data can not be insert.'],409);
@@ -161,7 +161,7 @@ class BrandsController extends Controller
      *        )
      *     )
      * ),
-     * 
+     *
      * @OA\Response(
      *         response=202,
      *         description="OK",
@@ -185,7 +185,7 @@ class BrandsController extends Controller
             $data += ['slug' => $request->slug];
         }
 
-        $result = Brands::where('slug' , $request->slug);
+        $result = Brands::where('slug' , $request->slug)->get();
         if($result->count() > 0){
             return response()->json(['message' , 'These data can not be insert.'],409);
         }
@@ -204,8 +204,6 @@ class BrandsController extends Controller
         }else{
             return response()->json(['message' => 'Sorry, your data not found.'] , 404);
         }
-
-
     }
 
     /**
