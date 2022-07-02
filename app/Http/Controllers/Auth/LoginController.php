@@ -6,45 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-/**
- * @OA\Post(
- * path="/login",
- * summary="Sign in",
- * description="Login by email, password",
- * operationId="authLogin",
- * tags={"auth"},
- * @OA\RequestBody(
- *    required=true,
- *    description="Pass user credentials",
- *    @OA\JsonContent(
- *       required={"email","password"},
- *       @OA\Property(property="email", type="string", format="email", example="feest.delphine@example.net"),
- *       @OA\Property(property="password", type="string", format="password", example="password"),
- *       @OA\Property(property="persistent", type="boolean", example="true"),
- *    ),
- * ),
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
- *        )
- *     )
- * ),
- * @OA\Response(
-*         response=200,
-*         description="OK",
-*         @OA\JsonContent(
-*             @OA\Property(
-*                     property="id",
-*                     type="string"
-*                  ),
-*             @OA\Examples(example="result", value={"success": true}, summary="An result object."),
-*             @OA\Examples(example="bool", value=false, summary="A boolean value."),
-*         )
-*     )
- */
-
 class LoginController extends Controller
 {
     /*
@@ -65,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
