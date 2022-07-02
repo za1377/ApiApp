@@ -30,7 +30,7 @@ Route::controller('App\Http\Controllers\BrandsController')->group(function () {
 
     Route::get('Show/Brands', 'show');
     Route::post('New/Brands', 'insert');
-    Route::put('Updat/eBrands', 'update');
+    Route::put('/Update/Brands', 'update');
     Route::delete('Delete/Brands', 'delete');
 
 });
@@ -46,8 +46,8 @@ Route::controller('App\Http\Controllers\CategoriesController')->group(function (
 
 Route::controller('App\Http\Controllers\AttributeCategoriesController')->group(function () {
 
-    Route::get('Show/AttributeCategories', 'show');
-    Route::post('New/AttributeCategories', 'insert');
+    Route::get('Show/Categories/Attribute', 'show');
+    Route::post('New/Categories/Attribute', 'insert');
 });
 
 // Route::middleware('Ensure:sanctum')->get('/', function () {
