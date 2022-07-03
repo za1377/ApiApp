@@ -433,6 +433,61 @@
                 }
             }
         },
+        "Attributes/Types": {
+            "post": {
+                "tags": [
+                    "AttributesType"
+                ],
+                "summary": "insert the name of the AttributesType that use in categories",
+                "description": "insert name and slug by admin",
+                "operationId": "80e79b35540c67d7bbe30898c03dd7cf",
+                "requestBody": {
+                    "description": "Pass AttributesType name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "sony"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "slug",
+                                        "example": "/sony"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Show/Brands": {
             "get": {
                 "tags": [
