@@ -21,6 +21,8 @@ return new class extends Migration
 
             $table->foreign('cate_atrre_cate_id')->references('id')->on('categories__attributes_categories');
             $table->foreign('attributes_id')->references('id')->on('attributes');
+
+            $table->softDeletes();
         });
     }
 
