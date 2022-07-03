@@ -163,6 +163,55 @@
                 }
             }
         },
+        "/Delete/Categories/Attribute": {
+            "delete": {
+                "tags": [
+                    "AttributeCategories"
+                ],
+                "summary": "delete the row of the AttributeCategories that is determined",
+                "description": "update name and slug by admin",
+                "operationId": "2458d8111eb66cd420afa4354f239550",
+                "requestBody": {
+                    "description": "delete brands name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Show/Brands": {
             "get": {
                 "tags": [
@@ -590,6 +639,21 @@
                             "properties": {
                                 "message": {
                                     "type": "boolean"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "211": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
                                 }
                             },
                             "type": "object"

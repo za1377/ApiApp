@@ -187,4 +187,49 @@ class AttributeCategoriesController extends Controller
             return response()->json(['message' => 'Sorry, your data not found.'] , 404);
         }
     }
+
+    /**
+     * delete the specefic data of AttributeCategories table
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return response
+     *
+     * @OA\Delete(
+     * path="/Delete/Categories/Attribute",
+     * summary="delete the row of the AttributeCategories that is determined",
+     * description="update name and slug by admin",
+     * tags={"AttributeCategories"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="delete brands name and slug",
+     *    @OA\JsonContent(
+     *       required={"id"},
+     *       @OA\Property(property="id", type="string", format="id", example="1"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
+     *        )
+     *     )
+     * ),
+     *  @OA\Response(
+     *         response=211,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                     property="message",
+     *                     type="string"
+     *                  ),
+     *         )
+     *     ),
+     *
+     */
+    public function delete(Request  $request){
+        $id = intval($request->id);
+        AttributeCategories::find($id)->delete();
+        return response()->json(["message" => "delete"], 200);
+    }
 }
