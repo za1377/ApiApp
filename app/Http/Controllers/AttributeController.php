@@ -191,4 +191,44 @@ class AttributeController extends Controller
             return response()->json(['message' => 'Sorry, your data not found.'] , 404);
         }
     }
+
+    /**
+     * delete the specefic data of Attribute's table
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return response
+     *
+     * @OA\Delete(
+     * path="/Delete/Attributes",
+     * summary="delete the row of the Attributes that is determined",
+     * description="update name and slug by admin",
+     * tags={"Attributes"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="delete Attributes name and slug",
+     *    @OA\JsonContent(
+     *       required={"id"},
+     *       @OA\Property(property="id", type="string", format="id", example="1"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
+     *        )
+     *     )
+     * ),
+     *
+     */
+    public function delete(Request  $request){
+        $id = intval($request->id);
+        $Attribute = Attributes::where('id' , $id);
+        if($Attribute->count() > 0){
+            $Attribute->delete();
+            return response()->json(["message" => "delete"], 200);
+        }else{
+            return response()->json(["message" => "not found"], 404);
+        }
+    }
 }

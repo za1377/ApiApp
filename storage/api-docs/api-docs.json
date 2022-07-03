@@ -356,6 +356,55 @@
                 }
             }
         },
+        "/Delete/Attributes": {
+            "delete": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "delete the row of the Attributes that is determined",
+                "description": "update name and slug by admin",
+                "operationId": "32bfb208bc2f540e26f25e737e1e5ed9",
+                "requestBody": {
+                    "description": "delete Attributes name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Show/Brands": {
             "get": {
                 "tags": [
