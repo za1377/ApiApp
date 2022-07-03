@@ -234,7 +234,13 @@ class AttributeCategoriesController extends Controller
      */
     public function delete(Request  $request){
         $id = intval($request->id);
-        AttributeCategories::find($id)->delete();
-        return response()->json(["message" => "delete"], 200);
+        $cate_attr = AttributeCategories::where('id' , $id);
+
+        if($cate_attr->count() > 0){
+            $cate_attr->delete();
+            return response()->json(["message" => "delete"], 200);
+        }else{
+            return response()->json(["message" => "not found"], 404);
+        }
     }
 }

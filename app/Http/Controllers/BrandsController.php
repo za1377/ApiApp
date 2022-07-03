@@ -251,7 +251,12 @@ class BrandsController extends Controller
      */
     public function delete(Request  $request){
         $id = intval($request->id);
-        Brands::find($id)->delete();
-        return response()->json(["message" => "delete"], 200);
+        $brand = Brands::where('id' , $id);
+        if($brand->count() > 0){
+            $brand->delete();
+            return response()->json(["message" => "delete"], 200);
+        }else{
+            return response()->json(["message" => "not found"], 404);
+        }
     }
 }

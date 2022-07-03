@@ -237,7 +237,12 @@ class CategoriesController extends Controller
      */
     public function delete(Request  $request){
         $id = intval($request->id);
-        categories::find($id)->delete();
-        return response()->json(["message" => "delete"], 200);
+        $category = categories::where('id' , $id);
+        if($category->count() > 0){
+            $category->delete();
+            return response()->json(["message" => "delete"], 200);
+        }else{
+            return response()->json(["message" => "not found"], 404);
+        }
     }
 }
