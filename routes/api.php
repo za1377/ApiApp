@@ -56,6 +56,7 @@ Route::controller('App\Http\Controllers\AttributeController')->group(function ()
 
     Route::get('/Show/Attributes', 'show');
     Route::post('/New/Attributes', 'insert');
+    Route::put('/Update/Attributes', 'update');
 });
 
 // Route::middleware('Ensure:sanctum')->get('/', function () {

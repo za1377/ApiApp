@@ -295,6 +295,67 @@
                 }
             }
         },
+        "/Update/Attributes": {
+            "put": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "update the name of the Attributes that use in categories",
+                "description": "update name and slug by admin",
+                "operationId": "55044f4fc72ffaf0510740553d468cbd",
+                "requestBody": {
+                    "description": "Pass Attributes name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "1"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "sumsung"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "slug",
+                                        "example": "/sumsung"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Show/Brands": {
             "get": {
                 "tags": [
@@ -767,6 +828,21 @@
                             "properties": {
                                 "message": {
                                     "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "214": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "boolean"
                                 }
                             },
                             "type": "object"

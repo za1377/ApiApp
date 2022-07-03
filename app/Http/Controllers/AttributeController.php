@@ -118,4 +118,77 @@ class AttributeController extends Controller
         }
 
     }
+
+    /**
+     * update the specefic data of Attribute's table
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return response
+     *
+     * @OA\Put(
+     * path="/Update/Attributes",
+     * summary="update the name of the Attributes that use in categories",
+     * description="update name and slug by admin",
+     * tags={"Attributes"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass Attributes name and slug",
+     *    @OA\JsonContent(
+     *       required={"id","name","slug"},
+     *       @OA\Property(property="id", type="string", format="id", example="1"),
+     *       @OA\Property(property="name", type="string", format="name", example="sumsung"),
+     *       @OA\Property(property="slug", type="string", format="slug", example="/sumsung"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
+     *        )
+     *     )
+     * ),
+     * @OA\Response(
+     *         response=214,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                     property="message",
+     *                     type="boolean"
+     *                  ),
+     *         )
+     *     ),
+     *
+     */
+    public function update(Request  $request){
+        $id = intval($request->id);
+        $data = array();
+
+        if($request->name != ""){
+            $data += ['name' => $request->name];
+        }
+        if($request->slug != ""){
+            $data += ['slug' => $request->slug];
+        }
+
+        $result = Attributes::where('slug' , $request->slug)->get();
+        if($result->count() > 0){
+            return response()->json(['message' , 'These data can not be insert.'],409);
+        }
+
+        $query = Attributes::find($id);
+
+        if(! is_null($query)){
+
+            if($data == []){
+                return response()->json(['message' , 'nothing for update.'],422);
+            }else{
+                $Attribute = $query->update($data);
+                return response()->json($Attribute, 200);
+            }
+
+        }else{
+            return response()->json(['message' => 'Sorry, your data not found.'] , 404);
+        }
+    }
 }
