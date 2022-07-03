@@ -18,7 +18,7 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Get(
-     * path="/Show/Categories/Attribute",
+     * path="/Category/Attributes",
      * summary="Show all of AttributeCategories",
      * description="display all of AttributeCategories",
      * tags={"AttributeCategories"},
@@ -61,7 +61,7 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Post(
-     * path="/New/Categories/Attribute",
+     * path="/Category/Attribute",
      * summary="insert the name of the AttributeCategories",
      * description="insert name and slug by admin",
      * tags={"AttributeCategories"},
@@ -126,7 +126,7 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Put(
-     * path="/Update/Categories/Attribute",
+     * path="/Category/Attribute",
      * summary="update the name of the AttributeCategories that use in categories",
      * description="update name and slug by admin",
      * tags={"AttributeCategories"},
@@ -200,7 +200,7 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Delete(
-     * path="/Delete/Categories/Attribute",
+     * path="/Category/Attribute",
      * summary="delete the row of the AttributeCategories that is determined",
      * description="update name and slug by admin",
      * tags={"AttributeCategories"},

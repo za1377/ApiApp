@@ -20,7 +20,7 @@ class BrandsController extends Controller
      * @return response
      *
      * @OA\Get(
-     * path="/Show/Brands",
+     * path="/Brands",
      * summary="Show all of brands",
      * description="display all of brands",
      * tags={"brands"},
@@ -61,7 +61,7 @@ class BrandsController extends Controller
      * @return response
      *
      * @OA\Post(
-     * path="/New/Brands",
+     * path="/Brand",
      * summary="insert the name of the brands that use in categories",
      * description="insert name and slug by admin",
      * tags={"brands"},
@@ -135,7 +135,7 @@ class BrandsController extends Controller
      * @return response
      *
      * @OA\Put(
-     * path="/Update/Brands",
+     * path="/Brand",
      * summary="update the name of the brands that use in categories",
      * description="update name and slug by admin",
      * tags={"brands"},
@@ -217,7 +217,7 @@ class BrandsController extends Controller
      * @return response
      *
      * @OA\Delete(
-     * path="/Delete/Brands",
+     * path="/Brand",
      * summary="delete the row of the brands that is determined",
      * description="update name and slug by admin",
      * tags={"brands"},
