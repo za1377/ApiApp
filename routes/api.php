@@ -60,6 +60,11 @@ Route::controller('App\Http\Controllers\AttributeController')->group(function ()
     Route::delete('/Delete/Attributes', 'delete');
 });
 
+Route::controller('App\Http\Controllers\AttributeTypeController')->group(function () {
+
+    Route::get('/Show/Attributes/Types', 'show');
+});
+
 // Route::middleware('Ensure:sanctum')->get('/', function () {
 //     return response()->json(['name' => "home"]);
 // });

@@ -405,6 +405,34 @@
                 }
             }
         },
+        "/Show/Attributes/Types": {
+            "get": {
+                "tags": [
+                    "AttributesType"
+                ],
+                "summary": "Show all of AttributesType",
+                "description": "display all of AttributesType",
+                "operationId": "078396e2a9d0dbb029b22c80e1848158",
+                "responses": {
+                    "404": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Show/Brands": {
             "get": {
                 "tags": [
