@@ -48,7 +48,11 @@ class BrandsController extends Controller
      */
     public function show(){
         $brands = Brands::all();
-        return response()->json($brands, 200);
+        if($brands->count() <= 0){
+            return response()->json(['massege' => 'not found.'], 404);
+        }else{
+            return response()->json($brands, 200);
+        }
     }
     /**
      * insert data to brands table

@@ -46,7 +46,11 @@ class CategoriesController extends Controller
      */
     public function show(){
         $category = categories::all();
-        return response()->json($category, 200);
+        if($category->count() <= 0){
+            return response()->json(['massege' => 'not found.'], 404);
+        }else{
+            return response()->json($category, 200);
+        }
     }
 
     /**

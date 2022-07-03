@@ -46,7 +46,12 @@ class AttributeCategoriesController extends Controller
      */
     public function show(){
         $cate_attr = AttributeCategories::all();
-        return response()->json($cate_attr, 200);
+
+        if($cate_attr->count() <= 0){
+            return response()->json(['massege' => 'not found.'], 404);
+        }else{
+            return response()->json($cate_attr, 200);
+        }
     }
 
     /**
