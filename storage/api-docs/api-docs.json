@@ -215,7 +215,7 @@
         "/Show/Attributes": {
             "get": {
                 "tags": [
-                    "Attribute"
+                    "Attributes"
                 ],
                 "summary": "Show all of Attribute",
                 "description": "display all of Attribute",

@@ -21,7 +21,7 @@ class AttributeController extends Controller
      * path="/Show/Attributes",
      * summary="Show all of Attribute",
      * description="display all of Attribute",
-     * tags={"Attribute"},
+     * tags={"Attributes"},
 
      * @OA\Response(
      *    response=404,
