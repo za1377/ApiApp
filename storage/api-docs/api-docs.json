@@ -240,6 +240,61 @@
                 }
             }
         },
+        "/New/Attributes": {
+            "post": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "insert the name of the Attributes that use in categories",
+                "description": "insert name and slug by admin",
+                "operationId": "d6f5a7bb698235737ac4a2874117f747",
+                "requestBody": {
+                    "description": "Pass Attributes name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "sony"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "slug",
+                                        "example": "/sony"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Show/Brands": {
             "get": {
                 "tags": [
@@ -690,6 +745,21 @@
                 }
             },
             "212": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "213": {
                 "description": "OK",
                 "content": {
                     "application/json": {
