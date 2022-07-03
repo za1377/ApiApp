@@ -28,42 +28,42 @@ Route::post('/login', 'App\Http\Controllers\SanctumController@logIn');
 
 Route::controller('App\Http\Controllers\BrandsController')->group(function () {
 
-    Route::get('/Show/Brands', 'show');
-    Route::post('/New/Brands', 'insert');
-    Route::put('/Update/Brands', 'update');
-    Route::delete('/Delete/Brands', 'delete');
+    Route::get('/Brands', 'show');
+    Route::post('/Brand', 'insert');
+    Route::put('/Brand', 'update');
+    Route::delete('/Brand', 'delete');
 
 });
 
 Route::controller('App\Http\Controllers\CategoriesController')->group(function () {
 
-    Route::get('/Show/Categories', 'show');
-    Route::post('/New/Categories', 'insert');
-    Route::put('/Update/Categories', 'update');
-    Route::delete('/Delete/Categories', 'delete');
+    Route::get('/Categories', 'show');
+    Route::post('/Category', 'insert');
+    Route::put('/Category', 'update');
+    Route::delete('/Category', 'delete');
 
 });
 
 Route::controller('App\Http\Controllers\AttributeCategoriesController')->group(function () {
 
-    Route::get('/Show/Categories/Attribute', 'show');
-    Route::post('/New/Categories/Attribute', 'insert');
-    Route::put('/Update/Categories/Attribute', 'update');
-    Route::delete('/Delete/Categories/Attribute', 'delete');
+    Route::get('/Category/Attributes', 'show');
+    Route::post('/Category/Attribute', 'insert');
+    Route::put('/Category/Attribute', 'update');
+    Route::delete('/Category/Attribute', 'delete');
 });
 
 Route::controller('App\Http\Controllers\AttributeController')->group(function () {
 
-    Route::get('/Show/Attributes', 'show');
-    Route::post('/New/Attributes', 'insert');
-    Route::put('/Update/Attributes', 'update');
-    Route::delete('/Delete/Attributes', 'delete');
+    Route::get('/Attributes', 'show');
+    Route::post('/Attribute', 'insert');
+    Route::put('/Attribute', 'update');
+    Route::delete('/Attribute', 'delete');
 });
 
 Route::controller('App\Http\Controllers\AttributeTypeController')->group(function () {
 
-    Route::get('/Show/Attributes/Types', 'show');
-    Route::post('/New/Attributes/Types', 'insert');
+    Route::get('/Attribute/Types', 'show');
+    Route::post('/Attribute/Type', 'insert');
 });
 
 // Route::middleware('Ensure:sanctum')->get('/', function () {
