@@ -19,14 +19,14 @@
         }
     ],
     "paths": {
-        "/Show/AttributeCategories": {
+        "Show/Categories/Attribute": {
             "get": {
                 "tags": [
                     "AttributeCategories"
                 ],
                 "summary": "Show all of AttributeCategories",
                 "description": "display all of AttributeCategories",
-                "operationId": "574819dfff4319cc9b4aa8bc7bf00e55",
+                "operationId": "76c8bf284324291237487a787d4fbdd3",
                 "responses": {
                     "404": {
                         "description": "Wrong credentials response",
@@ -47,14 +47,14 @@
                 }
             }
         },
-        "/New/AttributeCategories": {
+        "/New/Categories/Attribute": {
             "post": {
                 "tags": [
                     "AttributeCategories"
                 ],
                 "summary": "insert the name of the AttributeCategories",
                 "description": "insert name and slug by admin",
-                "operationId": "e5b28f13a6b9fbf939368874f6eaac4d",
+                "operationId": "261139ccea613f2e2ceeacee7b5f8bf3",
                 "requestBody": {
                     "description": "Pass attribute categories name and slug",
                     "required": true,
@@ -75,6 +75,67 @@
                                         "type": "string",
                                         "format": "slug",
                                         "example": "/location"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Update/Categories/Attribute": {
+            "put": {
+                "tags": [
+                    "AttributeCategories"
+                ],
+                "summary": "update the name of the AttributeCategories that use in categories",
+                "description": "update name and slug by admin",
+                "operationId": "4b573bab1de9a57651ff6262f846acc5",
+                "requestBody": {
+                    "description": "Pass brands name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "2"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "weight"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "slug",
+                                        "example": "/weight"
                                     }
                                 },
                                 "type": "object"
@@ -514,6 +575,21 @@
                             "properties": {
                                 "message": {
                                     "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "210": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "boolean"
                                 }
                             },
                             "type": "object"

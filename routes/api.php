@@ -48,6 +48,7 @@ Route::controller('App\Http\Controllers\AttributeCategoriesController')->group(f
 
     Route::get('Show/Categories/Attribute', 'show');
     Route::post('New/Categories/Attribute', 'insert');
+    Route::put('/Update/Categories/Attribute', 'update');
 });
 
 // Route::middleware('Ensure:sanctum')->get('/', function () {

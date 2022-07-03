@@ -121,16 +121,16 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Put(
-     * path="/Update/Brands",
+     * path="/Update/Categories/Attribute",
      * summary="update the name of the AttributeCategories that use in categories",
      * description="update name and slug by admin",
-     * tags={"brands"},
+     * tags={"AttributeCategories"},
      * @OA\RequestBody(
      *    required=true,
      *    description="Pass brands name and slug",
      *    @OA\JsonContent(
      *       required={"id","name","slug"},
-     *       @OA\Property(property="id", type="string", format="id", example="5"),
+     *       @OA\Property(property="id", type="string", format="id", example="2"),
      *       @OA\Property(property="name", type="string", format="name", example="weight"),
      *       @OA\Property(property="slug", type="string", format="slug", example="/weight"),
      *    ),
@@ -143,17 +143,9 @@ class AttributeCategoriesController extends Controller
      *        )
      *     )
      * ),
-     * @OA\Response(
-     *    response=404,
-     *    description="Not_Found",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Sorry, your data not found.")
-     *        )
-     *     )
-     * ),
      *
      * @OA\Response(
-     *         response=202,
+     *         response=210,
      *         description="OK",
      *         @OA\JsonContent(
      *             @OA\Property(
