@@ -28,26 +28,26 @@ Route::post('/login', 'App\Http\Controllers\SanctumController@logIn');
 
 Route::controller('App\Http\Controllers\BrandsController')->group(function () {
 
-    Route::get('Show/Brands', 'show');
-    Route::post('New/Brands', 'insert');
+    Route::get('/Show/Brands', 'show');
+    Route::post('/New/Brands', 'insert');
     Route::put('/Update/Brands', 'update');
-    Route::delete('Delete/Brands', 'delete');
+    Route::delete('/Delete/Brands', 'delete');
 
 });
 
 Route::controller('App\Http\Controllers\CategoriesController')->group(function () {
 
-    Route::get('Show/Categories', 'show');
-    Route::post('New/Categories', 'insert');
-    Route::put('Update/Categories', 'update');
-    Route::delete('Delete/Categories', 'delete');
+    Route::get('/Show/Categories', 'show');
+    Route::post('/New/Categories', 'insert');
+    Route::put('/Update/Categories', 'update');
+    Route::delete('/Delete/Categories', 'delete');
 
 });
 
 Route::controller('App\Http\Controllers\AttributeCategoriesController')->group(function () {
 
-    Route::get('Show/Categories/Attribute', 'show');
-    Route::post('New/Categories/Attribute', 'insert');
+    Route::get('/Show/Categories/Attribute', 'show');
+    Route::post('/New/Categories/Attribute', 'insert');
     Route::put('/Update/Categories/Attribute', 'update');
     Route::delete('/Delete/Categories/Attribute', 'delete');
 });

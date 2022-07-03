@@ -18,7 +18,7 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Get(
-     * path="Show/Categories/Attribute",
+     * path="/Show/Categories/Attribute",
      * summary="Show all of AttributeCategories",
      * description="display all of AttributeCategories",
      * tags={"AttributeCategories"},
