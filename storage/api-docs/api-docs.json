@@ -212,6 +212,34 @@
                 }
             }
         },
+        "/Show/Attributes": {
+            "get": {
+                "tags": [
+                    "Attribute"
+                ],
+                "summary": "Show all of Attribute",
+                "description": "display all of Attribute",
+                "operationId": "2a974dfb99ec5c95f6137f0e696effa0",
+                "responses": {
+                    "404": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Show/Brands": {
             "get": {
                 "tags": [
@@ -647,6 +675,21 @@
                 }
             },
             "211": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "212": {
                 "description": "OK",
                 "content": {
                     "application/json": {

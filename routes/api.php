@@ -52,6 +52,11 @@ Route::controller('App\Http\Controllers\AttributeCategoriesController')->group(f
     Route::delete('/Delete/Categories/Attribute', 'delete');
 });
 
+Route::controller('App\Http\Controllers\AttributeController')->group(function () {
+
+    Route::get('/Show/Attributes', 'show');
+});
+
 // Route::middleware('Ensure:sanctum')->get('/', function () {
 //     return response()->json(['name' => "home"]);
 // });
