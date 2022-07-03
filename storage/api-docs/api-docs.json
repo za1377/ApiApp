@@ -19,14 +19,14 @@
         }
     ],
     "paths": {
-        "Show/Categories/Attribute": {
+        "/Show/Categories/Attribute": {
             "get": {
                 "tags": [
                     "AttributeCategories"
                 ],
                 "summary": "Show all of AttributeCategories",
                 "description": "display all of AttributeCategories",
-                "operationId": "76c8bf284324291237487a787d4fbdd3",
+                "operationId": "3efdd5de844e6a26d913a372aa48f6ae",
                 "responses": {
                     "404": {
                         "description": "Wrong credentials response",
