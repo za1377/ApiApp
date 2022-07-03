@@ -105,14 +105,14 @@ class AttributeController extends Controller
             return response()->json(['message' , 'Sorry, your data not supported'],422);
         }else{
             $matchThese = ['slug' => $request->slug];
-            $old_brand = Attributes::where($matchThese)->get();
-            if($old_brand->count() > 0){
+            $old_Attribute = Attributes::where($matchThese)->get();
+            if($old_Attribute->count() > 0){
                 return response()->json(['message' , 'These data can not be insert.'],409);
             }else{
-                $brand = Attributes::create([
+                $Attribute = Attributes::create([
                     "name" => $request->name,
                     "slug" => $request->slug]);
-                return response()->json($brand, 200);
+                return response()->json($Attribute, 200);
             }
 
         }
