@@ -542,24 +542,38 @@
                 }
             }
         },
-        "/Show/Attributes/Types": {
+        "/Attribute/Types": {
             "get": {
                 "tags": [
                     "AttributesType"
                 ],
                 "summary": "Show all of AttributesType",
                 "description": "display all of AttributesType",
-                "operationId": "078396e2a9d0dbb029b22c80e1848158",
+                "operationId": "2cc0216dba5f6ba874615ddd2f09d054",
                 "responses": {
                     "404": {
-                        "description": "Wrong credentials response",
+                        "description": "Not_Found",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
-                                            "type": "string",
-                                            "example": "Not found."
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"
@@ -570,14 +584,14 @@
                 }
             }
         },
-        "/New/Attributes/Types": {
+        "/Attribute/Type": {
             "post": {
                 "tags": [
                     "AttributesType"
                 ],
                 "summary": "insert the name of the AttributesType that use in categories",
                 "description": "insert name and slug by admin",
-                "operationId": "8e28f4d797a3c58476a5880ac2721276",
+                "operationId": "4b116c3a783dac63804562bf1e556a85",
                 "requestBody": {
                     "description": "Pass AttributesType name and slug",
                     "required": true,
@@ -606,76 +620,29 @@
                     }
                 },
                 "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
+                    "400": {
+                        "description": "Bad Request",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
-                                            "type": "string",
-                                            "example": "Sorry, your data not supported."
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"
                                 }
                             }
                         }
-                    }
-                }
-            }
-        },
-        "/Update/Attributes/Types": {
-            "put": {
-                "tags": [
-                    "AttributesType"
-                ],
-                "summary": "update the name of the AttributesType that use in categories",
-                "description": "update name and slug by admin",
-                "operationId": "6f159e7b7ebb995de57f7ec4e18f50be",
-                "requestBody": {
-                    "description": "Pass AttributesType name and slug",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "id",
-                                    "name",
-                                    "slug"
-                                ],
-                                "properties": {
-                                    "id": {
-                                        "type": "string",
-                                        "format": "id",
-                                        "example": "1"
-                                    },
-                                    "name": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "sumsung"
-                                    },
-                                    "slug": {
-                                        "type": "string",
-                                        "format": "slug",
-                                        "example": "/sumsung"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "404": {
-                        "description": "Wrong credentials response",
+                    },
+                    "201": {
+                        "description": "object_created",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
-                                            "type": "string",
-                                            "example": "Not found."
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"
