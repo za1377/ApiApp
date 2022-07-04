@@ -18,30 +18,29 @@ class CategoriesController extends Controller
      * @return response
      *
      * @OA\Get(
-     * path="/Categories",
-     * summary="Show all of categories",
-     * description="display all of categories",
-     * tags={"categories"},
-
-     * @OA\Response(
-     *    response=404,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Not found.")
-     *        )
-     *     )
-     * ),
-     *
-     * @OA\Response(
-     *         response=204,
-     *         description="OK",
+     *      path="/Categories",
+     *      summary="Show all of categories",
+     *      description="display all of categories",
+     *      tags={"categories"},
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not_Found",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=200,
+     *         description="success",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                     property="message",
      *                     type="string"
-     *                  ),
+     *             ),
      *         )
-     *     )
+     *      )
+     * ),
+     *
      *
      */
     public function show(){
@@ -60,37 +59,35 @@ class CategoriesController extends Controller
      * @return response
      *
      * @OA\Post(
-     * path="/Category",
-     * summary="insert the name of the categories",
-     * description="insert name and slug by admin and if it has parent it's parent shloud insert too",
-     * tags={"categories"},
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="Pass brands name and slug",
-     *    @OA\JsonContent(
-     *       required={"name","slug"},
-     *       @OA\Property(property="name", type="string", format="name", example="home"),
-     *       @OA\Property(property="slug", type="string", format="slug", example="/home"),
-     *    ),
+     *      path="/Category",
+     *      summary="insert the name of the categories",
+     *      description="insert name and slug by admin and if it has parent it's parent shloud insert too",
+     *      tags={"categories"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass brands name and slug",
+     *          @OA\JsonContent(
+     *              required={"name","slug"},
+     *              @OA\Property(property="name", type="string", format="name", example="home"),
+     *              @OA\Property(property="slug", type="string", format="slug", example="/home"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *         description="Bad Request",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=201,
+     *          description="object_created",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *      ),
      * ),
-     * @OA\Response(
-     *    response=422,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
-     *        )
-     *     )
-     * ),
-     * @OA\Response(
-     *         response=205,
-     *         description="OK",
-     *         @OA\JsonContent(
-     *             @OA\Property(
-     *                     property="message",
-     *                     type="string"
-     *                  ),
-     *         )
-     *     )
      *
      */
     public function insert(Request  $request){
@@ -102,13 +99,13 @@ class CategoriesController extends Controller
         ]);
 
         if ($validated->fails()) {
-            return response()->json(['message' , 'Sorry, your data not supported'],422);
+            return response()->json(['message' , 'Sorry, your data not supported'],400);
 
         }else{
             $matchThese = ['slug' => $request->slug];
             $old_category = categories::where($matchThese)->get();
             if($old_category->count() > 0){
-                return response()->json(['message' , 'These data can not be insert.'],409);
+                return response()->json(['message' , 'These data can not be insert.'],400);
             }else{
                 $category = categories::create([
                     "name" => $request->name,
@@ -127,38 +124,46 @@ class CategoriesController extends Controller
      * @return response
      *
      * @OA\Put(
-     * path="/Category",
-     * summary="update the name row of the categories table",
-     * description="update name and slug and parent's id by admin",
-     * tags={"categories"},
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="Pass brands name and slug",
-     *    @OA\JsonContent(
-     *       required={"id","name","slug"},
-     *       @OA\Property(property="id", type="string", format="id", example="1"),
-     *       @OA\Property(property="name", type="string", format="name", example="Clothing"),
-     *       @OA\Property(property="slug", type="string", format="slug", example="/Clothing"),
-     *    ),
-     * ),
-     * @OA\Response(
-     *    response=422,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
-     *        )
-     *     )
-     * ),
-     * @OA\Response(
-     *         response=206,
-     *         description="OK",
+     *      path="/Category",
+     *      summary="update the name row of the categories table",
+     *      description="update name and slug and parent's id by admin",
+     *      tags={"categories"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass brands name and slug",
+     *          @OA\JsonContent(
+     *              required={"id","name","slug"},
+     *              @OA\Property(property="id", type="string", format="id", example="1"),
+     *              @OA\Property(property="name", type="string", format="name", example="Clothing"),
+     *              @OA\Property(property="slug", type="string", format="slug", example="/Clothing"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not_Found",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Sorry, your data not found.")
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *         response=200,
+     *         description="success",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                     property="message",
-     *                     type="string"
-     *                  ),
+     *                     type="boolean"
+     *             ),
      *         )
-     *     ),
+     *      ),
+     * ),
      *
      */
     public function update(Request  $request){
@@ -177,7 +182,7 @@ class CategoriesController extends Controller
 
         $result = categories::where('slug' , $request->slug)->get();
         if($result->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],409);
+            return response()->json(['message' , 'These data can not be insert.'],400);
         }
 
         $query = categories::find($id);
@@ -185,7 +190,7 @@ class CategoriesController extends Controller
         if(! is_null($query)){
 
             if($data == []){
-                return response()->json(['message' , 'nothing for update.'],422);
+                return response()->json(['message' , 'nothing for update.'],400);
             }else{
                 $category = $query->update($data);
                 return response()->json($category, 200);
@@ -203,36 +208,36 @@ class CategoriesController extends Controller
      * @return response
      *
      * @OA\Delete(
-     * path="/Category",
-     * summary="delete the row of the brands that is determined",
-     * description="update name and slug by admin",
-     * tags={"categories"},
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="delete categories row from it's table",
-     *    @OA\JsonContent(
-     *       required={"id"},
-     *       @OA\Property(property="id", type="string", format="id", example="1"),
-     *    ),
-     * ),
-     * @OA\Response(
-     *    response=422,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
-     *        )
-     *     )
-     * ),
-     *  @OA\Response(
-     *         response=207,
-     *         description="OK",
-     *         @OA\JsonContent(
-     *             @OA\Property(
+     *      path="/Category",
+     *      summary="delete the row of the brands that is determined",
+     *      description="update name and slug by admin",
+     *      tags={"categories"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="delete categories row from it's table",
+     *          @OA\JsonContent(
+     *              required={"id"},
+     *              @OA\Property(property="id", type="string", format="id", example="1"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not_Found",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
      *                     property="message",
      *                     type="string"
-     *                  ),
-     *         )
-     *     ),
+     *              ),
+     *          )
+     *      ),
+     * ),
      *
      */
     public function delete(Request  $request){

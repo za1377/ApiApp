@@ -926,14 +926,28 @@
                 "operationId": "0edd7b8cc8ea7e3b46afbc11407dcd4e",
                 "responses": {
                     "404": {
-                        "description": "Wrong credentials response",
+                        "description": "Not_Found",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
-                                            "type": "string",
-                                            "example": "Not found."
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"
@@ -986,8 +1000,8 @@
                     }
                 },
                 "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
+                    "400": {
+                        "description": "bad request",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -995,6 +1009,37 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not_Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "boolean"
                                         }
                                     },
                                     "type": "object"
@@ -1039,15 +1084,29 @@
                     }
                 },
                 "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
+                    "400": {
+                        "description": "Bad Request",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
-                                            "type": "string",
-                                            "example": "Sorry, your data not supported."
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "object_created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"
@@ -1086,84 +1145,34 @@
                     }
                 },
                 "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
+                    "404": {
+                        "description": "Not_Found",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
-                                            "type": "string",
-                                            "example": "Sorry, your data not supported."
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"
                                 }
                             }
                         }
-                    }
-                }
-            }
-        }
-    },
-    "components": {
-        "responses": {
-            "204": {
-                "description": "OK",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "string"
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "205": {
-                "description": "OK",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "206": {
-                "description": "OK",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "207": {
-                "description": "OK",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
+                            }
                         }
                     }
                 }
