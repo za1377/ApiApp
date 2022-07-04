@@ -18,30 +18,29 @@ class AttributeController extends Controller
      * @return response
      *
      * @OA\Get(
-     * path="/Attributes",
-     * summary="Show all of Attribute",
-     * description="display all of Attribute",
-     * tags={"Attributes"},
-
-     * @OA\Response(
-     *    response=404,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Not found.")
-     *        )
-     *     )
-     * ),
-     *
-     * @OA\Response(
-     *         response=212,
-     *         description="OK",
+     *      path="/Attributes",
+     *      summary="Show all of Attribute",
+     *      description="display all of Attribute",
+     *      tags={"Attributes"},
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not_Found",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=200,
+     *         description="success",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                     property="message",
      *                     type="string"
-     *                  ),
+     *             ),
      *         )
-     *     )
+     *      )
+     * ),
+     *
      *
      */
     public function show(){
@@ -61,62 +60,51 @@ class AttributeController extends Controller
      * @return response
      *
      * @OA\Post(
-     * path="/Attribute",
-     * summary="insert the name of the Attributes that use in categories",
-     * description="insert name and slug by admin",
-     * tags={"Attributes"},
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="Pass Attributes name and slug",
-     *    @OA\JsonContent(
-     *       required={"name","slug"},
-     *       @OA\Property(property="name", type="string", format="name", example="sony"),
-     *       @OA\Property(property="slug", type="string", format="slug", example="/sony"),
-     *    ),
-     * ),
-     * @OA\Response(
-     *    response=422,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
-     *        )
-     *     )
-     * ),
+     *      path="/Attribute",
+     *      summary="insert the name of the Attributes that use in categories",
+     *      description="insert name and slug by admin",
+     *      tags={"Attributes"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass Attributes name and slug",
+     *          @OA\JsonContent(
+     *              required={"name","slug"},
+     *              @OA\Property(property="name", type="string", format="name", example="sony"),
+     *              @OA\Property(property="slug", type="string", format="slug", example="/sony"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *         description="Bad Request",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *      ),
      *
-     * @OA\Response(
-     *         response=213,
-     *         description="OK",
-     *         @OA\JsonContent(
-     *             @OA\Property(
-     *                     property="message",
-     *                     type="string"
-     *                  ),
-     *         )
-     *     )
+     *      @OA\Response(
+     *          response=201,
+     *          description="object_created",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *      ),
+     * ),
      *
      */
     public function insert(Request  $request){
-        $validated = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'slug' => 'required',
-        ]);
 
-        if ($validated->fails()) {
-            return response()->json(['message' , 'Sorry, your data not supported'],422);
+        $validated = $request->validated();
+
+        $matchThese = ['slug' => $request->slug];
+        $old_Attribute = Attributes::where($matchThese)->get();
+        if($old_Attribute->count() > 0){
+            return response()->json(['message' , 'These data can not be insert.'],400);
         }else{
-            $matchThese = ['slug' => $request->slug];
-            $old_Attribute = Attributes::where($matchThese)->get();
-            if($old_Attribute->count() > 0){
-                return response()->json(['message' , 'These data can not be insert.'],409);
-            }else{
-                $Attribute = Attributes::create([
-                    "name" => $request->name,
-                    "slug" => $request->slug]);
-                return response()->json($Attribute, 200);
-            }
-
+            $Attribute = Attributes::create([
+                "name" => $request->name,
+                "slug" => $request->slug]);
+            return response()->json($Attribute, 201);
         }
-
     }
 
     /**
@@ -126,38 +114,47 @@ class AttributeController extends Controller
      * @return response
      *
      * @OA\Put(
-     * path="/Attribute",
-     * summary="update the name of the Attributes that use in categories",
-     * description="update name and slug by admin",
-     * tags={"Attributes"},
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="Pass Attributes name and slug",
-     *    @OA\JsonContent(
-     *       required={"id","name","slug"},
-     *       @OA\Property(property="id", type="string", format="id", example="1"),
-     *       @OA\Property(property="name", type="string", format="name", example="sumsung"),
-     *       @OA\Property(property="slug", type="string", format="slug", example="/sumsung"),
-     *    ),
-     * ),
-     * @OA\Response(
-     *    response=422,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
-     *        )
-     *     )
-     * ),
-     * @OA\Response(
-     *         response=214,
-     *         description="OK",
+     *      path="/Attribute",
+     *      summary="update the name of the Attributes that use in categories",
+     *      description="update name and slug by admin",
+     *      tags={"Attributes"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass Attributes name and slug",
+     *          @OA\JsonContent(
+     *              required={"id","name","slug"},
+     *              @OA\Property(property="id", type="string", format="id", example="1"),
+     *              @OA\Property(property="name", type="string", format="name", example="sumsung"),
+     *              @OA\Property(property="slug", type="string", format="slug", example="/sumsung"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not_Found",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Sorry, your data not found.")
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *         response=200,
+     *         description="success",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                     property="message",
      *                     type="boolean"
-     *                  ),
+     *             ),
      *         )
-     *     ),
+     *      ),
+     * ),
+     *
      *
      */
     public function update(Request  $request){
@@ -173,7 +170,7 @@ class AttributeController extends Controller
 
         $result = Attributes::where('slug' , $request->slug)->get();
         if($result->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],409);
+            return response()->json(['message' , 'These data can not be insert.'],400);
         }
 
         $query = Attributes::find($id);
@@ -181,7 +178,7 @@ class AttributeController extends Controller
         if(! is_null($query)){
 
             if($data == []){
-                return response()->json(['message' , 'nothing for update.'],422);
+                return response()->json(['message' , 'nothing for update.'],400);
             }else{
                 $Attribute = $query->update($data);
                 return response()->json($Attribute, 200);
@@ -199,25 +196,35 @@ class AttributeController extends Controller
      * @return response
      *
      * @OA\Delete(
-     * path="/Attribute",
-     * summary="delete the row of the Attributes that is determined",
-     * description="update name and slug by admin",
-     * tags={"Attributes"},
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="delete Attributes name and slug",
-     *    @OA\JsonContent(
-     *       required={"id"},
-     *       @OA\Property(property="id", type="string", format="id", example="1"),
-     *    ),
-     * ),
-     * @OA\Response(
-     *    response=422,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
-     *        )
-     *     )
+     *      path="/Attribute",
+     *      summary="delete the row of the Attributes that is determined",
+     *      description="update name and slug by admin",
+     *      tags={"Attributes"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="delete Attributes name and slug",
+     *          @OA\JsonContent(
+     *              required={"id"},
+     *              @OA\Property(property="id", type="string", format="id", example="1"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not_Found",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                     property="message",
+     *                     type="string"
+     *              ),
+     *          )
+     *      ),
      * ),
      *
      */
