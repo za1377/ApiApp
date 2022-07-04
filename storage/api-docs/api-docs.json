@@ -19,24 +19,38 @@
         }
     ],
     "paths": {
-        "/Show/Categories/Attribute": {
+        "/Category/Attributes": {
             "get": {
                 "tags": [
                     "AttributeCategories"
                 ],
                 "summary": "Show all of AttributeCategories",
                 "description": "display all of AttributeCategories",
-                "operationId": "3efdd5de844e6a26d913a372aa48f6ae",
+                "operationId": "e97d75781424baa638d73741f904a223",
                 "responses": {
                     "404": {
-                        "description": "Wrong credentials response",
+                        "description": "No Attribute Categories insert to the table.",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
-                                            "type": "string",
-                                            "example": "Not found."
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "show recordes of tables.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"
@@ -47,69 +61,14 @@
                 }
             }
         },
-        "/New/Categories/Attribute": {
-            "post": {
-                "tags": [
-                    "AttributeCategories"
-                ],
-                "summary": "insert the name of the AttributeCategories",
-                "description": "insert name and slug by admin",
-                "operationId": "261139ccea613f2e2ceeacee7b5f8bf3",
-                "requestBody": {
-                    "description": "Pass attribute categories name and slug",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "slug"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "location"
-                                    },
-                                    "slug": {
-                                        "type": "string",
-                                        "format": "slug",
-                                        "example": "/location"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, your data not supported."
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/Update/Categories/Attribute": {
+        "/Category/Attribute": {
             "put": {
                 "tags": [
                     "AttributeCategories"
                 ],
                 "summary": "update the name of the AttributeCategories that use in categories",
                 "description": "update name and slug by admin",
-                "operationId": "4b573bab1de9a57651ff6262f846acc5",
+                "operationId": "eecbfa137a381ff072c9839af19489fe",
                 "requestBody": {
                     "description": "Pass brands name and slug",
                     "required": true,
@@ -161,16 +120,96 @@
                         }
                     }
                 }
-            }
-        },
-        "/Delete/Categories/Attribute": {
+            },
+            "post": {
+                "tags": [
+                    "AttributeCategories"
+                ],
+                "summary": "insert the name of the AttributeCategories",
+                "description": "insert name and slug by admin",
+                "operationId": "d76b63d56995bb6a1f95628583efe233",
+                "requestBody": {
+                    "description": "Pass attribute categories name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "location"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "slug",
+                                        "example": "/location"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "delete": {
                 "tags": [
                     "AttributeCategories"
                 ],
                 "summary": "delete the row of the AttributeCategories that is determined",
                 "description": "update name and slug by admin",
-                "operationId": "2458d8111eb66cd420afa4354f239550",
+                "operationId": "b1e9fff9de9344a2cf763749df5ee79b",
                 "requestBody": {
                     "description": "delete brands name and slug",
                     "required": true,
@@ -208,18 +247,33 @@
                                 }
                             }
                         }
+                    },
+                    "211": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
-        "/Show/Attributes": {
+        "/Attributes": {
             "get": {
                 "tags": [
                     "Attributes"
                 ],
                 "summary": "Show all of Attribute",
                 "description": "display all of Attribute",
-                "operationId": "2a974dfb99ec5c95f6137f0e696effa0",
+                "operationId": "e7a91342255345392b70e7516202a1c8",
                 "responses": {
                     "404": {
                         "description": "Wrong credentials response",
@@ -240,69 +294,14 @@
                 }
             }
         },
-        "/New/Attributes": {
-            "post": {
-                "tags": [
-                    "Attributes"
-                ],
-                "summary": "insert the name of the Attributes that use in categories",
-                "description": "insert name and slug by admin",
-                "operationId": "d6f5a7bb698235737ac4a2874117f747",
-                "requestBody": {
-                    "description": "Pass Attributes name and slug",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "slug"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "sony"
-                                    },
-                                    "slug": {
-                                        "type": "string",
-                                        "format": "slug",
-                                        "example": "/sony"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, your data not supported."
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/Update/Attributes": {
+        "/Attribute": {
             "put": {
                 "tags": [
                     "Attributes"
                 ],
                 "summary": "update the name of the Attributes that use in categories",
                 "description": "update name and slug by admin",
-                "operationId": "55044f4fc72ffaf0510740553d468cbd",
+                "operationId": "cdd9a6e5b26d51eaa30ab0383e447b36",
                 "requestBody": {
                     "description": "Pass Attributes name and slug",
                     "required": true,
@@ -354,16 +353,67 @@
                         }
                     }
                 }
-            }
-        },
-        "/Delete/Attributes": {
+            },
+            "post": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "insert the name of the Attributes that use in categories",
+                "description": "insert name and slug by admin",
+                "operationId": "335e044feb2f1c8ef6f403240e049ca5",
+                "requestBody": {
+                    "description": "Pass Attributes name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "sony"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "slug",
+                                        "example": "/sony"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "delete": {
                 "tags": [
                     "Attributes"
                 ],
                 "summary": "delete the row of the Attributes that is determined",
                 "description": "update name and slug by admin",
-                "operationId": "32bfb208bc2f540e26f25e737e1e5ed9",
+                "operationId": "b209d8bee424cefb3a8792c6a62b2e35",
                 "requestBody": {
                     "description": "delete Attributes name and slug",
                     "required": true,
@@ -433,14 +483,14 @@
                 }
             }
         },
-        "Attributes/Types": {
+        "/New/Attributes/Types": {
             "post": {
                 "tags": [
                     "AttributesType"
                 ],
                 "summary": "insert the name of the AttributesType that use in categories",
                 "description": "insert name and slug by admin",
-                "operationId": "80e79b35540c67d7bbe30898c03dd7cf",
+                "operationId": "8e28f4d797a3c58476a5880ac2721276",
                 "requestBody": {
                     "description": "Pass AttributesType name and slug",
                     "required": true,
@@ -488,14 +538,47 @@
                 }
             }
         },
-        "/Show/Brands": {
-            "get": {
+        "/Update/Attributes/Types": {
+            "put": {
                 "tags": [
-                    "brands"
+                    "AttributesType"
                 ],
-                "summary": "Show all of brands",
-                "description": "display all of brands",
-                "operationId": "61384b30b630c5d6ac79ea6bfe9d0a5b",
+                "summary": "update the name of the AttributesType that use in categories",
+                "description": "update name and slug by admin",
+                "operationId": "6f159e7b7ebb995de57f7ec4e18f50be",
+                "requestBody": {
+                    "description": "Pass AttributesType name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "1"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "sumsung"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "slug",
+                                        "example": "/sumsung"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "404": {
                         "description": "Wrong credentials response",
@@ -516,14 +599,146 @@
                 }
             }
         },
-        "/New/Brands": {
+        "/Brands": {
+            "get": {
+                "tags": [
+                    "brands"
+                ],
+                "summary": "Show all of brands",
+                "description": "display all of brands",
+                "operationId": "890bd0a614962b7dbd5c82a806ab9522",
+                "responses": {
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Brand": {
+            "put": {
+                "tags": [
+                    "brands"
+                ],
+                "summary": "update the name of the brands that use in categories",
+                "description": "update name and slug by admin",
+                "operationId": "16bed87b5d6d011c57dca02b53c52f62",
+                "requestBody": {
+                    "description": "Pass brands name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "12"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "sumsung"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "slug",
+                                        "example": "/sumsung"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not_Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "update",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "brands"
                 ],
                 "summary": "insert the name of the brands that use in categories",
                 "description": "insert name and slug by admin",
-                "operationId": "87f3b59ad096868bae45887f1b4b98c4",
+                "operationId": "8a7a3edcda25800cbfc3cbb953b11347",
                 "requestBody": {
                     "description": "Pass brands name and slug",
                     "required": true,
@@ -567,61 +782,30 @@
                                 }
                             }
                         }
-                    }
-                }
-            }
-        },
-        "/Update/Brands": {
-            "put": {
-                "tags": [
-                    "brands"
-                ],
-                "summary": "update the name of the brands that use in categories",
-                "description": "update name and slug by admin",
-                "operationId": "94f03b3c826834ba8d124373be68b258",
-                "requestBody": {
-                    "description": "Pass brands name and slug",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "id",
-                                    "name",
-                                    "slug"
-                                ],
-                                "properties": {
-                                    "id": {
-                                        "type": "string",
-                                        "format": "id",
-                                        "example": "12"
-                                    },
-                                    "name": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "sumsung"
-                                    },
-                                    "slug": {
-                                        "type": "string",
-                                        "format": "slug",
-                                        "example": "/sumsung"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
+                    },
+                    "409": {
+                        "description": "conflict",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
-                                            "type": "string",
-                                            "example": "Sorry, your data not supported."
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"
@@ -630,16 +814,14 @@
                         }
                     }
                 }
-            }
-        },
-        "/Delete/Brands": {
+            },
             "delete": {
                 "tags": [
                     "brands"
                 ],
                 "summary": "delete the row of the brands that is determined",
                 "description": "update name and slug by admin",
-                "operationId": "28e57a8a8e8b2c0d702d366c11702e10",
+                "operationId": "f261fcdcdc26bb00b9bfe24f41a0cf8c",
                 "requestBody": {
                     "description": "delete brands name and slug",
                     "required": true,
@@ -662,8 +844,8 @@
                     }
                 },
                 "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
+                    "404": {
+                        "description": "Not_Found",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -677,18 +859,33 @@
                                 }
                             }
                         }
+                    },
+                    "200": {
+                        "description": "delete",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
-        "/Show/Categories": {
+        "/Categories": {
             "get": {
                 "tags": [
                     "categories"
                 ],
                 "summary": "Show all of categories",
                 "description": "display all of categories",
-                "operationId": "ac02bd6c4398608eebcc265eeecd3ff4",
+                "operationId": "0edd7b8cc8ea7e3b46afbc11407dcd4e",
                 "responses": {
                     "404": {
                         "description": "Wrong credentials response",
@@ -709,69 +906,14 @@
                 }
             }
         },
-        "/New/Categories": {
-            "post": {
-                "tags": [
-                    "categories"
-                ],
-                "summary": "insert the name of the categories",
-                "description": "insert name and slug by admin and if it has parent it's parent shloud insert too",
-                "operationId": "316aa4858838cad1ed3cadc073bc255d",
-                "requestBody": {
-                    "description": "Pass brands name and slug",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "slug"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "home"
-                                    },
-                                    "slug": {
-                                        "type": "string",
-                                        "format": "slug",
-                                        "example": "/home"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, your data not supported."
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/Update/Categories": {
+        "/Category": {
             "put": {
                 "tags": [
                     "categories"
                 ],
                 "summary": "update the name row of the categories table",
                 "description": "update name and slug and parent's id by admin",
-                "operationId": "a3443dc838c1da36d84fd8381bbeb293",
+                "operationId": "05ca8ba62cbcdb8398f4718916eaeedc",
                 "requestBody": {
                     "description": "Pass brands name and slug",
                     "required": true,
@@ -823,16 +965,67 @@
                         }
                     }
                 }
-            }
-        },
-        "/Delete/Categories": {
+            },
+            "post": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "insert the name of the categories",
+                "description": "insert name and slug by admin and if it has parent it's parent shloud insert too",
+                "operationId": "1fb7f67fcd72f3d4ec70c5aa482acc5d",
+                "requestBody": {
+                    "description": "Pass brands name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "home"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "slug",
+                                        "example": "/home"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "delete": {
                 "tags": [
                     "categories"
                 ],
                 "summary": "delete the row of the brands that is determined",
                 "description": "update name and slug by admin",
-                "operationId": "7c54f60515526a9168b476c4ae593327",
+                "operationId": "bf6d0a005d317a4563162978e3c2c74a",
                 "requestBody": {
                     "description": "delete categories row from it's table",
                     "required": true,
@@ -877,36 +1070,6 @@
     },
     "components": {
         "responses": {
-            "208": {
-                "description": "OK",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "209": {
-                "description": "OK",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
             "210": {
                 "description": "OK",
                 "content": {
@@ -915,21 +1078,6 @@
                             "properties": {
                                 "message": {
                                     "type": "boolean"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "211": {
-                "description": "OK",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -975,98 +1123,6 @@
                             "properties": {
                                 "message": {
                                     "type": "boolean"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "200": {
-                "description": "OK",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "409": {
-                "description": "conflict",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "string",
-                                    "example": "These data can not be insert."
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "201": {
-                "description": "OK",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "404": {
-                "description": "Not_Found",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "string",
-                                    "example": "Sorry, your data not found."
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "202": {
-                "description": "OK",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "boolean"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "203": {
-                "description": "OK",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "type": "string"
                                 }
                             },
                             "type": "object"
