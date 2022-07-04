@@ -34,7 +34,7 @@ class BrandsController extends Controller
      *      ),
      *      @OA\Response(
      *         response=200,
-     *         description="OK",
+     *         description="success",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                     property="message",
@@ -74,17 +74,10 @@ class BrandsController extends Controller
      *              @OA\Property(property="slug", type="string", format="slug", example="/sony"),
      *          ),
      *      ),
-     *      @OA\Response(
-     *          response=422,
-     *          description="Wrong credentials response",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
-     *          )
-     *      ),
      *
      *      @OA\Response(
-     *          response=409,
-     *          description="conflict",
+     *          response=400,
+     *         description="Bad Request",
      *          @OA\JsonContent(
      *              @OA\Property(property="message", type="string")
      *          )
@@ -92,7 +85,7 @@ class BrandsController extends Controller
      *
      *      @OA\Response(
      *          response=201,
-     *          description="created",
+     *          description="object_created",
      *          @OA\JsonContent(
      *              @OA\Property(property="message", type="string")
      *          )
@@ -104,17 +97,17 @@ class BrandsController extends Controller
 
         $validated = $request->validated();
 
-            $matchThese = ['slug' => $request->slug];
-            $old_brand = Brands::where($matchThese)->get();
-            if($old_brand->count() > 0){
-                return response()->json(['message' , 'These data can not be insert.'],409);
-            }else{
-                $brand = Brands::create([
-                    "name" => $request->name,
-                    "slug" => $request->slug]);
-                    $id = $brand->id;
-                    return response()->json($brand, 201);
-            }
+        $matchThese = ['slug' => $request->slug];
+        $old_brand = Brands::where($matchThese)->get();
+        if($old_brand->count() > 0){
+            return response()->json(['message' , 'These data can not be insert.'],400);
+        }else{
+            $brand = Brands::create([
+                "name" => $request->name,
+                "slug" => $request->slug]);
+                $id = $brand->id;
+                return response()->json($brand, 201);
+        }
 
     }
 
@@ -156,7 +149,7 @@ class BrandsController extends Controller
      *
      *      @OA\Response(
      *         response=200,
-     *         description="update",
+     *         description="success",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                     property="message",
@@ -228,7 +221,7 @@ class BrandsController extends Controller
      *      ),
      *      @OA\Response(
      *          response=200,
-     *          description="delete",
+     *          description="success",
      *          @OA\JsonContent(
      *              @OA\Property(
      *                     property="message",
