@@ -18,23 +18,22 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Get(
-     * path="/Category/Attributes",
-     * summary="Show all of AttributeCategories",
-     * description="display all of AttributeCategories",
-     * tags={"AttributeCategories"},
-
-     * @OA\Response(
-     *    response=404,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Not found.")
-     *        )
-     *     )
-     * ),
+     *      path="/Category/Attributes",
+     *      summary="Show all of AttributeCategories",
+     *      description="display all of AttributeCategories",
+     *      tags={"AttributeCategories"},
      *
-     * @OA\Response(
-     *         response=208,
-     *         description="OK",
+     *      @OA\Response(
+     *          response=404,
+     *          description="No Attribute Categories insert to the table.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *     ),
+     *
+     *      @OA\Response(
+     *         response=200,
+     *         description="success",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                     property="message",
@@ -42,13 +41,15 @@ class AttributeCategoriesController extends Controller
      *                  ),
      *         )
      *     )
+     * ),
+     *
      *
      */
     public function show(){
         $cate_attr = AttributeCategories::all();
 
         if($cate_attr->count() <= 0){
-            return response()->json(['massege' => 'not found.'], 404);
+            return response()->json(['massege' => 'Table is empty.'], 404);
         }else{
             return response()->json($cate_attr, 200);
         }
@@ -61,60 +62,56 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Post(
-     * path="/Category/Attribute",
-     * summary="insert the name of the AttributeCategories",
-     * description="insert name and slug by admin",
-     * tags={"AttributeCategories"},
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="Pass attribute categories name and slug",
-     *    @OA\JsonContent(
-     *       required={"name","slug"},
-     *       @OA\Property(property="name", type="string", format="name", example="location"),
-     *       @OA\Property(property="slug", type="string", format="slug", example="/location"),
-     *    ),
-     * ),
-     * @OA\Response(
-     *    response=422,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
-     *        )
-     *     )
-     * ),
-     * @OA\Response(
-     *         response=209,
-     *         description="OK",
+     *      path="/Category/Attribute",
+     *      summary="insert the name of the AttributeCategories",
+     *      description="insert name and slug by admin",
+     *      tags={"AttributeCategories"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass attribute categories name and slug",
+     *          @OA\JsonContent(
+     *              required={"name","slug"},
+     *              @OA\Property(property="name", type="string", format="name", example="location"),
+     *              @OA\Property(property="slug", type="string", format="slug", example="/location"),
+     *          ),
+     *      ),
+     *
+     *      @OA\Response(
+     *         response=400,
+     *         description="Bad Request",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                     property="message",
      *                     type="string"
-     *                  ),
+     *             ),
      *         )
-     *     )
+     *      ),
+     *      @OA\Response(
+     *         response=201,
+     *         description="object_created",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                     property="message",
+     *                     type="string"
+     *             ),
+     *         )
+     *      )
+     * ),
      *
      */
     public function insert(Request  $request){
 
-        $validated = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'slug' => 'required',
-        ]);
+        $validated = $request->validated();
 
-        if ($validated->fails()) {
-            return response()->json(['message' , 'Sorry, your data not supported'],422);
+        $matchThese = ['slug' => $request->slug];
+        $old_cate_attr = AttributeCategories::where($matchThese)->get();
+        if($old_cate_attr->count() > 0){
+            return response()->json(['message' , 'These data can not be insert.'],400);
         }else{
-            $matchThese = ['slug' => $request->slug];
-            $old_cate_attr = AttributeCategories::where($matchThese)->get();
-            if($old_cate_attr->count() > 0){
-                return response()->json(['message' , 'These data can not be insert.'],409);
-            }else{
-                $cate_attr = AttributeCategories::create([
-                    "name" => $request->name,
-                    "slug" => $request->slug]);
-                return response()->json($cate_attr, 200);
-            }
-
+            $cate_attr = AttributeCategories::create([
+                "name" => $request->name,
+                "slug" => $request->slug]);
+            return response()->json($cate_attr, 201);
         }
 
     }
@@ -126,39 +123,45 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Put(
-     * path="/Category/Attribute",
-     * summary="update the name of the AttributeCategories that use in categories",
-     * description="update name and slug by admin",
-     * tags={"AttributeCategories"},
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="Pass brands name and slug",
-     *    @OA\JsonContent(
-     *       required={"id","name","slug"},
-     *       @OA\Property(property="id", type="string", format="id", example="2"),
-     *       @OA\Property(property="name", type="string", format="name", example="weight"),
-     *       @OA\Property(property="slug", type="string", format="slug", example="/weight"),
-     *    ),
-     * ),
-     * @OA\Response(
-     *    response=422,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
-     *        )
-     *     )
-     * ),
-     *
-     * @OA\Response(
-     *         response=210,
-     *         description="OK",
+     *      path="/Category/Attribute",
+     *      summary="update the name of the AttributeCategories that use in categories",
+     *      description="update name and slug by admin",
+     *      tags={"AttributeCategories"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass brands name and slug",
+     *          @OA\JsonContent(
+     *              required={"id","name","slug"},
+     *              @OA\Property(property="id", type="string", format="id", example="2"),
+     *              @OA\Property(property="name", type="string", format="name", example="weight"),
+     *              @OA\Property(property="slug", type="string", format="slug", example="/weight"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad_request",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *      ),@OA\Response(
+     *          response=404,
+     *          description="Not_found",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=200,
+     *         description="success",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                     property="message",
      *                     type="boolean"
-     *                  ),
+     *             ),
      *         )
-     *     ),
+     *      ),
+     * ),
+     *
      *
      */
     public function update(Request  $request){
@@ -174,7 +177,7 @@ class AttributeCategoriesController extends Controller
 
         $result = AttributeCategories::where('slug' , $request->slug)->get();
         if($result->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],409);
+            return response()->json(['message' , 'These data can not be insert.'],400);
         }
 
         $query = AttributeCategories::find($id);
@@ -182,7 +185,7 @@ class AttributeCategoriesController extends Controller
         if(! is_null($query)){
 
             if($data == []){
-                return response()->json(['message' , 'nothing for update.'],422);
+                return response()->json(['message' , 'nothing for update.'],400);
             }else{
                 $cate_attr = $query->update($data);
                 return response()->json($cate_attr, 200);
@@ -200,36 +203,36 @@ class AttributeCategoriesController extends Controller
      * @return response
      *
      * @OA\Delete(
-     * path="/Category/Attribute",
-     * summary="delete the row of the AttributeCategories that is determined",
-     * description="update name and slug by admin",
-     * tags={"AttributeCategories"},
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="delete brands name and slug",
-     *    @OA\JsonContent(
-     *       required={"id"},
-     *       @OA\Property(property="id", type="string", format="id", example="1"),
-     *    ),
-     * ),
-     * @OA\Response(
-     *    response=422,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
-     *        )
-     *     )
-     * ),
-     *  @OA\Response(
-     *         response=211,
-     *         description="OK",
+     *      path="/Category/Attribute",
+     *      summary="delete the row of the AttributeCategories that is determined",
+     *      description="update name and slug by admin",
+     *      tags={"AttributeCategories"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="delete brands name and slug",
+     *          @OA\JsonContent(
+     *              required={"id"},
+     *              @OA\Property(property="id", type="string", format="id", example="1"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not_Found",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=200,
+     *         description="success",
      *         @OA\JsonContent(
      *             @OA\Property(
      *                     property="message",
      *                     type="string"
-     *                  ),
+     *             ),
      *         )
-     *     ),
+     *      ),
+     * ),
      *
      */
     public function delete(Request  $request){
