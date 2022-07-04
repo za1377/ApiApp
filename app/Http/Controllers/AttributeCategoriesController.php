@@ -71,8 +71,8 @@ class AttributeCategoriesController extends Controller
      *          description="Pass attribute categories name and slug",
      *          @OA\JsonContent(
      *              required={"name","slug"},
-     *              @OA\Property(property="name", type="string", format="name", example="location"),
-     *              @OA\Property(property="slug", type="string", format="slug", example="/location"),
+     *              @OA\Property(property="name", type="string", format="name", example="property"),
+     *              @OA\Property(property="slug", type="string", format="slug", example="/property"),
      *          ),
      *      ),
      *
@@ -133,8 +133,8 @@ class AttributeCategoriesController extends Controller
      *          @OA\JsonContent(
      *              required={"id","name","slug"},
      *              @OA\Property(property="id", type="string", format="id", example="2"),
-     *              @OA\Property(property="name", type="string", format="name", example="weight"),
-     *              @OA\Property(property="slug", type="string", format="slug", example="/weight"),
+     *              @OA\Property(property="name", type="string", format="name", example="Possibilities"),
+     *              @OA\Property(property="slug", type="string", format="slug", example="/Possibilities"),
      *          ),
      *      ),
      *      @OA\Response(

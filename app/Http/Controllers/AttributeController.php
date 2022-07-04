@@ -69,8 +69,8 @@ class AttributeController extends Controller
      *          description="Pass Attributes name and slug",
      *          @OA\JsonContent(
      *              required={"name","slug"},
-     *              @OA\Property(property="name", type="string", format="name", example="sony"),
-     *              @OA\Property(property="slug", type="string", format="slug", example="/sony"),
+     *              @OA\Property(property="name", type="string", format="name", example="Warehouse"),
+     *              @OA\Property(property="slug", type="string", format="slug", example="/Warehouse"),
      *          ),
      *      ),
      *      @OA\Response(
@@ -124,8 +124,8 @@ class AttributeController extends Controller
      *          @OA\JsonContent(
      *              required={"id","name","slug"},
      *              @OA\Property(property="id", type="string", format="id", example="1"),
-     *              @OA\Property(property="name", type="string", format="name", example="sumsung"),
-     *              @OA\Property(property="slug", type="string", format="slug", example="/sumsung"),
+     *              @OA\Property(property="name", type="string", format="name", example="elevator"),
+     *              @OA\Property(property="slug", type="string", format="slug", example="/elevator"),
      *          ),
      *      ),
      *      @OA\Response(

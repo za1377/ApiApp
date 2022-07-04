@@ -89,12 +89,12 @@
                                     "name": {
                                         "type": "string",
                                         "format": "name",
-                                        "example": "weight"
+                                        "example": "Possibilities"
                                     },
                                     "slug": {
                                         "type": "string",
                                         "format": "slug",
-                                        "example": "/weight"
+                                        "example": "/Possibilities"
                                     }
                                 },
                                 "type": "object"
@@ -171,12 +171,12 @@
                                     "name": {
                                         "type": "string",
                                         "format": "name",
-                                        "example": "location"
+                                        "example": "property"
                                     },
                                     "slug": {
                                         "type": "string",
                                         "format": "slug",
-                                        "example": "/location"
+                                        "example": "/property"
                                     }
                                 },
                                 "type": "object"
@@ -350,12 +350,12 @@
                                     "name": {
                                         "type": "string",
                                         "format": "name",
-                                        "example": "sumsung"
+                                        "example": "elevator"
                                     },
                                     "slug": {
                                         "type": "string",
                                         "format": "slug",
-                                        "example": "/sumsung"
+                                        "example": "/elevator"
                                     }
                                 },
                                 "type": "object"
@@ -434,12 +434,12 @@
                                     "name": {
                                         "type": "string",
                                         "format": "name",
-                                        "example": "sony"
+                                        "example": "Warehouse"
                                     },
                                     "slug": {
                                         "type": "string",
                                         "format": "slug",
-                                        "example": "/sony"
+                                        "example": "/Warehouse"
                                     }
                                 },
                                 "type": "object"
