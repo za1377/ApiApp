@@ -585,6 +585,94 @@
             }
         },
         "/Attribute/Type": {
+            "put": {
+                "tags": [
+                    "AttributesTypes"
+                ],
+                "summary": "update the name of the AttributesTypes that use in categories",
+                "description": "update name and slug by admin",
+                "operationId": "3ace88455fbc573e5c627de6ea220cea",
+                "requestBody": {
+                    "description": "Pass brands name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "1"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "checkbox"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "slug",
+                                        "example": "/checkbox"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not_Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "AttributesType"
@@ -606,12 +694,12 @@
                                     "name": {
                                         "type": "string",
                                         "format": "name",
-                                        "example": "sony"
+                                        "example": "radiobutton"
                                     },
                                     "slug": {
                                         "type": "string",
                                         "format": "slug",
-                                        "example": "/sony"
+                                        "example": "/radiobutton"
                                     }
                                 },
                                 "type": "object"

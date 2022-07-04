@@ -64,6 +64,8 @@ Route::controller('App\Http\Controllers\AttributeTypeController')->group(functio
 
     Route::get('/Attribute/Types', 'show');
     Route::post('/Attribute/Type', 'insert');
+    Route::put('/Attribute/Type', 'update');
+
 });
 
 // Route::middleware('Ensure:sanctum')->get('/', function () {

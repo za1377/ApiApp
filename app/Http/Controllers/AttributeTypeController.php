@@ -69,8 +69,8 @@ class AttributeTypeController extends Controller
      *          description="Pass AttributesType name and slug",
      *          @OA\JsonContent(
      *              required={"name","slug"},
-     *              @OA\Property(property="name", type="string", format="name", example="sony"),
-     *              @OA\Property(property="slug", type="string", format="slug", example="/sony"),
+     *              @OA\Property(property="name", type="string", format="name", example="radiobutton"),
+     *              @OA\Property(property="slug", type="string", format="slug", example="/radiobutton"),
      *          ),
      *      ),
      *      @OA\Response(
@@ -105,6 +105,88 @@ class AttributeTypeController extends Controller
                 "name" => $request->name,
                 "slug" => $request->slug]);
             return response()->json($attr_type, 201);
+        }
+    }
+
+    /**
+     * update the specefic data of AttributesType's table
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return response
+     *
+     * @OA\Put(
+     *      path="/Attribute/Type",
+     *      summary="update the name of the AttributesTypes that use in categories",
+     *      description="update name and slug by admin",
+     *      tags={"AttributesTypes"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass brands name and slug",
+     *          @OA\JsonContent(
+     *              required={"id","name","slug"},
+     *              @OA\Property(property="id", type="string", format="id", example="1"),
+     *              @OA\Property(property="name", type="string", format="name", example="checkbox"),
+     *              @OA\Property(property="slug", type="string", format="slug", example="/checkbox"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not_Found",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string")
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *         response=200,
+     *         description="success",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                     property="message",
+     *                     type="boolean"
+     *             ),
+     *         )
+     *      ),
+     * ),
+     *
+     *
+     */
+    public function update(Request  $request){
+        $id = intval($request->id);
+        $data = array();
+
+        if($request->name != ""){
+            $data += ['name' => $request->name];
+        }
+        if($request->slug != ""){
+            $data += ['slug' => $request->slug];
+        }
+
+        $result = AttributesTypes::where('slug' , $request->slug)->get();
+        if($result->count() > 0){
+            return response()->json(['message' , 'These data can not be insert.'],400);
+        }
+
+        $query = AttributesTypes::find($id);
+
+        if(! is_null($query)){
+
+            if($data == []){
+                return response()->json(['message' , 'nothing for update.'],400);
+            }else{
+                $attr_type = $query->update($data);
+                return response()->json($attr_type, 200);
+            }
+
+        }else{
+            return response()->json(['message' => 'Sorry, your data not found.'] , 404);
         }
     }
 }
