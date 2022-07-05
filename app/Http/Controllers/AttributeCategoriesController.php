@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\AttributeCategoryRequest;
+use App\Http\Resources\AttributeCategoriesResource;
 
 class AttributeCategoriesController extends Controller
 {
@@ -25,7 +27,7 @@ class AttributeCategoriesController extends Controller
      *
      *      @OA\Response(
      *          response=404,
-     *          description="No Attribute Categories insert to the table.",
+     *          description="Not_Found",
      *          @OA\JsonContent(
      *              @OA\Property(property="message", type="string")
      *          )
@@ -51,7 +53,7 @@ class AttributeCategoriesController extends Controller
         if($cate_attr->count() <= 0){
             return response()->json(['massege' => 'Table is empty.'], 404);
         }else{
-            return response()->json($cate_attr, 200);
+            return AttributeCategoriesResource::collection(Brands::all());
         }
     }
 
@@ -111,7 +113,7 @@ class AttributeCategoriesController extends Controller
             $cate_attr = AttributeCategories::create([
                 "name" => $request->name,
                 "slug" => $request->slug]);
-            return response()->json($cate_attr, 201);
+            return new AttributeCategoriesResource($cate_attr);
         }
 
     }
@@ -188,7 +190,7 @@ class AttributeCategoriesController extends Controller
                 return response()->json(['message' , 'nothing for update.'],400);
             }else{
                 $cate_attr = $query->update($data);
-                return response()->json($cate_attr, 200);
+                return new AttributeCategoriesResource(AttributeCategories::find($id));
             }
 
         }else{

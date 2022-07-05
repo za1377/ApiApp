@@ -29,7 +29,7 @@
                 "operationId": "e97d75781424baa638d73741f904a223",
                 "responses": {
                     "404": {
-                        "description": "No Attribute Categories insert to the table.",
+                        "description": "Not_Found",
                         "content": {
                             "application/json": {
                                 "schema": {
