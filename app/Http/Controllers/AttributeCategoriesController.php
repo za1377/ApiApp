@@ -53,7 +53,7 @@ class AttributeCategoriesController extends Controller
         if($cate_attr->count() <= 0){
             return response()->json(['massege' => 'Table is empty.'], 404);
         }else{
-            return AttributeCategoriesResource::collection(Brands::all());
+            return AttributeCategoriesResource::collection($cate_attr);
         }
     }
 
@@ -101,7 +101,7 @@ class AttributeCategoriesController extends Controller
      * ),
      *
      */
-    public function insert(Request  $request){
+    public function insert(AttributeCategoryRequest  $request){
 
         $validated = $request->validated();
 
