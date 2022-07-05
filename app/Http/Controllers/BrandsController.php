@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\BrandRequest;
-use App\Http\Resources\BrandCollection;
+use App\Http\Resources\BrandResource;
 
 class BrandsController extends Controller
 {
@@ -51,7 +51,7 @@ class BrandsController extends Controller
         if($brands->count() <= 0){
             return response()->json(['massege' => 'not found.'], 404);
         }else{
-            return response()->json($brands, 200);
+            return BrandResource::collection(Brands::all());
         }
     }
     /**
@@ -95,7 +95,7 @@ class BrandsController extends Controller
      */
     public function insert(BrandRequest  $request){
 
-        $validated = $request->validated();
+        // $request->validated();
 
         $matchThese = ['slug' => $request->slug];
         $old_brand = Brands::where($matchThese)->get();
@@ -105,8 +105,8 @@ class BrandsController extends Controller
             $brand = Brands::create([
                 "name" => $request->name,
                 "slug" => $request->slug]);
-                $id = $brand->id;
-                return response()->json($brand, 201);
+
+                return new BrandResource($brand);
         }
 
     }
@@ -185,7 +185,7 @@ class BrandsController extends Controller
                 return response()->json(['message' , 'nothing for update.'],400);
             }else{
                 $brand = $query->update($data);
-                return response()->json($brand, 200);
+                return new BrandResource(Brands::find($id));
             }
 
         }else{
