@@ -741,6 +741,48 @@
                 }
             }
         },
+        "/Attribute/Values": {
+            "get": {
+                "tags": [
+                    "AttributesValues"
+                ],
+                "summary": "Show all of AttributesValue",
+                "description": "display all of AttributesValues",
+                "operationId": "c8c08dcbde2d9b046572bdadddfa6e59",
+                "responses": {
+                    "404": {
+                        "description": "Not_Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Brands": {
             "get": {
                 "tags": [

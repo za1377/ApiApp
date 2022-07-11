@@ -68,6 +68,12 @@ Route::controller('App\Http\Controllers\AttributeTypeController')->group(functio
 
 });
 
+Route::controller('App\Http\Controllers\AttributeTypeController')->group(function () {
+
+    Route::get('/Attribute/Values', 'show');
+
+});
+
 // Route::middleware('Ensure:sanctum')->get('/', function () {
 //     return response()->json(['name' => "home"]);
 // });
