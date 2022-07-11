@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\AttributeRequest;
+use App\Http\Resources\AttributeResource;
 
 class AttributeController extends Controller
 {
@@ -49,7 +51,7 @@ class AttributeController extends Controller
         if($Attributes->count() <= 0){
             return response()->json(['massege' => 'not found.'], 404);
         }else{
-            return response()->json($Attributes, 200);
+            return AttributeResource::collection(Attributes::all());
         }
     }
 
@@ -91,7 +93,7 @@ class AttributeController extends Controller
      * ),
      *
      */
-    public function insert(Request  $request){
+    public function insert(AttributeRequest  $request){
 
         $validated = $request->validated();
 
@@ -103,7 +105,7 @@ class AttributeController extends Controller
             $Attribute = Attributes::create([
                 "name" => $request->name,
                 "slug" => $request->slug]);
-            return response()->json($Attribute, 201);
+            return new AttributeResource($Attribute);
         }
     }
 
@@ -181,7 +183,7 @@ class AttributeController extends Controller
                 return response()->json(['message' , 'nothing for update.'],400);
             }else{
                 $Attribute = $query->update($data);
-                return response()->json($Attribute, 200);
+                return new AttributeResource(Attributes::find($id));
             }
 
         }else{
