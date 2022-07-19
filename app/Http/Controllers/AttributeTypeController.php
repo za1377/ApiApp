@@ -203,7 +203,7 @@ class AttributeTypeController extends Controller
      *      tags={"AttributesTypes"},
      *      @OA\RequestBody(
      *          required=true,
-     *          description="delete brands name and slug",
+     *          description="delete AttributesTypes name and slug",
      *          @OA\JsonContent(
      *              required={"id"},
      *              @OA\Property(property="id", type="string", format="id", example="1"),
