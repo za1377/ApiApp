@@ -47,6 +47,7 @@ class SanctumController extends Controller {
      */
     public function logIn(Request $request){
 
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',
             'password' => 'required',
@@ -60,6 +61,10 @@ class SanctumController extends Controller {
             return response()->json([
                 "token" =>$user->createToken('token')->plainTextToken
             ], 200);
+        }else{
+            return response()->json([
+                "token" => 'nothing'
+            ], 422);
         }
     }
 
@@ -68,6 +73,7 @@ class SanctumController extends Controller {
      *      path="/home",
      *      summary="home",
      *      description="Lsdsdsdsd",
+     *      security={ {"sanctum": {} }},
      *      operationId="sdsdsd",
      *      tags={"home"},
      *      @OA\Response(

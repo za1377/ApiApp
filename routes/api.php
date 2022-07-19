@@ -15,14 +15,9 @@ use App\Http\Controllers\SanctumController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 
-Route::middleware('auth:sanctum')->get('/home', 'App\Http\Controllers\SanctumController@home');
-// Route::post('/login',function () {
-//     return response()->json(["message" => "login route"], 200);
-// });
+Route::get('/home', 'App\Http\Controllers\SanctumController@home')->middleware('auth:sanctum');
+
 
 Route::post('/login', 'App\Http\Controllers\SanctumController@logIn');
 
