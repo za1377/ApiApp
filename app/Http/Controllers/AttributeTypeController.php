@@ -189,4 +189,55 @@ class AttributeTypeController extends Controller
             return response()->json(['message' => 'Sorry, your data not found.'] , 404);
         }
     }
+
+    /**
+     * delete the specefic data of brands table
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return response
+     *
+     * @OA\Delete(
+     *      path="/Attribute/Type",
+     *      summary="delete the row of the AttributesTypes that is determined",
+     *      description="delete name and slug by admin",
+     *      tags={"AttributesTypes"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="delete brands name and slug",
+     *          @OA\JsonContent(
+     *              required={"id"},
+     *              @OA\Property(property="id", type="string", format="id", example="1"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not_Found",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Sorry, your data not supported.")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                     property="message",
+     *                     type="string"
+     *              ),
+     *          )
+     *      ),
+     * ),
+     *
+     *
+     */
+    public function delete(Request  $request){
+        $id = intval($request->id);
+        $attr_type = AttributesTypes::where('id' , $id);
+        if($attr_type->count() > 0){
+            $attr_type->delete();
+            return response()->json(["message" => "delete"], 200);
+        }else{
+            return response()->json(["message" => "not found"], 404);
+        }
+    }
 }
