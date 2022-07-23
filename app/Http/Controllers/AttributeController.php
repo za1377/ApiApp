@@ -95,18 +95,10 @@ class AttributeController extends Controller
      */
     public function insert(AttributeRequest  $request){
 
-        $validated = $request->validated();
-
-        $matchThese = ['slug' => $request->slug];
-        $old_Attribute = Attributes::where($matchThese)->get();
-        if($old_Attribute->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],400);
-        }else{
-            $Attribute = Attributes::create([
-                "name" => $request->name,
-                "slug" => $request->slug]);
-            return new AttributeResource($Attribute);
-        }
+        $Attribute = Attributes::create([
+            "name" => $request->name,
+            "slug" => $request->slug]);
+        return new AttributeResource($Attribute);
     }
 
     /**
