@@ -24,8 +24,8 @@ class AttributeCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'slug' => 'required',
+            'name' => 'required|string|unique:attribute_categories,name',
+            'slug' => 'required|unique:attribute_categories,slug',
         ];
     }
 

@@ -24,8 +24,8 @@ class AttributeTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'slug' => 'required',
+            'name' => 'required|string|unique:attributes_types,name',
+            'slug' => 'required|unique:attributes_types,slug',
         ];
     }
 

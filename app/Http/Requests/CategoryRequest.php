@@ -24,8 +24,8 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'slug' => 'required',
+            'name' => 'required|string|unique:categories,name',
+            'slug' => 'required|unique:categories,slug',
             'parent_id' => 'nullable|integer',
         ];
     }
