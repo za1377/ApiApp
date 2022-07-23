@@ -103,18 +103,12 @@ class AttributeCategoriesController extends Controller
      */
     public function insert(AttributeCategoryRequest  $request){
 
-        $validated = $request->validated();
 
-        $matchThese = ['slug' => $request->slug];
-        $old_cate_attr = AttributeCategories::where($matchThese)->get();
-        if($old_cate_attr->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],400);
-        }else{
-            $cate_attr = AttributeCategories::create([
-                "name" => $request->name,
-                "slug" => $request->slug]);
-            return new AttributeCategoriesResource($cate_attr);
-        }
+        $cate_attr = AttributeCategories::create([
+            "name" => $request->name,
+            "slug" => $request->slug]);
+        return new AttributeCategoriesResource($cate_attr);
+
 
     }
 
