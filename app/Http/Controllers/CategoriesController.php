@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\CategoryRequest;
+use App\Http\Resources\CategoryResource;
 
 class CategoriesController extends Controller
 {
@@ -48,7 +50,7 @@ class CategoriesController extends Controller
         if($category->count() <= 0){
             return response()->json(['massege' => 'not found.'], 404);
         }else{
-            return response()->json($category, 200);
+            return CategoryResource::collection(categories::all());
         }
     }
 
@@ -90,31 +92,13 @@ class CategoriesController extends Controller
      * ),
      *
      */
-    public function insert(Request  $request){
+    public function insert(CategoryRequest  $request){
+        $category = categories::create([
+            "name" => $request->name,
+            "slug" => $request->slug,
+            "parent_id" => $request->parent_id]);
+        return new CategoryResource($category);
 
-        $validated = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'slug' => 'required',
-            'parent_id' => 'nullable|integer',
-        ]);
-
-        if ($validated->fails()) {
-            return response()->json(['message' , 'Sorry, your data not supported'],400);
-
-        }else{
-            $matchThese = ['slug' => $request->slug];
-            $old_category = categories::where($matchThese)->get();
-            if($old_category->count() > 0){
-                return response()->json(['message' , 'These data can not be insert.'],400);
-            }else{
-                $category = categories::create([
-                    "name" => $request->name,
-                    "slug" => $request->slug,
-                    "parent_id" => $request->parent_id]);
-                return response()->json($category, 200);
-            }
-
-        }
     }
 
     /**
@@ -193,7 +177,7 @@ class CategoriesController extends Controller
                 return response()->json(['message' , 'nothing for update.'],400);
             }else{
                 $category = $query->update($data);
-                return response()->json($category, 200);
+                return new CategoryResource(categories::find($id));
             }
 
         }else{
