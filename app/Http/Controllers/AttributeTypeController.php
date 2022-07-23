@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\AttributeTypeRequest;
+use App\Http\Resources\AttributeTypeResource;
 
 class AttributeTypeController extends Controller
 {
@@ -49,7 +51,7 @@ class AttributeTypeController extends Controller
         if($attr_type->count() <= 0){
             return response()->json(['massege' => 'not found.'], 404);
         }else{
-            return response()->json($attr_type, 200);
+            return AttributeTypeResource::collection(AttributesTypes::all());
         }
     }
 
@@ -92,20 +94,12 @@ class AttributeTypeController extends Controller
      *
      *
      */
-    public function insert(Request  $request){
+    public function insert(AttributeTypeRequest  $request){
+        $attr_type = AttributesTypes::create([
+            "name" => $request->name,
+            "slug" => $request->slug]);
+        return new AttributeTypeResource($attr_type);
 
-        $validated = $request->validated();
-
-        $matchThese = ['slug' => $request->slug];
-        $old_attr_type = AttributesTypes::where($matchThese)->get();
-        if($old_attr_type->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],400);
-        }else{
-            $attr_type = AttributesTypes::create([
-                "name" => $request->name,
-                "slug" => $request->slug]);
-            return response()->json($attr_type, 201);
-        }
     }
 
     /**
@@ -182,7 +176,7 @@ class AttributeTypeController extends Controller
                 return response()->json(['message' , 'nothing for update.'],400);
             }else{
                 $attr_type = $query->update($data);
-                return response()->json($attr_type, 200);
+                return new AttributeTypeResource(AttributesTypes::find($id));
             }
 
         }else{
