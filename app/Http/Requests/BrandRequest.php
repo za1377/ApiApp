@@ -24,8 +24,8 @@ class BrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:bands,name',
-            'slug' => 'required|unique:bands,slug',
+            'name' => 'required|string|unique:brands,name',
+            'slug' => 'required|unique:brands,slug',
         ];
     }
 
