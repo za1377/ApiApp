@@ -95,17 +95,11 @@ class BrandsController extends Controller
      */
     public function insert(BrandRequest  $request){
 
-        $matchThese = ['slug' => $request->slug];
-        $old_brand = Brands::where($matchThese)->get();
-        if($old_brand->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],400);
-        }else{
-            $brand = Brands::create([
-                "name" => $request->name,
-                "slug" => $request->slug]);
+        $brand = Brands::create([
+            "name" => $request->name,
+            "slug" => $request->slug]);
 
-            return new BrandResource($brand);
-        }
+        return new BrandResource($brand);
 
     }
 
