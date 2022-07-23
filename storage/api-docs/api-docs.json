@@ -587,7 +587,7 @@
         "/Attribute/Type": {
             "put": {
                 "tags": [
-                    "AttributesTypes"
+                    "AttributesType"
                 ],
                 "summary": "update the name of the AttributesTypes that use in categories",
                 "description": "update name and slug by admin",
@@ -742,13 +742,13 @@
             },
             "delete": {
                 "tags": [
-                    "AttributesTypes"
+                    "AttributesType"
                 ],
                 "summary": "delete the row of the AttributesTypes that is determined",
                 "description": "delete name and slug by admin",
                 "operationId": "43f036cf377c662a10e367b8b2096301",
                 "requestBody": {
-                    "description": "delete brands name and slug",
+                    "description": "delete AttributesTypes name and slug",
                     "required": true,
                     "content": {
                         "application/json": {

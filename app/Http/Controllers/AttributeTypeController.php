@@ -112,7 +112,7 @@ class AttributeTypeController extends Controller
      *      path="/Attribute/Type",
      *      summary="update the name of the AttributesTypes that use in categories",
      *      description="update name and slug by admin",
-     *      tags={"AttributesTypes"},
+     *      tags={"AttributesType"},
      *      @OA\RequestBody(
      *          required=true,
      *          description="Pass brands name and slug",
@@ -194,7 +194,7 @@ class AttributeTypeController extends Controller
      *      path="/Attribute/Type",
      *      summary="delete the row of the AttributesTypes that is determined",
      *      description="delete name and slug by admin",
-     *      tags={"AttributesTypes"},
+     *      tags={"AttributesType"},
      *      @OA\RequestBody(
      *          required=true,
      *          description="delete AttributesTypes name and slug",
