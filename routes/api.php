@@ -64,7 +64,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::controller('App\Http\Controllers\AttributeTypeController')->group(function () {
 
         Route::get('/Attribute/Values', 'show');
-
+        Route::post('/Attribute/Value', 'insert');
+        Route::put('/Attribute/Value', 'update');
+        Route::delete('/Attribute/Value', 'delete');
     });
 
 });
