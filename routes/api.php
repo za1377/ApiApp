@@ -69,6 +69,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/Attribute/Value', 'delete');
     });
 
+    Route::controller('App\Http\Controllers\BrandCategoryController')->group(function () {
+
+        Route::get('/Category/Brands', 'show');
+        Route::post('/Category/Brand', 'insert');
+        Route::put('/Category/Brand', 'update');
+        Route::delete('/Category/Brand', 'delete');
+    });
+
 });
 
 
