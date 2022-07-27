@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('attributes_types_caas', function (Blueprint $table) {
             $table->bigInteger('id' ,true , true);
             $table->unsignedBigInteger('caa_id');
-            $table->unsignedBigInteger('attre_type_id');
+            $table->unsignedBigInteger('attribute_type_id');
             $table->timestamps();
 
             $table->foreign('caa_id')->references('id')->on('c_a_c_a');
-            $table->foreign('attre_type_id')->references('id')->on('attributes_types');
+            $table->foreign('attribute_type_id')->references('id')->on('attributes_types');
+
+            $table->softDeletes();
         });
     }
 
