@@ -25,8 +25,8 @@ class UPbrandRequest extends FormRequest
     {
         return [
             'id' => 'integer|required|exists:brands,id',
-            'name' => 'filled|string|unique:brands,name',
-            'slug' => 'filled|string|unique:brands,slug',
+            'name' => 'filled|string|unique:brands,name,'.$this->id,
+            'slug' => 'filled|string|unique:brands,slug,'.$this->id,
         ];
     }
 }
