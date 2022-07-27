@@ -19,6 +19,269 @@
         }
     ],
     "paths": {
+        "/Category/AttributeCategories": {
+            "get": {
+                "tags": [
+                    "AttrTypeCAA"
+                ],
+                "summary": "Show all rows of attributes_values_caas table",
+                "description": "display all rows of attributes_values_caas table",
+                "operationId": "e0e615097857e194e24bfd58b1c688a4",
+                "responses": {
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Category/AttributeCategory": {
+            "put": {
+                "tags": [
+                    "CateAttrCategories"
+                ],
+                "summary": "update the AttributeCategories's name and Categorie's name",
+                "description": "update the AttributeCategories's name and Categorie's name by admin",
+                "operationId": "ffdb68af4d7de17100c367748100e69e",
+                "requestBody": {
+                    "description": "Pass AttributeCategories name and category name",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "AttributeCategoryName",
+                                    "CategoryName"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "12"
+                                    },
+                                    "AttributeCategoryName": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "sony"
+                                    },
+                                    "CategoryName": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "/phone"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not_Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "CateAttrCategories"
+                ],
+                "summary": "insert the AttributeCategory's name and Categories' name",
+                "description": "insert the name of the AttributeCategory and Category",
+                "operationId": "9b07f2606cdb2e2bdf8d346e471f4fda",
+                "requestBody": {
+                    "description": "Pass AttributeCategory name and category name",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "AttributeCategoryName",
+                                    "CategoryName"
+                                ],
+                                "properties": {
+                                    "AttributeCategoryName": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "sony"
+                                    },
+                                    "CategoryName": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "/phone"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "object_created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "CateAttrCategories"
+                ],
+                "summary": "delete the row of the attributes_values_caas table that is determined",
+                "description": "delete row of the attributes_values_caas table by admin",
+                "operationId": "6aa28259e06f0b57d7ff4818710d22e3",
+                "requestBody": {
+                    "description": "delete from attributes_values_caas table",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "404": {
+                        "description": "Not_Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Category/Attributes": {
             "get": {
                 "tags": [
@@ -1536,6 +1799,269 @@
                 "operationId": "f261fcdcdc26bb00b9bfe24f41a0cf8c",
                 "requestBody": {
                     "description": "delete brands name and slug",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "404": {
+                        "description": "Not_Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Cate/Attr/Cates": {
+            "get": {
+                "tags": [
+                    "CateAttrCategories"
+                ],
+                "summary": "Show all rows of categories__attributes_categories table",
+                "description": "display all rows of categories__attributes_categories table",
+                "operationId": "9100b9be77ba75eb0170e5ad355bf710",
+                "responses": {
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Cate/Attr/Cate": {
+            "put": {
+                "tags": [
+                    "CateAttrCategories"
+                ],
+                "summary": "update the AttributeCategories's name and Categorie's name",
+                "description": "update the AttributeCategories's name and Categorie's name by admin",
+                "operationId": "323fd70f2609d1f92ba899eb265070bb",
+                "requestBody": {
+                    "description": "Pass AttributeCategories name and category name",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "AttributeCategoryName",
+                                    "CategoryName"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "12"
+                                    },
+                                    "AttributeCategoryName": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "sony"
+                                    },
+                                    "CategoryName": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "/phone"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not_Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "CateAttrCategories"
+                ],
+                "summary": "insert the AttributeCategory's name and Categories' name",
+                "description": "insert the name of the AttributeCategory and Category",
+                "operationId": "806e17a861bae6d294486a938f2f9064",
+                "requestBody": {
+                    "description": "Pass AttributeCategory name and category name",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "AttributeCategoryName",
+                                    "CategoryName"
+                                ],
+                                "properties": {
+                                    "AttributeCategoryName": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "sony"
+                                    },
+                                    "CategoryName": {
+                                        "type": "string",
+                                        "format": "name",
+                                        "example": "/phone"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "object_created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "CateAttrCategories"
+                ],
+                "summary": "delete the row of the categories__attributes_categories table that is determined",
+                "description": "delete row of the categories__attributes_categories table by admin",
+                "operationId": "730a16e0f93faf23e7d29fde23b8a396",
+                "requestBody": {
+                    "description": "delete from categories__attributes_categories table",
                     "required": true,
                     "content": {
                         "application/json": {

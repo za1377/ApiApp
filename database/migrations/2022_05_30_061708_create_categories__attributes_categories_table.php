@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('categories__attributes_categories', function (Blueprint $table) {
             $table->bigInteger('id' ,true , true);
             $table->unsignedBigInteger('attre_cate_id');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('cate_id');
             $table->timestamps();
 
             $table->foreign('attre_cate_id')->references('id')->on('attribute_categories');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('cate_id')->references('id')->on('categories');
 
             $table->softDeletes();
         });
