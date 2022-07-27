@@ -16,8 +16,8 @@ class Categories_AttributesCategories extends Model
      * @var array<bigInteger , bigInteger>
      */
     protected $fillable= [
-        'cate_id',
-        'attre_cate_id',
+        'category_id',
+        'attribute_category_id',
     ];
 
     /**

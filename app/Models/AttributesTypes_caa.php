@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AttributesTypes_caa extends Model
 {
-    use HasFactory;
+    use HasFactory ,SoftDeletes;
 
     /**
      * fillable
@@ -16,6 +17,6 @@ class AttributesTypes_caa extends Model
      */
     protected $fillable= [
         'caa_id',
-        'attre_type_id',
+        'attribute_type_id',
     ];
 }
