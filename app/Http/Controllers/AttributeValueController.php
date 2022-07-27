@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AttributeValueRequest;
+use App\Http\Requests\UPattributeValueRequest;
 use App\Http\Resources\AttributeValueResource;
 
 class AttributeValueController extends Controller
@@ -50,9 +51,10 @@ class AttributeValueController extends Controller
 
         if($attr_val->count() <= 0){
             return response()->json(['massege' => 'not found.'], 404);
-        }else{
-            return AttributeValueResource::collection(AttributesValues::all());
         }
+
+        return AttributeValueResource::collection(AttributesValues::all());
+
     }
 
     /**
@@ -95,9 +97,15 @@ class AttributeValueController extends Controller
      *
      */
     public function insert(AttributeValueRequest  $request){
-        $attr_val = AttributesValues::create([
-            "name" => $request->name,
-            "slug" => $request->slug]);
+
+        try{
+            $attr_val = AttributesValues::create([
+                "name" => $request->name,
+                "slug" => $request->slug]);
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data not insert.'],400);
+        }
+
         return new AttributeValueResource($attr_val);
 
     }
@@ -105,7 +113,7 @@ class AttributeValueController extends Controller
     /**
      * update the specefic data of AttributesValue's table
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\UPattributeValueRequest  $request
      * @return response
      *
      * @OA\Put(
@@ -152,7 +160,7 @@ class AttributeValueController extends Controller
      *
      *
      */
-    public function update(Request  $request){
+    public function update(UPattributeValueRequest  $request){
         $id = intval($request->id);
         $data = array();
 
@@ -163,25 +171,18 @@ class AttributeValueController extends Controller
             $data += ['slug' => $request->slug];
         }
 
-        $result = AttributesValues::where('slug' , $request->slug)->get();
-        if($result->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],400);
+        if($data == []){
+            return response()->json(['message' , 'nothing for update.'],400);
         }
 
-        $query = AttributesValues::find($id);
-
-        if(! is_null($query)){
-
-            if($data == []){
-                return response()->json(['message' , 'nothing for update.'],400);
-            }else{
-                $attr_val = $query->update($data);
-                return new AttributeValueResource(AttributesValues::find($id));
-            }
-
-        }else{
-            return response()->json(['message' => 'Sorry, your data not found.'] , 404);
+        try{
+            AttributesValues::where('id' , $id)->update($data);
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data not update.'],400);
         }
+
+        return new AttributeValueResource(AttributesValues::find($id));
+
     }
 
     /**
@@ -230,8 +231,9 @@ class AttributeValueController extends Controller
         if($attr_val->count() > 0){
             $attr_val->delete();
             return response()->json(["message" => "delete"], 200);
-        }else{
-            return response()->json(["message" => "not found"], 404);
         }
+
+        return response()->json(["message" => "not found"], 404);
+
     }
 }
