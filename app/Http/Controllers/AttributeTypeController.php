@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AttributeTypeRequest;
+use App\Http\Requests\UPattributeTypeRequest;
 use App\Http\Resources\AttributeTypeResource;
 
 class AttributeTypeController extends Controller
@@ -50,9 +51,10 @@ class AttributeTypeController extends Controller
 
         if($attr_type->count() <= 0){
             return response()->json(['massege' => 'not found.'], 404);
-        }else{
-            return AttributeTypeResource::collection(AttributesTypes::all());
         }
+
+        return AttributeTypeResource::collection(AttributesTypes::all());
+
     }
 
     /**
@@ -95,9 +97,15 @@ class AttributeTypeController extends Controller
      *
      */
     public function insert(AttributeTypeRequest  $request){
-        $attr_type = AttributesTypes::create([
-            "name" => $request->name,
-            "slug" => $request->slug]);
+
+        try{
+            $attr_type = AttributesTypes::create([
+                "name" => $request->name,
+                "slug" => $request->slug]);
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data not insert.'],400);
+        }
+
         return new AttributeTypeResource($attr_type);
 
     }
@@ -105,7 +113,7 @@ class AttributeTypeController extends Controller
     /**
      * update the specefic data of AttributesType's table
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\UPattributeTypeRequest  $request
      * @return response
      *
      * @OA\Put(
@@ -152,7 +160,7 @@ class AttributeTypeController extends Controller
      *
      *
      */
-    public function update(Request  $request){
+    public function update(UPattributeTypeRequest  $request){
         $id = intval($request->id);
         $data = array();
 
@@ -163,25 +171,18 @@ class AttributeTypeController extends Controller
             $data += ['slug' => $request->slug];
         }
 
-        $result = AttributesTypes::where('slug' , $request->slug)->get();
-        if($result->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],400);
+        if($data == []){
+            return response()->json(['message' , 'nothing for update.'],400);
         }
 
-        $query = AttributesTypes::find($id);
-
-        if(! is_null($query)){
-
-            if($data == []){
-                return response()->json(['message' , 'nothing for update.'],400);
-            }else{
-                $attr_type = $query->update($data);
-                return new AttributeTypeResource(AttributesTypes::find($id));
-            }
-
-        }else{
-            return response()->json(['message' => 'Sorry, your data not found.'] , 404);
+        try{
+            AttributesTypes::where('id' , $id)->update($data);
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data not update.'],400);
         }
+
+        return new AttributeTypeResource(AttributesTypes::find($id));
+
     }
 
     /**
@@ -230,8 +231,9 @@ class AttributeTypeController extends Controller
         if($attr_type->count() > 0){
             $attr_type->delete();
             return response()->json(["message" => "delete"], 200);
-        }else{
-            return response()->json(["message" => "not found"], 404);
         }
+
+        return response()->json(["message" => "not found"], 404);
+
     }
 }
