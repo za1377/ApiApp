@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\UPcategoryRequest;
 use App\Http\Resources\CategoryResource;
 
 class CategoriesController extends Controller
@@ -49,9 +50,10 @@ class CategoriesController extends Controller
         $category = categories::all();
         if($category->count() <= 0){
             return response()->json(['massege' => 'not found.'], 404);
-        }else{
-            return CategoryResource::collection(categories::all());
         }
+
+        return CategoryResource::collection(categories::all());
+
     }
 
     /**
@@ -93,10 +95,16 @@ class CategoriesController extends Controller
      *
      */
     public function insert(CategoryRequest  $request){
-        $category = categories::create([
-            "name" => $request->name,
-            "slug" => $request->slug,
-            "parent_id" => $request->parent_id]);
+        try{
+            $category = categories::create([
+                "name" => $request->name,
+                "slug" => $request->slug,
+                "parent_id" => $request->parent_id]);
+                
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data not insert.'],400);
+        }
+
         return new CategoryResource($category);
 
     }
@@ -104,7 +112,7 @@ class CategoriesController extends Controller
     /**
      * update the specefic data of categories table
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\UPcategoryRequest  $request
      * @return response
      *
      * @OA\Put(
@@ -150,7 +158,7 @@ class CategoriesController extends Controller
      * ),
      *
      */
-    public function update(Request  $request){
+    public function update(UPcategoryRequest  $request){
         $id = intval($request->id);
         $data = array();
 
@@ -164,25 +172,18 @@ class CategoriesController extends Controller
             $data += ['parent_id' => $request->parent_id];
         }
 
-        $result = categories::where('slug' , $request->slug)->get();
-        if($result->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],400);
+        if($data == []){
+            return response()->json(['message' , 'nothing for update.'],400);
         }
 
-        $query = categories::find($id);
-
-        if(! is_null($query)){
-
-            if($data == []){
-                return response()->json(['message' , 'nothing for update.'],400);
-            }else{
-                $category = $query->update($data);
-                return new CategoryResource(categories::find($id));
-            }
-
-        }else{
-            return response()->json(['message' => 'Sorry, your data not found.'] , 404);
+        try{
+            categories::where('id' , $id)->update($data);
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data not update.'],400);
         }
+
+        return new CategoryResource(categories::find($id));
+
     }
 
     /**
@@ -230,8 +231,9 @@ class CategoriesController extends Controller
         if($category->count() > 0){
             $category->delete();
             return response()->json(["message" => "delete"], 200);
-        }else{
-            return response()->json(["message" => "not found"], 404);
         }
+
+        return response()->json(["message" => "not found"], 404);
+
     }
 }
