@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\BrandRequest;
+use App\Http\Requests\UPbrandRequest;
 use App\Http\Resources\BrandResource;
 
 class BrandsController extends Controller
@@ -54,6 +55,7 @@ class BrandsController extends Controller
             return BrandResource::collection(Brands::all());
         }
     }
+
     /**
      * insert data to brands table
      *
@@ -106,7 +108,7 @@ class BrandsController extends Controller
     /**
      * update the specefic data of brands table
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\UPbrandRequest  $request
      * @return response
      *
      * @OA\Put(
@@ -153,7 +155,7 @@ class BrandsController extends Controller
      *
      *
      */
-    public function update(Request  $request){
+    public function update(UPbrandRequest  $request){
         $id = intval($request->id);
         $data = array();
 
@@ -164,25 +166,18 @@ class BrandsController extends Controller
             $data += ['slug' => $request->slug];
         }
 
-        $result = Brands::where('slug' , $request->slug)->get();
-        if($result->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],400);
+        if($data == []){
+            return response()->json(['message' , 'nothing for update.'],400);
         }
 
-        $query = Brands::find($id);
-
-        if(! is_null($query)){
-
-            if($data == []){
-                return response()->json(['message' , 'nothing for update.'],400);
-            }else{
-                $brand = $query->update($data);
-                return new BrandResource(Brands::find($id));
-            }
-
-        }else{
-            return response()->json(['message' => 'Sorry, your data not found.'] , 404);
+        try{
+            Brands::where('id' , $id)->update($data);
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data not update.'],400);
         }
+
+        return new BrandResource(Brands::find($id));
+
     }
 
     /**
