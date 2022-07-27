@@ -49,9 +49,10 @@ class BrandCategoryController extends Controller
         $brands = BrandsCategories::all();
         if($brands->count() <= 0){
             return response()->json(['massege' => 'not found.'], 404);
-        }else{
-            return BrandCategoryResource::collection(BrandsCategories::all());
         }
+
+        return BrandCategoryResource::collection(BrandsCategories::all());
+
     }
 
     /**
@@ -97,6 +98,13 @@ class BrandCategoryController extends Controller
 
         $BrandId = Brands::where('name' , $request->BrandName)->get('id');
         $CategoryId = categories::where('name' , $request->CategoryName)->get('id');
+
+        $oldData = BrandsCategories::where('brand_id' , $BrandId[0]->id)
+        ->where('category_id' , $CategoryId[0]->id)->get();
+
+        if($oldData->count() > 0){
+            return response()->json(['message' , 'your data inserted.'],400);
+        }
 
         try{
             $result = BrandsCategories::create([
@@ -177,6 +185,13 @@ class BrandCategoryController extends Controller
 
         $query = BrandsCategories::find($id);
 
+        $oldData = BrandsCategories::where('brand_id', isset($data['brand_id']) ? $data['brand_id'] : $query->brand_id)
+        ->where('category_id',isset($data['category_id']) ? $data['category_id'] : $query->cate_id)->get();
+
+        if($oldData->count() > 0){
+            return response()->json(['message' , 'your data inserted.'],400);
+        }
+
         if(! is_null($query)){
 
             if($data == []){
@@ -190,9 +205,9 @@ class BrandCategoryController extends Controller
                 return new BrandCategoryResource(BrandsCategories::find($id));
             }
 
-        }else{
-            return response()->json(['message' => 'Sorry, your data not found.'] , 404);
         }
+        return response()->json(['message' => 'Sorry, your data not found.'] , 404);
+
     }
 
     /**
@@ -241,8 +256,9 @@ class BrandCategoryController extends Controller
         if($brand->count() > 0){
             $brand->delete();
             return response()->json(["message" => "delete"], 200);
-        }else{
-            return response()->json(["message" => "not found"], 404);
         }
+
+        return response()->json(["message" => "not found"], 404);
+
     }
 }

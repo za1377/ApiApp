@@ -24,6 +24,7 @@ class updateBCategoryRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'integer|required',
             'BrandName' => 'filled|string|exists:brands,name',
             'CategoryName' => 'filled|string|exists:categories,name',
         ];
