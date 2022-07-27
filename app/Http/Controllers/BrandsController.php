@@ -51,9 +51,10 @@ class BrandsController extends Controller
         $brands = Brands::all();
         if($brands->count() <= 0){
             return response()->json(['massege' => 'not found.'], 404);
-        }else{
-            return BrandResource::collection(Brands::all());
         }
+
+        return BrandResource::collection(Brands::all());
+
     }
 
     /**
@@ -97,9 +98,13 @@ class BrandsController extends Controller
      */
     public function insert(BrandRequest  $request){
 
-        $brand = Brands::create([
-            "name" => $request->name,
-            "slug" => $request->slug]);
+        try{
+            $brand = Brands::create([
+                "name" => $request->name,
+                "slug" => $request->slug]);
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data not insert.'],400);
+        }
 
         return new BrandResource($brand);
 
@@ -226,8 +231,9 @@ class BrandsController extends Controller
         if($brand->count() > 0){
             $brand->delete();
             return response()->json(["message" => "delete"], 200);
-        }else{
-            return response()->json(["message" => "not found"], 404);
         }
+
+        return response()->json(["message" => "not found"], 404);
+
     }
 }
