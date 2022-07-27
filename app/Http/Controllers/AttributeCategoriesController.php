@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AttributeCategoryRequest;
+use App\Http\Requests\UPattributeCateRequest;
 use App\Http\Resources\AttributeCategoriesResource;
 
 class AttributeCategoriesController extends Controller
@@ -52,9 +53,10 @@ class AttributeCategoriesController extends Controller
 
         if($cate_attr->count() <= 0){
             return response()->json(['massege' => 'Table is empty.'], 404);
-        }else{
-            return AttributeCategoriesResource::collection($cate_attr);
         }
+
+        return AttributeCategoriesResource::collection($cate_attr);
+
     }
 
     /**
@@ -103,19 +105,22 @@ class AttributeCategoriesController extends Controller
      */
     public function insert(AttributeCategoryRequest  $request){
 
+        try{
+            $cate_attr = AttributeCategories::create([
+                "name" => $request->name,
+                "slug" => $request->slug]);
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data not insert.'],400);
+        }
 
-        $cate_attr = AttributeCategories::create([
-            "name" => $request->name,
-            "slug" => $request->slug]);
         return new AttributeCategoriesResource($cate_attr);
-
 
     }
 
     /**
      * update the specefic data of AttributeCategories table
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\UPattributeCateRequest  $request
      * @return response
      *
      * @OA\Put(
@@ -160,7 +165,7 @@ class AttributeCategoriesController extends Controller
      *
      *
      */
-    public function update(Request  $request){
+    public function update(UPattributeCateRequest  $request){
         $id = intval($request->id);
         $data = array();
 
@@ -171,25 +176,18 @@ class AttributeCategoriesController extends Controller
             $data += ['slug' => $request->slug];
         }
 
-        $result = AttributeCategories::where('slug' , $request->slug)->get();
-        if($result->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],400);
+        if($data == []){
+            return response()->json(['message' , 'nothing for update.'],400);
         }
 
-        $query = AttributeCategories::find($id);
-
-        if(! is_null($query)){
-
-            if($data == []){
-                return response()->json(['message' , 'nothing for update.'],400);
-            }else{
-                $cate_attr = $query->update($data);
-                return new AttributeCategoriesResource(AttributeCategories::find($id));
-            }
-
-        }else{
-            return response()->json(['message' => 'Sorry, your data not found.'] , 404);
+        try{
+            AttributeCategories::where('id' , $id)->update($data);
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data not update.'],400);
         }
+
+        return new AttributeCategoriesResource(AttributeCategories::find($id));
+
     }
 
     /**
