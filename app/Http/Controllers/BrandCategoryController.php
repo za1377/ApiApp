@@ -51,7 +51,7 @@ class BrandCategoryController extends Controller
             return response()->json(['massege' => 'not found.'], 404);
         }
 
-        return BrandCategoryResource::collection(BrandsCategories::all());
+        return BrandCategoryResource::collection($brands);
 
     }
 
@@ -63,16 +63,16 @@ class BrandCategoryController extends Controller
      *
      * @OA\Post(
      *      path="/Category/Brand",
-     *      summary="insert the Brand's name and Categorie's name",
-     *      description="insert the name of the Brand and Category",
+     *      summary="insert the Brand's id and Categorie's id",
+     *      description="insert the id of the Brand and Category",
      *      tags={"brandOFcategories"},
      *      @OA\RequestBody(
      *          required=true,
      *          description="Pass brands name and category name",
      *          @OA\JsonContent(
-     *              required={"BrandName","CategoryName"},
-     *              @OA\Property(property="BrandName", type="string", format="name", example="sony"),
-     *              @OA\Property(property="CategoryName", type="string", format="name", example="/phone"),
+     *              required={"brand_id","category_id"},
+     *              @OA\Property(property="brand_id", type="integer", format="id", example="1"),
+     *              @OA\Property(property="category_id", type="integer", format="id", example="1"),
      *          ),
      *      ),
      *
@@ -96,20 +96,10 @@ class BrandCategoryController extends Controller
      */
     public function insert(BrandCategoryRequest  $request){
 
-        $BrandId = Brands::where('name' , $request->BrandName)->get('id');
-        $CategoryId = categories::where('name' , $request->CategoryName)->get('id');
-
-        $oldData = BrandsCategories::where('brand_id' , $BrandId[0]->id)
-        ->where('category_id' , $CategoryId[0]->id)->get();
-
-        if($oldData->count() > 0){
-            return response()->json(['message' , 'your data inserted.'],400);
-        }
-
         try{
             $result = BrandsCategories::create([
-                'brand_id' => $BrandId[0]->id,
-                'category_id' => $CategoryId[0]->id,
+                'brand_id' => $request->brand_id,
+                'category_id' => $request->category_id,
             ]);
 
         }catch(\Exception $e) {
@@ -128,17 +118,17 @@ class BrandCategoryController extends Controller
      *
      * @OA\Put(
      *      path="/Category/Brand",
-     *      summary="update the Brand's name and Categorie's name",
-     *      description="update the Brand's name and Categorie's name by admin",
+     *      summary="update the row of brands_categories table",
+     *      description="update the row of brands_categories table by admin",
      *      tags={"brandOFcategories"},
      *      @OA\RequestBody(
      *          required=true,
-     *          description="Pass brands name and category name",
+     *          description="Pass brand's id and category's id",
      *          @OA\JsonContent(
-     *              required={"id","BrandName","CategoryName"},
+     *              required={"id","brand_id","category_id"},
      *              @OA\Property(property="id", type="string", format="id", example="12"),
-     *              @OA\Property(property="BrandName", type="string", format="name", example="sony"),
-     *              @OA\Property(property="CategoryName", type="string", format="name", example="/phone"),
+     *              @OA\Property(property="BrandName", type="integer", format="id", example="1"),
+     *              @OA\Property(property="CategoryName", type="integer", format="id", example="1"),
      *          ),
      *      ),
      *      @OA\Response(
@@ -172,41 +162,18 @@ class BrandCategoryController extends Controller
      */
     public function update(updateBCategoryRequest  $request){
         $id = intval($request->id);
-        $data = array();
 
-        if($request->BrandName != ""){
-            $BrandId = Brands::where('name' , $request->BrandName)->get('id');
-            $data += ['brand_id' => $BrandId[0]->id];
-        }
-        if($request->CategoryName != ""){
-            $CategoryId = categories::where('name' , $request->CategoryName)->get('id');
-            $data += ['category_id' => $CategoryId[0]->id];
-        }
-
-        $query = BrandsCategories::find($id);
-
-        $oldData = BrandsCategories::where('brand_id', isset($data['brand_id']) ? $data['brand_id'] : $query->brand_id)
-        ->where('category_id',isset($data['category_id']) ? $data['category_id'] : $query->cate_id)->get();
-
-        if($oldData->count() > 0){
-            return response()->json(['message' , 'your data inserted.'],400);
+        try{
+            BrandsCategories::where('id' , $id)->update([
+                'brand_id' => $request->brand_id,
+                'category_id' => $request->category_id,
+            ]);
+        }catch(\Exception $e){
+            dd($e);
+            return response()->json(['message' , 'your data can not update.'],400);
         }
 
-        if(! is_null($query)){
-
-            if($data == []){
-                return response()->json(['message' , 'nothing for update.'],400);
-            }else{
-                try{
-                    $query->update($data);
-                }catch(\Exception $e){
-                    return response()->json(['message' , 'your data can not update.'],400);
-                }
-                return new BrandCategoryResource(BrandsCategories::find($id));
-            }
-
-        }
-        return response()->json(['message' => 'Sorry, your data not found.'] , 404);
+        return new BrandCategoryResource(BrandsCategories::find($id));
 
     }
 
