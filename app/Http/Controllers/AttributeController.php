@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AttributeRequest;
+use App\Http\Requests\UPattributeRequest;
 use App\Http\Resources\AttributeResource;
 
 class AttributeController extends Controller
@@ -50,9 +51,10 @@ class AttributeController extends Controller
 
         if($Attributes->count() <= 0){
             return response()->json(['massege' => 'not found.'], 404);
-        }else{
-            return AttributeResource::collection(Attributes::all());
         }
+
+        return AttributeResource::collection(Attributes::all());
+
     }
 
     /**
@@ -95,16 +97,22 @@ class AttributeController extends Controller
      */
     public function insert(AttributeRequest  $request){
 
-        $Attribute = Attributes::create([
-            "name" => $request->name,
-            "slug" => $request->slug]);
+        try{
+            $Attribute = Attributes::create([
+                "name" => $request->name,
+                "slug" => $request->slug]);
+
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data not insert.'],400);
+        }
+
         return new AttributeResource($Attribute);
     }
 
     /**
      * update the specefic data of Attribute's table
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\UPattributeRequest  $request
      * @return response
      *
      * @OA\Put(
@@ -151,7 +159,7 @@ class AttributeController extends Controller
      *
      *
      */
-    public function update(Request  $request){
+    public function update(UPattributeRequest  $request){
         $id = intval($request->id);
         $data = array();
 
@@ -162,25 +170,17 @@ class AttributeController extends Controller
             $data += ['slug' => $request->slug];
         }
 
-        $result = Attributes::where('slug' , $request->slug)->get();
-        if($result->count() > 0){
-            return response()->json(['message' , 'These data can not be insert.'],400);
+        if($data == []){
+            return response()->json(['message' , 'nothing for update.'],400);
         }
 
-        $query = Attributes::find($id);
-
-        if(! is_null($query)){
-
-            if($data == []){
-                return response()->json(['message' , 'nothing for update.'],400);
-            }else{
-                $Attribute = $query->update($data);
-                return new AttributeResource(Attributes::find($id));
-            }
-
-        }else{
-            return response()->json(['message' => 'Sorry, your data not found.'] , 404);
+        try{
+            Attributes::where("id" , $id)->update($data);
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data not update.'],400);
         }
+
+        return new AttributeResource(Attributes::find($id));
     }
 
     /**
@@ -228,8 +228,9 @@ class AttributeController extends Controller
         if($Attribute->count() > 0){
             $Attribute->delete();
             return response()->json(["message" => "delete"], 200);
-        }else{
-            return response()->json(["message" => "not found"], 404);
         }
+
+        return response()->json(["message" => "not found"], 404);
+
     }
 }
