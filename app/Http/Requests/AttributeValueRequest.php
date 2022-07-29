@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AttributeValueRequest extends FormRequest
 {
@@ -24,8 +25,15 @@ class AttributeValueRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:attributes_values,name',
-            'slug' => 'required|unique:attributes_values,slug',
+            'name' => ['required','string',
+            Rule::unique('attributes_values')->where(function($query){
+                return $query->where('deleted_at' , );
+            }),],
+
+            'slug' => ['required','string',
+            Rule::unique('attributes_values')->where(function($query){
+                return $query->where('deleted_at' , );
+            }),],
         ];
     }
 

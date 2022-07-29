@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UPcategoryRequest extends FormRequest
 {
@@ -24,10 +25,22 @@ class UPcategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'integer|required|exists:categories,id',
-            'name' => 'filled|string|unique:categories,name,'.$this->id,
-            'slug' => 'filled|string|unique:categories,slug,'.$this->id,
-            'parent_id' => 'filled|integer',
+            'id' => ['integer','required', Rule::exists('categories')->where(function($query){
+                return $query->where('deleted_at' , );
+            })],
+
+            'name' => ['filled','string',
+            Rule::unique('categories')->where(function($query){
+                return $query->where('deleted_at' , );
+            })->ignore($this->id),],
+
+            'slug' => ['filled','string',
+            Rule::unique('categories')->where(function($query){
+                return $query->where('deleted_at' , );
+            })->ignore($this->id),],
+
+            'parent_id' => 'filled|integer|nullable',
         ];
+
     }
 }

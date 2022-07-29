@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AttributeCategoryRequest extends FormRequest
 {
@@ -24,8 +25,14 @@ class AttributeCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:attribute_categories,name',
-            'slug' => 'required|unique:attribute_categories,slug',
+            'name' => ['required','string',
+            Rule::unique('attribute_categories')->where(function($query){
+                return $query->where('deleted_at' , );
+            }),],
+            'slug' => ['required','string',
+            Rule::unique('attribute_categories')->where(function($query){
+                return $query->where('deleted_at' , );
+            }),],
         ];
     }
 

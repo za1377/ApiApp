@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UPattributeCateRequest extends FormRequest
 {
@@ -24,9 +25,20 @@ class UPattributeCateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'integer|required|exists:attribute_categories,id',
-            'name' => 'filled|string|unique:attribute_categories,name,'.$this->id,
-            'slug' => 'filled|string|unique:attribute_categories,slug,'.$this->id,
+            'id' => ['integer','required', Rule::exists('attribute_categories')->where(function($query){
+                return $query->where('deleted_at' , );
+            })],
+
+            'name' => ['filled','string',
+            Rule::unique('attribute_categories')->where(function($query){
+                return $query->where('deleted_at' , );
+            })->ignore($this->id),],
+
+            'slug' => ['filled','string',
+            Rule::unique('attribute_categories')->where(function($query){
+                return $query->where('deleted_at' , );
+            })->ignore($this->id),],
         ];
+        
     }
 }
