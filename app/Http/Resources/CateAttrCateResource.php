@@ -18,8 +18,8 @@ class CateAttrCateResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'AttributeCategoriesName' => AttributeCategories::where('id' , $this->attre_cate_id)->first()->name,
-            'CategoryName' => categories::where('id' , $this->cate_id)->first()->name,
+            'AttributeCategoriesName' => AttributeCategories::where('id' , $this->attribute_category_id)->first()->name,
+            'CategoryName' => categories::where('id' , $this->category_id)->first()->name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
