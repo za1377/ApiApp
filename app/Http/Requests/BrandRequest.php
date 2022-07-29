@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class BrandRequest extends FormRequest
 {
@@ -24,8 +25,14 @@ class BrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:brands,name',
-            'slug' => 'required|unique:brands,slug',
+            'name' => ['required','string',
+            Rule::unique('brands')->where(function($query){
+                return $query->where('deleted_at' , );
+            }),],
+            'slug' => ['required','string',
+            Rule::unique('brands')->where(function($query){
+                return $query->where('deleted_at' , );
+            }),],
         ];
     }
 
