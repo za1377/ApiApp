@@ -39,4 +39,6 @@ class CACA extends Model
     {
         return $this->belongsToMany(AttributesTypes::class, 'attributes_values_caas', 'caa_id', 'attre_type_id');
     }
+
+    protected $table = 'c_a_c_a';
 }
