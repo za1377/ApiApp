@@ -85,6 +85,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/Cate/Attr/Cate', 'delete');
     });
 
+    Route::controller('App\Http\Controllers\AttrTypeCAAController')->group(function () {
+
+        Route::get('/CACA/AttributeTypes', 'show');
+        Route::post('/CACA/AttributeType', 'insert');
+        Route::put('/CACA/AttributeType', 'update');
+        Route::delete('/CACA/AttributeType', 'delete');
+    });
+
     Route::controller('App\Http\Controllers\CACAController')->group(function () {
 
         Route::get('/CACAs', 'show');

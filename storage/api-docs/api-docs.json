@@ -19,14 +19,14 @@
         }
     ],
     "paths": {
-        "/Category/AttributeCategories": {
+        "/CACA/AttributeTypes": {
             "get": {
                 "tags": [
                     "AttrTypeCAA"
                 ],
-                "summary": "Show all rows of attributes_values_caas table",
-                "description": "display all rows of attributes_values_caas table",
-                "operationId": "e0e615097857e194e24bfd58b1c688a4",
+                "summary": "Show all rows of attributes_types_caa table",
+                "description": "display all rows of attributes_types_caa table",
+                "operationId": "42af6cc87b9582f068ed930bf389e159",
                 "responses": {
                     "404": {
                         "description": "Not found",
@@ -61,40 +61,40 @@
                 }
             }
         },
-        "/Category/AttributeCategory": {
+        "/CACA/AttributeType": {
             "put": {
                 "tags": [
-                    "CateAttrCategories"
+                    "AttrTypeCAA"
                 ],
-                "summary": "update the AttributeCategories's name and Categorie's name",
-                "description": "update the AttributeCategories's name and Categorie's name by admin",
-                "operationId": "ffdb68af4d7de17100c367748100e69e",
+                "summary": "update the AttributeType's id and CACA's id",
+                "description": "update the AttributeType's id and CACA's id by admin",
+                "operationId": "0a2ba9a6ae5d50305adc376aa6ecdc62",
                 "requestBody": {
-                    "description": "Pass AttributeCategories name and category name",
+                    "description": "Pass AttributeType id and CACA id",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
                                     "id",
-                                    "AttributeCategoryName",
-                                    "CategoryName"
+                                    "attribute_type_id",
+                                    "caa_id"
                                 ],
                                 "properties": {
                                     "id": {
-                                        "type": "string",
+                                        "type": "integer",
                                         "format": "id",
                                         "example": "12"
                                     },
-                                    "AttributeCategoryName": {
-                                        "type": "string",
+                                    "attribute_type_id": {
+                                        "type": "integer",
                                         "format": "name",
-                                        "example": "sony"
+                                        "example": "1"
                                     },
-                                    "CategoryName": {
-                                        "type": "string",
+                                    "caa_id": {
+                                        "type": "integer",
                                         "format": "name",
-                                        "example": "/phone"
+                                        "example": "1"
                                     }
                                 },
                                 "type": "object"
@@ -154,31 +154,31 @@
             },
             "post": {
                 "tags": [
-                    "CateAttrCategories"
+                    "AttrTypeCAA"
                 ],
-                "summary": "insert the AttributeCategory's name and Categories' name",
-                "description": "insert the name of the AttributeCategory and Category",
-                "operationId": "9b07f2606cdb2e2bdf8d346e471f4fda",
+                "summary": "insert the AttributeType's id and CACA's id",
+                "description": "insert the ID of the AttributeType and CACA",
+                "operationId": "81f2af4992dcebc3b174268864bfb1a0",
                 "requestBody": {
-                    "description": "Pass AttributeCategory name and category name",
+                    "description": "Pass AttributeType id and CACA id",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "AttributeCategoryName",
-                                    "CategoryName"
+                                    "attribute_type_id",
+                                    "caa_id"
                                 ],
                                 "properties": {
-                                    "AttributeCategoryName": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "sony"
+                                    "attribute_type_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
                                     },
-                                    "CategoryName": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "/phone"
+                                    "caa_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
                                     }
                                 },
                                 "type": "object"
@@ -221,13 +221,13 @@
             },
             "delete": {
                 "tags": [
-                    "CateAttrCategories"
+                    "AttrTypeCAA"
                 ],
-                "summary": "delete the row of the attributes_values_caas table that is determined",
-                "description": "delete row of the attributes_values_caas table by admin",
-                "operationId": "6aa28259e06f0b57d7ff4818710d22e3",
+                "summary": "delete the row of the attributes_types_caa table that is determined",
+                "description": "delete row of the attributes_types_caa table by admin",
+                "operationId": "f49ef98479a0127c629c75c713ec9779",
                 "requestBody": {
-                    "description": "delete from attributes_values_caas table",
+                    "description": "delete from attributes_types_caa table",
                     "required": true,
                     "content": {
                         "application/json": {
