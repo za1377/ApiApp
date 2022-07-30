@@ -111,7 +111,7 @@ class AttrTypeCACAController extends Controller
     /**
      * update the specefic data of attributes_types_caa table
      *
-     * @param  App\Http\Requests\UpdateAttrTypeCACARequest  $request
+     * @param  App\Http\Requests\UPattrTypeCACARequest  $request
      * @return response
      *
      * @OA\Put(
@@ -158,7 +158,7 @@ class AttrTypeCACAController extends Controller
      *
      *
      */
-    public function update(UpdateAttrTypeCACARequest  $request){
+    public function update(UPattrTypeCACARequest  $request){
         $id = intval($request->id);
 
         try{
