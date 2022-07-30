@@ -282,6 +282,269 @@
                 }
             }
         },
+        "/CACA/AttributeValues": {
+            "get": {
+                "tags": [
+                    "AtrrValCACA"
+                ],
+                "summary": "Show all rows of attributes_values_caa table",
+                "description": "display all rows of attributes_values_caa table",
+                "operationId": "6c01251284b36e27b3f9eb4d269c2b33",
+                "responses": {
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/CACA/AttributeValue": {
+            "put": {
+                "tags": [
+                    "AtrrValCACA"
+                ],
+                "summary": "update the AttributeValue's id and CACA's id",
+                "description": "update the AttributeValue's id and CACA's id by admin",
+                "operationId": "131dd6b99e8dce43da2658d29cfbf8c6",
+                "requestBody": {
+                    "description": "Pass AttributeValue id and CACA id",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "attribute_value_id",
+                                    "caa_id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "12"
+                                    },
+                                    "attribute_value_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
+                                    },
+                                    "caa_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not_Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "AtrrValCACA"
+                ],
+                "summary": "insert the AttributeValue's id and CACA's id",
+                "description": "insert the id of the AttributeValue and CACA",
+                "operationId": "960b573db09cb81917e214665bf54b56",
+                "requestBody": {
+                    "description": "Pass AttributeValue id and CACA id",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "attribute_value_id",
+                                    "caa_id"
+                                ],
+                                "properties": {
+                                    "attribute_value_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
+                                    },
+                                    "caa_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "object_created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "AtrrValCACA"
+                ],
+                "summary": "delete the row of the attributes_values_caa table that is determined",
+                "description": "delete row of the attributes_values_caa table by admin",
+                "operationId": "044d9628a0c71b90c86a53549f946b26",
+                "requestBody": {
+                    "description": "delete from attributes_values_caa table",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "404": {
+                        "description": "Not_Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Category/Attributes": {
             "get": {
                 "tags": [

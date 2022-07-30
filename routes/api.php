@@ -93,6 +93,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/CACA/AttributeType', 'delete');
     });
 
+    Route::controller('App\Http\Controllers\AttrValCAAController')->group(function () {
+
+        Route::get('/Category/AttributeCategory/Attribute/Values', 'show');
+        Route::post('/Category/AttributeCategory/Attribute/Value', 'insert');
+        Route::put('/Category/AttributeCategory/Attribute/Value', 'update');
+        Route::delete('/Category/AttributeCategory/Attribute/Value', 'delete');
+    });
+
     Route::controller('App\Http\Controllers\CACAController')->group(function () {
 
         Route::get('/CACAs', 'show');
