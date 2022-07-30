@@ -16,12 +16,17 @@ class BrandCategoryResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'BrandName' => Brands::where('id' , $this->brand_id)->first()->name,
-            'CategoryName' => categories::where('id' , $this->category_id)->first()->name,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ];
+        $brand = Brands::where('id' , $this->brand_id)->first();
+        $category = categories::where('id' , $this->category_id)->first();
+
+        if(!is_null($brand) && !is_null($category)){
+            return [
+                'id' => $this->id,
+                'BrandName' => $brand->name,
+                'CategoryName' => $category->name,
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at,
+            ];
+        }
     }
 }

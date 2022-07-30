@@ -16,12 +16,18 @@ class CateAttrCateResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'AttributeCategoriesName' => AttributeCategories::where('id' , $this->attribute_category_id)->first()->name,
-            'CategoryName' => categories::where('id' , $this->category_id)->first()->name,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ];
+        $attributeCategory = AttributeCategories::where('id' , $this->attribute_category_id)->first();
+        $category = categories::where('id' , $this->category_id)->first();
+
+        if(!is_null($attributeCategory) && !is_null($category)){
+            return [
+                'id' => $this->id,
+                'AttributeCategoriesName' => $attributeCategory->name,
+                'CategoryName' => $category->name,
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at,
+            ];
+        }
+
     }
 }
