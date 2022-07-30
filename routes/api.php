@@ -85,7 +85,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/Cate/Attr/Cate', 'delete');
     });
 
-    Route::controller('App\Http\Controllers\AttrTypeCAAController')->group(function () {
+    Route::controller('App\Http\Controllers\AttrTypeCACAController')->group(function () {
 
         Route::get('/CACA/AttributeTypes', 'show');
         Route::post('/CACA/AttributeType', 'insert');
@@ -93,12 +93,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/CACA/AttributeType', 'delete');
     });
 
-    Route::controller('App\Http\Controllers\AttrValCAAController')->group(function () {
+    Route::controller('App\Http\Controllers\AttrValCACAController')->group(function () {
 
-        Route::get('/Category/AttributeCategory/Attribute/Values', 'show');
-        Route::post('/Category/AttributeCategory/Attribute/Value', 'insert');
-        Route::put('/Category/AttributeCategory/Attribute/Value', 'update');
-        Route::delete('/Category/AttributeCategory/Attribute/Value', 'delete');
+        Route::get('/CACA/AttributeValues', 'show');
+        Route::post('/CACA/AttributeValue', 'insert');
+        Route::put('/CACA/AttributeValue', 'update');
+        Route::delete('/CACA/AttributeValue', 'delete');
     });
 
     Route::controller('App\Http\Controllers\CACAController')->group(function () {
