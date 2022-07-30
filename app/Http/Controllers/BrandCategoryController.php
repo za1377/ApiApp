@@ -68,7 +68,7 @@ class BrandCategoryController extends Controller
      *      tags={"brandOFcategories"},
      *      @OA\RequestBody(
      *          required=true,
-     *          description="Pass brands name and category name",
+     *          description="Pass brands id and category id",
      *          @OA\JsonContent(
      *              required={"brand_id","category_id"},
      *              @OA\Property(property="brand_id", type="integer", format="id", example="1"),
@@ -127,8 +127,8 @@ class BrandCategoryController extends Controller
      *          @OA\JsonContent(
      *              required={"id","brand_id","category_id"},
      *              @OA\Property(property="id", type="string", format="id", example="12"),
-     *              @OA\Property(property="BrandName", type="integer", format="id", example="1"),
-     *              @OA\Property(property="CategoryName", type="integer", format="id", example="1"),
+     *              @OA\Property(property="brand_id", type="integer", format="id", example="1"),
+     *              @OA\Property(property="category_id", type="integer", format="id", example="1"),
      *          ),
      *      ),
      *      @OA\Response(
