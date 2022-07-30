@@ -29,7 +29,7 @@ class UPattrTypeCACARequest extends FormRequest
             'attribute_type_id' => ['required','integer','exists:attributes_types,id,deleted_at,NULL',
             Rule::unique('attributes_types_caas')->where(function($query){
                 return $query->where('caa_id', $this->caa_id)->where('deleted_at' , );
-            }),],
+            })->ignore($this->id),],
 
             'caa_id' => 'required|integer|exists:c_a_c_a,id,deleted_at,NULL',
         ];
