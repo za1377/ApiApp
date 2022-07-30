@@ -25,14 +25,8 @@ class AttributeCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string',
-            Rule::unique('attribute_categories')->where(function($query){
-                return $query->where('deleted_at' , );
-            }),],
-            'slug' => ['required','string',
-            Rule::unique('attribute_categories')->where(function($query){
-                return $query->where('deleted_at' , );
-            }),],
+            'name' => 'required|min:1|unique:attribute_categories,name,NULL,id,deleted_at,NULL',
+            'slug' => 'required|min:1|unique:attribute_categories,slug,NULL,id,deleted_at,NULL',
         ];
     }
 

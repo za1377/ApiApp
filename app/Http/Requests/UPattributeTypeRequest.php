@@ -25,20 +25,10 @@ class UPattributeTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => ['integer','required', Rule::exists('attributes_types')->where(function($query){
-                return $query->where('deleted_at' , );
-            })],
+            'id' => 'integer|required|exists:attributes_types,id,deleted_at,NULL',
+            'name' => 'filled|min:1|unique:attributes_types,name,'.$this->id.',id,deleted_at,NULL',
+            'slug' => 'filled|min:1|unique:attributes_types,slug,'.$this->id.',id,deleted_at,NULL',
 
-            'name' => ['filled','string',
-            Rule::unique('attributes_types')->where(function($query){
-                return $query->where('deleted_at' , );
-            })->ignore($this->id),],
-
-            'slug' => ['filled','string',
-            Rule::unique('attributes_types')->where(function($query){
-                return $query->where('deleted_at' , );
-            })->ignore($this->id),],
         ];
-        
     }
 }

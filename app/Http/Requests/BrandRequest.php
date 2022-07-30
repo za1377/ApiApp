@@ -25,14 +25,8 @@ class BrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string',
-            Rule::unique('brands')->where(function($query){
-                return $query->where('deleted_at' , );
-            }),],
-            'slug' => ['required','string',
-            Rule::unique('brands')->where(function($query){
-                return $query->where('deleted_at' , );
-            }),],
+            'name' => 'required|min:1|unique:brands,name,NULL,id,deleted_at,NULL',
+            'slug' => 'required|min:1|unique:brands,slug,NULL,id,deleted_at,NULL',
         ];
     }
 

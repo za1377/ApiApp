@@ -25,19 +25,11 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string',
-            Rule::unique('categories')->where(function($query){
-                return $query->where('deleted_at' , );
-            }),],
-
-            'slug' => ['required','string',
-            Rule::unique('categories')->where(function($query){
-                return $query->where('deleted_at' , );
-            }),],
-
+            'name' => 'required|min:1|unique:categories,name,NULL,id,deleted_at,NULL',
+            'slug' => 'required|min:1|unique:categories,slug,NULL,id,deleted_at,NULL',
             'parent_id' => 'nullable|integer',
         ];
-        
+
     }
 
     /**

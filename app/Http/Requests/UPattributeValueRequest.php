@@ -25,19 +25,10 @@ class UPattributeValueRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => ['integer','required', Rule::exists('attributes_values')->where(function($query){
-                return $query->where('deleted_at' , );
-            })],
+            'id' => 'integer|required|exists:attributes_values,id,deleted_at,NULL',
+            'name' => 'filled|min:1|unique:attributes_values,name,'.$this->id.',id,deleted_at,NULL',
+            'slug' => 'filled|min:1|unique:attributes_values,slug,'.$this->id.',id,deleted_at,NULL',
 
-            'name' => ['filled','string',
-            Rule::unique('attributes_values')->where(function($query){
-                return $query->where('deleted_at' , );
-            })->ignore($this->id),],
-
-            'slug' => ['filled','string',
-            Rule::unique('attributes_values')->where(function($query){
-                return $query->where('deleted_at' , );
-            })->ignore($this->id),],
         ];
     }
 }

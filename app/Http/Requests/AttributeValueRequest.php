@@ -25,15 +25,9 @@ class AttributeValueRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string',
-            Rule::unique('attributes_values')->where(function($query){
-                return $query->where('deleted_at' , );
-            }),],
+            'name' => 'required|min:1|unique:attributes_values,name,NULL,id,deleted_at,NULL',
+            'slug' => 'required|min:1|unique:attributes_values,slug,NULL,id,deleted_at,NULL',
 
-            'slug' => ['required','string',
-            Rule::unique('attributes_values')->where(function($query){
-                return $query->where('deleted_at' , );
-            }),],
         ];
     }
 

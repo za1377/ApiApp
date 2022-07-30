@@ -25,19 +25,10 @@ class UPbrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => ['integer','required', Rule::exists('brands')->where(function($query){
-                return $query->where('deleted_at' , );
-            })],
+            'id' => 'integer|required|exists:brands,id,deleted_at,NULL',
+            'name' => 'filled|min:1|unique:brands,name,'.$this->id.',id,deleted_at,NULL',
+            'slug' => 'filled|min:1|unique:brands,slug,'.$this->id.',id,deleted_at,NULL',
 
-            'name' => ['filled','string',
-            Rule::unique('brands')->where(function($query){
-                return $query->where('deleted_at' , );
-            })->ignore($this->id),],
-
-            'slug' => ['filled','string',
-            Rule::unique('brands')->where(function($query){
-                return $query->where('deleted_at' , );
-            })->ignore($this->id),],
         ];
     }
 }

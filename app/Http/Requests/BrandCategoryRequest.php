@@ -25,12 +25,12 @@ class BrandCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'brand_id' => ['required','integer','exists:brands,id',
+            'brand_id' => ['required','integer','exists:brands,id,deleted_at,NULL',
             Rule::unique('brands_categories')->where(function($query){
-                return $query->where('category_id', $this->category_id);
-            }),
-            ],
-            'category_id' => 'required|integer|exists:categories,id',
+                return $query->where('category_id', $this->category_id)->where('deleted_at' , );
+            }),],
+
+            'category_id' => 'required|integer|exists:categories,id,deleted_at,NULL',
         ];
     }
 }

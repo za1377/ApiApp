@@ -25,20 +25,10 @@ class UPattributeCateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => ['integer','required', Rule::exists('attribute_categories')->where(function($query){
-                return $query->where('deleted_at' , );
-            })],
+            'id' => 'integer|required|exists:attribute_categories,id,deleted_at,NULL',
+            'name' => 'filled|min:1|unique:attribute_categories,name,'.$this->id.',id,deleted_at,NULL',
+            'slug' => 'filled|min:1|unique:attribute_categories,slug,'.$this->id.',id,deleted_at,NULL',
 
-            'name' => ['filled','string',
-            Rule::unique('attribute_categories')->where(function($query){
-                return $query->where('deleted_at' , );
-            })->ignore($this->id),],
-
-            'slug' => ['filled','string',
-            Rule::unique('attribute_categories')->where(function($query){
-                return $query->where('deleted_at' , );
-            })->ignore($this->id),],
         ];
-        
     }
 }

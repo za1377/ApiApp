@@ -25,14 +25,8 @@ class AttributeTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string',
-            Rule::unique('attributes_types')->where(function($query){
-                return $query->where('deleted_at' , );
-            }),],
-            'slug' => ['required','string',
-            Rule::unique('attributes_types')->where(function($query){
-                return $query->where('deleted_at' , );
-            }),],
+            'name' => 'required|min:1|unique:attributes_types,name,NULL,id,deleted_at,NULL',
+            'slug' => 'required|min:1|unique:attributes_types,slug,NULL,id,deleted_at,NULL',
         ];
 
     }
