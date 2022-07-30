@@ -52,7 +52,7 @@ class CateAttrCateController extends Controller
             return response()->json(['massege' => 'not found.'], 404);
         }
 
-        return CateAttrCateResource::collection(Categories_AttributesCategories::all());
+        return CateAttrCateResource::collection($result);
 
     }
 
@@ -64,16 +64,16 @@ class CateAttrCateController extends Controller
      *
      * @OA\Post(
      *      path="/Cate/Attr/Cate",
-     *      summary="insert the AttributeCategory's name and Categories' name",
-     *      description="insert the name of the AttributeCategory and Category",
+     *      summary="insert the AttributeCategory's id and Category's id",
+     *      description="insert the id of the AttributeCategory and Category",
      *      tags={"CateAttrCategories"},
      *      @OA\RequestBody(
      *          required=true,
-     *          description="Pass AttributeCategory name and category name",
+     *          description="Pass AttributeCategory id and category id",
      *          @OA\JsonContent(
-     *              required={"AttributeCategoryName","CategoryName"},
-     *              @OA\Property(property="AttributeCategoryName", type="string", format="name", example="sony"),
-     *              @OA\Property(property="CategoryName", type="string", format="name", example="/phone"),
+     *              required={"AttributeCategoryId","CategoryId"},
+     *              @OA\Property(property="AttributeCategoryId", type="integer", format="id", example="1"),
+     *              @OA\Property(property="CategoryId", type="integer", format="id", example="1"),
      *          ),
      *      ),
      *
@@ -97,20 +97,10 @@ class CateAttrCateController extends Controller
      */
     public function insert(CateAttrCateRequest  $request)
     {
-        $AttrCateId = AttributeCategories::where('name' , $request->AttributeCategoryName)->get('id');
-        $CategoryId = categories::where('name' , $request->CategoryName)->get('id');
-
-        $oldData = Categories_AttributesCategories::where('attre_cate_id' , $AttrCateId[0]->id)
-        ->where('cate_id' , $CategoryId[0]->id)->get();
-
-        if($oldData->count() > 0){
-            return response()->json(['message' , 'your data inserted.'],400);
-        }
-
         try{
             $result = Categories_AttributesCategories::create([
-                'attre_cate_id' => $AttrCateId[0]->id,
-                'cate_id' => $CategoryId[0]->id,
+                'attribute_category_id' => $request->attribute_category_id,
+                'category_id' => $request->category_id,
             ]);
 
         }catch(\Exception $e) {
@@ -130,17 +120,17 @@ class CateAttrCateController extends Controller
      *
      * @OA\Put(
      *      path="/Cate/Attr/Cate",
-     *      summary="update the AttributeCategories's name and Categorie's name",
-     *      description="update the AttributeCategories's name and Categorie's name by admin",
+     *      summary="update the AttributeCategories's id and Categorie's id",
+     *      description="update the AttributeCategories's id and Categorie's id by admin",
      *      tags={"CateAttrCategories"},
      *      @OA\RequestBody(
      *          required=true,
-     *          description="Pass AttributeCategories name and category name",
+     *          description="Pass AttributeCategories id and category id",
      *          @OA\JsonContent(
-     *              required={"id","AttributeCategoryName","CategoryName"},
-     *              @OA\Property(property="id", type="string", format="id", example="12"),
-     *              @OA\Property(property="AttributeCategoryName", type="string", format="name", example="sony"),
-     *              @OA\Property(property="CategoryName", type="string", format="name", example="/phone"),
+     *              required={"id","attribute_category_id","category_id"},
+     *              @OA\Property(property="id", type="integer", format="id", example="12"),
+     *              @OA\Property(property="AttributeCategoryid", type="integer", format="id", example="1"),
+     *              @OA\Property(property="Categoryid", type="integer", format="id", example="1"),
      *          ),
      *      ),
      *      @OA\Response(
@@ -174,42 +164,20 @@ class CateAttrCateController extends Controller
      */
     public function update(UpdateCateAttrCateRequest  $request){
         $id = intval($request->id);
-        $data = array();
-
-        if($request->AttributeCategoryName != ""){
-            $AttrCateId = AttributeCategories::where('name' , $request->AttributeCategoryName)->get('id');
-            $data += ['attre_cate_id' => $AttrCateId[0]->id];
-        }
-        if($request->CategoryName != ""){
-            $CategoryId = categories::where('name' , $request->CategoryName)->get('id');
-            $data += ['cate_id' => $CategoryId[0]->id];
-        }
 
         $query = Categories_AttributesCategories::find($id);
 
-        $oldData = Categories_AttributesCategories::where('attre_cate_id', isset($data['attre_cate_id']) ? $data['attre_cate_id'] : $query->attre_cate_id)
-        ->where('cate_id',isset($data['cate_id']) ? $data['cate_id'] : $query->cate_id)->get();
-
-        if($oldData->count() > 0){
-            return response()->json(['message' , 'your data inserted.'],400);
+        try{
+            Categories_AttributesCategories::where('id', $id)->update([
+                'attribute_category_id' => $request->attribute_category_id,
+                'category_id' => $request->category_id,
+            ]);
+        }catch(\Exception $e){
+            return response()->json(['message' , 'your data can not update.'],400);
         }
 
-        if(! is_null($query)){
+        return new CateAttrCateResource(Categories_AttributesCategories::find($id));
 
-            if($data == []){
-                return response()->json(['message' , 'nothing for update.'],400);
-            }else{
-                try{
-                    $query->update($data);
-                }catch(\Exception $e){
-                    return response()->json(['message' , 'your data can not update.'],400);
-                }
-                return new CateAttrCateResource(Categories_AttributesCategories::find($id));
-            }
-
-        }else{
-            return response()->json(['message' => 'Sorry, your data not found.'] , 404);
-        }
     }
 
     /**
@@ -258,8 +226,9 @@ class CateAttrCateController extends Controller
         if($result->count() > 0){
             $result->delete();
             return response()->json(["message" => "delete"], 200);
-        }else{
-            return response()->json(["message" => "not found"], 404);
         }
+
+        return response()->json(["message" => "not found"], 404);
+
     }
 }
