@@ -61,7 +61,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     });
 
-    Route::controller('App\Http\Controllers\AttributeTypeController')->group(function () {
+    Route::controller('App\Http\Controllers\AttributeValueController')->group(function () {
 
         Route::get('/Attribute/Values', 'show');
         Route::post('/Attribute/Value', 'insert');
@@ -85,6 +85,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/Cate/Attr/Cate', 'delete');
     });
 
+    Route::controller('App\Http\Controllers\CACAController')->group(function () {
+
+        Route::get('/CACAs', 'show');
+        Route::post('/CACA', 'insert');
+        Route::put('/CACA', 'update');
+        Route::delete('/CACA', 'delete');
+    });
 
 
 });

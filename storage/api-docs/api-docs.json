@@ -1374,19 +1374,19 @@
                 "tags": [
                     "brandOFcategories"
                 ],
-                "summary": "update the Brand's name and Categorie's name",
-                "description": "update the Brand's name and Categorie's name by admin",
+                "summary": "update the row of brands_categories table",
+                "description": "update the row of brands_categories table by admin",
                 "operationId": "a11fca876b9368f70c359bc2768ed74f",
                 "requestBody": {
-                    "description": "Pass brands name and category name",
+                    "description": "Pass brand's id and category's id",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
                                     "id",
-                                    "BrandName",
-                                    "CategoryName"
+                                    "brand_id",
+                                    "category_id"
                                 ],
                                 "properties": {
                                     "id": {
@@ -1394,15 +1394,15 @@
                                         "format": "id",
                                         "example": "12"
                                     },
-                                    "BrandName": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "sony"
+                                    "brand_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
                                     },
-                                    "CategoryName": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "/phone"
+                                    "category_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
                                     }
                                 },
                                 "type": "object"
@@ -1464,29 +1464,29 @@
                 "tags": [
                     "brandOFcategories"
                 ],
-                "summary": "insert the Brand's name and Categorie's name",
-                "description": "insert the name of the Brand and Category",
+                "summary": "insert the Brand's id and Categorie's id",
+                "description": "insert the id of the Brand and Category",
                 "operationId": "dea3cea7a0b30ba499ff4636c5887934",
                 "requestBody": {
-                    "description": "Pass brands name and category name",
+                    "description": "Pass brands id and category id",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "BrandName",
-                                    "CategoryName"
+                                    "brand_id",
+                                    "category_id"
                                 ],
                                 "properties": {
-                                    "BrandName": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "sony"
+                                    "brand_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
                                     },
-                                    "CategoryName": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "/phone"
+                                    "category_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
                                     }
                                 },
                                 "type": "object"
@@ -1853,6 +1853,269 @@
                 }
             }
         },
+        "/CACAs": {
+            "get": {
+                "tags": [
+                    "CACA"
+                ],
+                "summary": "Show all rows of c_a_c_a table",
+                "description": "display all rows of c_a_c_a table",
+                "operationId": "927651bd5db8bdce49ee9f1ce1158dec",
+                "responses": {
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/CACA": {
+            "put": {
+                "tags": [
+                    "CACA"
+                ],
+                "summary": "update the row of c_a_c_a table",
+                "description": "update the row of c_a_c_a table by admin",
+                "operationId": "5e4025d43a4b56a49864b1a93e9ed476",
+                "requestBody": {
+                    "description": "Pass cate_atrre_cate's id and attributes's id",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "cate_atrre_cate_id",
+                                    "attributes_id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "12"
+                                    },
+                                    "cate_atrre_cate_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
+                                    },
+                                    "attributes_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not_Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "CACA"
+                ],
+                "summary": "insert the cate_atrre_cate's id and attributes's id",
+                "description": "insert the id of the cate_atrre_cate and attributes",
+                "operationId": "3ff7ce1e7d02444d55e3ed02de1d0a02",
+                "requestBody": {
+                    "description": "Pass cate_atrre_cate id and attributes id",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "cate_atrre_cate_id",
+                                    "attributes_id"
+                                ],
+                                "properties": {
+                                    "cate_atrre_cate_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
+                                    },
+                                    "attributes_id": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "object_created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "CACA"
+                ],
+                "summary": "delete the row of the c_a_c_a table that is determined",
+                "description": "delete row of the c_a_c_a table by admin",
+                "operationId": "68e620cf40698576c1eab49cb88991f2",
+                "requestBody": {
+                    "description": "delete the id of cate_atrre_cate and ctegory that stored",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "id",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "404": {
+                        "description": "Not_Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, your data not supported."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Cate/Attr/Cates": {
             "get": {
                 "tags": [
@@ -1900,35 +2163,35 @@
                 "tags": [
                     "CateAttrCategories"
                 ],
-                "summary": "update the AttributeCategories's name and Categorie's name",
-                "description": "update the AttributeCategories's name and Categorie's name by admin",
+                "summary": "update the AttributeCategories's id and Categorie's id",
+                "description": "update the AttributeCategories's id and Categorie's id by admin",
                 "operationId": "323fd70f2609d1f92ba899eb265070bb",
                 "requestBody": {
-                    "description": "Pass AttributeCategories name and category name",
+                    "description": "Pass AttributeCategories id and category id",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
                                     "id",
-                                    "AttributeCategoryName",
-                                    "CategoryName"
+                                    "attribute_category_id",
+                                    "category_id"
                                 ],
                                 "properties": {
                                     "id": {
-                                        "type": "string",
+                                        "type": "integer",
                                         "format": "id",
                                         "example": "12"
                                     },
-                                    "AttributeCategoryName": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "sony"
+                                    "AttributeCategoryid": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
                                     },
-                                    "CategoryName": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "/phone"
+                                    "Categoryid": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
                                     }
                                 },
                                 "type": "object"
@@ -1990,29 +2253,29 @@
                 "tags": [
                     "CateAttrCategories"
                 ],
-                "summary": "insert the AttributeCategory's name and Categories' name",
-                "description": "insert the name of the AttributeCategory and Category",
+                "summary": "insert the AttributeCategory's id and Category's id",
+                "description": "insert the id of the AttributeCategory and Category",
                 "operationId": "806e17a861bae6d294486a938f2f9064",
                 "requestBody": {
-                    "description": "Pass AttributeCategory name and category name",
+                    "description": "Pass AttributeCategory id and category id",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "AttributeCategoryName",
-                                    "CategoryName"
+                                    "AttributeCategoryId",
+                                    "CategoryId"
                                 ],
                                 "properties": {
-                                    "AttributeCategoryName": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "sony"
+                                    "AttributeCategoryId": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
                                     },
-                                    "CategoryName": {
-                                        "type": "string",
-                                        "format": "name",
-                                        "example": "/phone"
+                                    "CategoryId": {
+                                        "type": "integer",
+                                        "format": "id",
+                                        "example": "1"
                                     }
                                 },
                                 "type": "object"
