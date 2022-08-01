@@ -15,9 +15,10 @@ use App\Http\Controllers\SanctumController;
 |
 */
 
-Route::post('/login', 'App\Http\Controllers\SanctumController@logIn');
+Route::post('/login/Admin', 'App\Http\Controllers\AdminLoginController@login');
+Route::post('/login/user', 'App\Http\Controllers\UserLoginController@login');
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum' , 'abilities:admin'])->group(function () {
 
     Route::controller('App\Http\Controllers\BrandsController')->group(function () {
         Route::get('/Brands', 'show');
@@ -109,6 +110,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/CACA', 'delete');
     });
 
+
+});
+
+Route::middleware(['auth:sanctum' , 'abilities:user'])->group(function () {
+
+    Route::controller('App\Http\Controllers\AdsController')->group(function () {
+        Route::get('/Ads', 'show');
+        Route::post('/Ad', 'insert');
+        Route::put('/Ad', 'update');
+        Route::delete('/Ad', 'delete');
+    });
 
 });
 
