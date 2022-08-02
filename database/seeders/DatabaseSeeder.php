@@ -38,11 +38,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('attributes_types')->insert([
-            'name' => 'images',
-            'slug' => '/images',
-        ]);
-
-        DB::table('attributes_types')->insert([
             'name' => 'selectbox',
             'slug' => '/selectbox',
         ]);
@@ -89,7 +84,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        for($i =1 ; $i<=5 ;$i++){
+        for($i =1 ; $i<=4 ;$i++){
             $CACA = CACA::find($i);
             $AttributesTypes = AttributesTypes::find($i);
             DB::table('attributes_types_caas')->insert([

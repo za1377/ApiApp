@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('ads', function (Blueprint $table) {
             $table->bigInteger('id' ,true , true);
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('brand_id');
-            $table->unsignedBigInteger('catetory_id');
+            $table->unsignedBigInteger('brand_id')->nullable();
+            $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('brand_id')->references('id')->on('brands');
-            $table->foreign('catetory_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('categories');
 
             $table->softDeletes();
         });
