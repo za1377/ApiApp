@@ -50,39 +50,47 @@ class checkType implements Rule ,DataAwareRule
      */
     public function passes($attribute, $value)
     {
-        $CACA = CACA::where('attributes_id', $this->data['attribute_id'])->get();
-        $AttributeType = $CACA[0]->CACA_attrType->attrType->name;
-
-        if($AttributeType == 'string'){
-            $validator = Validator::make($this->data, [
-                'attribute_value' => 'max:1',
-                'attribute_value.*' => 'string',
-            ]);
-            if($validator->fails()){
-                return false;
+        foreach($this->data["attributes"] as $attr){
+            $CACA = CACA::where('attributes_id' ,$attr["attribute_id"])->get();
+            foreach($CACA as $caca){
+                if($caca->cate_attr_cate->category_id != $this->data['category_id']){
+                    return false;
+                }
             }
-        }
+            $AttributeType = $CACA[0]->CACA_attrType->attrType->name;
 
-        if($AttributeType == 'integer'){
-            $validator = Validator::make($this->data, [
-                'attribute_value' => 'max:1',
-                'attribute_value.*' => 'integer',
-            ]);
-            if($validator->fails()){
-                return false;
+            if($AttributeType == 'string'){
+                $validator = Validator::make($attr, [
+                    'attribute_value' => 'max:1',
+                    'attribute_value.*' => 'string',
+                ]);
+                if($validator->fails()){
+                    return false;
+                }
             }
-        }
 
-        if($AttributeType == 'selectbox'){
-            $validator = Validator::make($this->data, [
-                'attribute_value' => 'max:1',
-            ]);
-            if($validator->fails()){
-                return false;
+            if($AttributeType == 'integer'){
+                $validator = Validator::make($attr, [
+                    'attribute_value' => 'max:1',
+                    'attribute_value.*' => 'integer',
+                ]);
+                if($validator->fails()){
+                    return false;
+                }
             }
+
+            if($AttributeType == 'selectbox'){
+                $validator = Validator::make($attr, [
+                    'attribute_value' => 'max:1',
+                ]);
+                if($validator->fails()){
+                    return false;
+                }
+            }
+
         }
-        
         return true;
+
     }
 
     /**
@@ -92,6 +100,6 @@ class checkType implements Rule ,DataAwareRule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'The attribute has problem in checktype rule.';
     }
 }
