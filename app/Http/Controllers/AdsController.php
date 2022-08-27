@@ -67,10 +67,10 @@ class AdsController extends Controller
      *      tags={"ADs"},
      *      @OA\RequestBody(
      *          required=true,
-     *          description="Pass Ad id and category id and array of attributes",
+     *          description="Pass brand id and category id and array of attributes",
      *          @OA\JsonContent(
-     *              required={"Ad_id","category_id","attribute_id" ,"attribute_value"},
-     *              @OA\Property(property="Ad_id", type="integer", format="id", example="1"),
+     *              required={"brand_id","category_id","attribute_id" ,"attribute_value"},
+     *              @OA\Property(property="brand_id", type="integer", format="id", example="1"),
      *              @OA\Property(property="category_id", type="integer", format="id", example="1"),
      *              @OA\Property(property="attributes", type="array", format="array",
      *                  example="[{"attribute_id" : 1 , "attribute_value" : [123]},
@@ -102,7 +102,7 @@ class AdsController extends Controller
         try{
             $Ad = Ads::create([
                 "user_id" => $user->id,
-                "Ad_id" => $request->Ad_id,
+                "brand_id" => $request->Ad_id,
                 "category_id" => $request->category_id]);
 
             foreach($request["attributes"] as $attr){
