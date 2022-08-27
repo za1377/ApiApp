@@ -83,7 +83,7 @@ class BrandTest extends TestCase
     }
 
     /**
-     * A test for inserting brand.
+     * A test for deleting brand.
      *
      * @return void
      */

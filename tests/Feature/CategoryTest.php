@@ -67,7 +67,7 @@ class CategoryTest extends TestCase
     }
 
     /**
-     * A test for inserting Category.
+     * A test for deleting Category.
      *
      * @return void
      */
