@@ -28,7 +28,11 @@ class BrandTest extends TestCase
         $this->withoutMiddleware();
         $response = $this->getJson('api/Brands');
 
-        $response->assertStatus(200);
+        if($response->getStatusCode() == 404) {
+            $response->assertStatus(404);
+        } else {
+            $response->assertStatus(200);
+        }
     }
 
     /**
@@ -47,7 +51,13 @@ class BrandTest extends TestCase
         $this->withoutMiddleware();
         $response = $this->postJson('api/Brand' , ['name' => 'glass' , 'slug' => '/glass']);
 
-        $response->assertStatus(201);
+        if($response->getStatusCode() == 422) {
+            $response->assertStatus(422);
+        }else if($response->getStatusCode() == 400){
+            $response->assertStatus(400);
+        }else {
+            $response->assertStatus(201);
+        }
     }
 
     /**
@@ -59,11 +69,17 @@ class BrandTest extends TestCase
     {
         $this->withoutMiddleware();
         $response = $this->putJson('api/Brand' ,
-            ['name' => 'brand1' ,
+            ['name' => 'glass' ,
             'slug' => '/brand1',
-            'id' => 1]);
+            'id' => 2]);
 
-        $response->assertStatus(200);
+            if($response->getStatusCode() == 422) {
+                $response->assertStatus(422);
+            }else if($response->getStatusCode() == 400){
+                $response->assertStatus(400);
+            }else {
+                $response->assertStatus(200);
+            }
     }
 
     /**
@@ -76,6 +92,10 @@ class BrandTest extends TestCase
         $this->withoutMiddleware();
         $response = $this->deleteJson('api/Brand' , ['id' => 2]);
 
-        $response->assertStatus(200);
+        if($response->getStatusCode() == 404){
+            $response->assertStatus(404);
+        }else {
+            $response->assertStatus(200);
+        }
     }
 }
