@@ -16,7 +16,7 @@ class AttributeTest extends TestCase
     public function testShow()
     {
         $this->withoutMiddleware();
-        $response = $this->getJson('api/Category/Attribute/Attributes');
+        $response = $this->getJson('api/Attributes');
 
         if($response->getStatusCode() == 404) {
             $response->assertStatus(404);
@@ -26,14 +26,14 @@ class AttributeTest extends TestCase
     }
 
     /**
-     * A test for inserting AttributeCategory.
+     * A test for inserting Attribute.
      *
      * @return void
      */
     public function testInsert()
     {
         $this->withoutMiddleware();
-        $response = $this->postJson('api/Category/Attribute' , ['name' => 'AttributeCategory' , 'slug' => '/AttributeCategory']);
+        $response = $this->postJson('api/Attribute' , ['name' => 'Attribute' , 'slug' => '/Attribute']);
 
         if($response->getStatusCode() == 422) {
             $response->assertStatus(422);
@@ -45,16 +45,16 @@ class AttributeTest extends TestCase
     }
 
     /**
-     * A test for updating AttributeCategory.
+     * A test for updating Attribute.
      *
      * @return void
      */
     public function testUpdate()
     {
         $this->withoutMiddleware();
-        $response = $this->putJson('api/Category/Attribute' ,
-            ['name' => 'AttributeCategory' ,
-            'slug' => '/AttributeCategory',
+        $response = $this->putJson('api/Attribute' ,
+            ['name' => 'Attribute' ,
+            'slug' => '/Attribute',
             'id' => 1]);
 
             if($response->getStatusCode() == 422) {
@@ -67,14 +67,14 @@ class AttributeTest extends TestCase
     }
 
     /**
-     * A test for deleting AttributeCategory.
+     * A test for deleting Attribute.
      *
      * @return void
      */
     public function testDelete()
     {
         $this->withoutMiddleware();
-        $response = $this->deleteJson('api/Category/Attribute' , ['id' => 2]);
+        $response = $this->deleteJson('api/Attribute' , ['id' => 2]);
 
         if($response->getStatusCode() == 404){
             $response->assertStatus(404);
