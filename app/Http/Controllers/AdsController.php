@@ -179,7 +179,7 @@ class AdsController extends Controller
 
         try{
             Ads::where("id" , $id)->update([
-                "Ad_id" => $request->Ad_id,
+                "brand_id" => $request->brand_id,
                 "category_id" => $request->category_id]);
 
             AdsAttribute::where('ads_id' ,$id)->delete();
