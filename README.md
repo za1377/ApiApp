@@ -1,1 +1,1 @@
-The divar API example
+The products API example
